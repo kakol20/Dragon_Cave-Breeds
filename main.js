@@ -33,7 +33,7 @@ async function run() {
 		if (player.dragons.length > 25) {
 			let newMax = 0;
 			for (let i = 0; player.dragons.length; ++i) {
-				if (player.dragons[i].view.length >= 3) continue;
+				if (player.dragons[i].view.length >= 3 && player.dragons[i].adults >= 3) continue;
 				++newMax;
 			}
 
