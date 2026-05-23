@@ -29,6 +29,8 @@ async function run() {
 
 		// ========== DRAGONS ==========
 		for (let d = 0; d < player.dragons.length; ++d) {
+			if (player.dragons[d].view.length >= 3 && player.dragons[d].view.length === player.dragons[d].adults) continue;
+
 			let row = `<tr>`;
 
 			// Show Eggs
