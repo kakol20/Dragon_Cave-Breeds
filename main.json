@@ -78,6 +78,10 @@
 		"ridgewing": {
 			"name": ["Ridgewing Dragon Purple", "Ridgewing Dragon Tan"],
 			"img": ["eggs/Purple_Ridgewing_egg.webp", "eggs/Tan_Ridgewing_egg.webp"]
+		},
+		"delta": {
+			"name": ["Delta Dragon"],
+			"img": ["eggs/Delta_egg.webp"]
 		}
 	}
 }
