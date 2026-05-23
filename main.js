@@ -25,7 +25,7 @@ async function run() {
 		let column = `<div class="column"><table>`
 
 		//  ========== HEADER ==========
-		column += `<tr><th>${player.name}</th><th>Count</th><th>View</th></tr>`;
+		column += `<tr><th>${player.name}</th><th>View</th></tr>`;
 
 		// ========== DRAGONS ==========
 		for (let d = 0; d < player.dragons.length; ++d) {
@@ -38,9 +38,6 @@ async function run() {
 				row += `title="${mainJSON.breeds[player.dragons[d].id].name[i]}"> `;
 			} 
 			row += `</td>`;
-
-			// Count
-			row += `<td>${player.dragons[d].view.length}</td>`;
 			
 			// View https://dragcave.net/image/r5HjG.gif
 			row += `<td>`;
