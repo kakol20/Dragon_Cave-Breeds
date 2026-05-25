@@ -35,11 +35,16 @@ async function run() {
 	output += `<tr><th>Egg</th><th>Dragons</th></tr>`;
 
 	// ========== DRAGONS ==========
+	let hidden = [];
 	let dragonsDisplayed = 0;
 	for (let d = 0; d < player.dragons.length; ++d) {
 		if (player.dragons[d].view.length >= 3 &&
 			player.dragons[d].view.length === player.dragons[d].adults &&
-			dragonsDisplayed >= 100) continue;
+			dragonsDisplayed >= 50) {
+
+			hidden.push(player.dragons[d]).id;
+			continue;
+		}
 
 		output += `<tr>`;
 
@@ -64,6 +69,15 @@ async function run() {
 		output += `</td></tr>`;
 	}
 	output += `</table>`;
+
+	if (hidden.length > 0) output += `\n<h4 title="Breed group hase >= 3 adults">Hidden</h4>`;
+	for (let i = 0; i < hidden.length; ++i) {
+		for (let j = 0; j < breeds[hidden[i]].name.length; ++j) {
+			output += `<img src="${breeds[hidden[i]].img[j]}"`;
+			output += `title="${breeds[hidden[i]].name[j]}"> `;
+		}
+	}
+
 	document.getElementById('output').innerHTML = output;
 }
 
