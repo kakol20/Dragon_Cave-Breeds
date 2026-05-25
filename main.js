@@ -35,14 +35,15 @@ async function run() {
 	output += `<tr><th>Egg</th><th>Dragons</th></tr>`;
 
 	// ========== DRAGONS ==========
+	let dragonsDisplayed = 0;
 	for (let d = 0; d < player.dragons.length; ++d) {
 		if (player.dragons[d].view.length >= 3 &&
 			player.dragons[d].view.length === player.dragons[d].adults &&
-			player.dragons.length > 50) continue;
+			dragonsDisplayed >= 100) continue;
 
 		output += `<tr>`;
 
-		// Show Eggs
+		// Show Dragons
 		output += `<td>`;
 		for (let i = 0; i < breeds[player.dragons[d].id].name.length; ++i) {
 			output += `<img src="${breeds[player.dragons[d].id].img[i]}"`;
@@ -56,6 +57,7 @@ async function run() {
 			output += `<a href="https://dragcave.net/view/${player.dragons[d].view[i]}" target="_blank">`;
 			output += `<img src="https://dragcave.net/image/${player.dragons[d].view[i]}.gif">`;
 			output += `</a> `;
+			++dragonsDisplayed;
 		}
 
 		// End
