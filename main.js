@@ -53,7 +53,7 @@ async function run() {
 		for (let i = 0; i < breeds[player.dragons[d].id].name.length; ++i) {
 			output += `<img src="${breeds[player.dragons[d].id].img[i]}"`;
 			output += `title="${breeds[player.dragons[d].id].name[i]}`;
-			output += `\n${breeds[player.dragons[d].id].description[i]}"> `;
+			output += `\n${breeds[player.dragons[d].id].description}"> `;
 		}
 		output += `</a></td>`;
 
@@ -77,7 +77,7 @@ async function run() {
 		for (let j = 0; j < breeds[hidden[i]].name.length; ++j) {
 			output += `<img src="${breeds[hidden[i]].img[j]}"`;
 			output += `title="${breeds[hidden[i]].name[j]}`;
-			output += `\n${breeds[hidden[i]].description[j]}"> `;
+			output += `\n${breeds[hidden[i]].description}"> `;
 		}
 		output += `</a>`;
 	}
