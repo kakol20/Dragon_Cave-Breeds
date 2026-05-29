@@ -121,6 +121,7 @@ function draw() {
 }
 
 setInterval(async () => {
+	const dateNow = Date.now();
 	const gist = await fetch(`${main.gist}?t=${dateNow}`, {
 		cache: "no-store"
 	}).then(
@@ -132,8 +133,10 @@ setInterval(async () => {
 	if (gistLastUpdated !== update_at) {
 		gistLastUpdated = update_at;
 		await getJSON();
+		console.log('JSON Changed');
 	}
 
+	console.log('Redrawing');
 	draw();
 }, 10 * 60 * 1000);
 
