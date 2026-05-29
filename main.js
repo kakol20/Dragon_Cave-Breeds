@@ -132,7 +132,6 @@ setInterval(async () => {
 		r => r.json()
 	);
 	const update_at = gist.updated_at;
-	// console.log(gist, gist.updated_at);
 
 	if (gistLastUpdated !== update_at) location.reload();
 
