@@ -89,7 +89,7 @@ function draw() {
 		}
 		output += `</td>`;
 
-		// View ttps://dragcave.net/image/r5HjG.gif
+		// View https://dragcave.net/image/r5HjG.gif
 		output += `<td>`;
 		for (const dragon of breed.view) {
 			output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
@@ -125,7 +125,7 @@ function draw() {
 setInterval(async () => {
 	const dateNow = Date.now();
 	const dateStr = new Date(dateNow);
-	const gist = await fetch(`${main.gist}?t=${dateNow}`, {
+	const gist = await fetch(`${main.gist}`, {
 		cache: "no-store"
 	}).then(
 		r => r.json()
