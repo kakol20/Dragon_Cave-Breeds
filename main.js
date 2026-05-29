@@ -112,7 +112,7 @@ function draw() {
 		// console.log(id, breeds[id]);
 		for (const egg in breeds[id].name) {
 			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
-			output += `<img src="${breeds[id].img[egg]}?t=${dateNow}"`;
+			output += `<img src="${breeds[id].img[egg]}"`;
 			output += `title="${breeds[id].name[egg]}`;
 			output += `\n${breeds[id].description}">`;
 			output += `</a> `;
