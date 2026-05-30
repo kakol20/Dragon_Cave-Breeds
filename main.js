@@ -2,8 +2,16 @@ let main;
 let player;
 let breeds;
 
+let gistLastUpdated;
+let firstDate;
+let gist = null;
+
 async function run() {
+	const y = sessionStorage.getItem("scrollY");
+	if (y) window.scrollTo(0, parseInt(y));
+
 	firstDate = Date.now();
+
 	const mainResponse = await fetch('main.json');
 	if (!mainResponse.ok) {
 		throw new Error(`Error fetching main.json: ${mainResponse.staus}`);
@@ -13,13 +21,23 @@ async function run() {
 	main = await mainResponse.json();
 	// console.log(main);
 
-	const gist = await fetch(`${main.gist}`, {
-		cache: "no-store"
-	}).then(
-		r => r.json()
-	);
-	gistLastUpdated = gist.updated_at;
-	console.log(gist, gist.updated_at);
+	gist = sessionStorage.getItem('gist');
+
+	if (gist) {
+		gist = JSON.parse(gist);
+		console.log('Has Gist Session Storage', gist);
+	} else {
+		gist = await fetch(`${main.gist}`, {
+			cache: "no-store"
+		}).then(
+			r => r.json()
+		);
+		gistLastUpdated = gist.updated_at;
+		console.log(gist, gist.updated_at);
+
+		sessionStorage.setItem('gist', JSON.stringify(gist));
+		console.log('Has No Gist Session Storage', gist);
+	}
 
 	await getJSON();
 	draw();
@@ -119,29 +137,23 @@ function draw() {
 	document.getElementById('output').innerHTML = output;
 }
 
-let gistLastUpdated;
-let firstDate;
 setInterval(async () => {
-	sessionStorage.setItem("scrollY", window.scrollY);
+	sessionStorage.setItem('scrollY', window.scrollY);
 
 	const dateNow = Date.now();
 	const dateStr = new Date(dateNow);
-	const gist = await fetch(`${main.gist}`, {
+	gist = await fetch(`${main.gist}`, {
 		cache: "no-store"
 	}).then(
 		r => r.json()
 	);
 	const update_at = gist.updated_at;
 
-	if (gistLastUpdated !== update_at) location.reload();
+	// if (gistLastUpdated !== update_at) location.reload();
+	if (gistLastUpdated !== update_at) sessionStorage.setItem('gist', JSON.stringify(gist));
 
-	if (dateNow - firstDate >= 60 * 60 * 1000) location.reload();
+	location.reload();
 }, 10 * 60 * 1000);
-
-window.addEventListener("load", () => {
-	const y = sessionStorage.getItem("scrollY");
-	if (y) window.scrollTo(0, parseInt(y));
-});
 
 function sortDragons(a, b) {
 	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
