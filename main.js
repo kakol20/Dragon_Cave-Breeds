@@ -11,7 +11,7 @@ async function run() {
 
 	const mainResponse = await fetch('main.json');
 	if (!mainResponse.ok) {
-		throw new Error(`Error fetching main.json: ${mainResponse.staus}`);
+		throw new Error(`Error fetching main.json: ${mainResponse.status}`);
 		document.getElementById('output').innerHTML = `Error fetching main.json: ${mainResponse.status}`;
 		return;
 	}
@@ -75,8 +75,8 @@ async function draw() {
 	let output = `<table>`;
 
 	//  ========== HEADER ==========
-	output += `<h5>Last Reloaded: ${dateStr}`;
-	output += `<br>Gist Last Updated: ${new Date(gist.updated_at)}`;
+	output += `<h5>Last reloaded: ${dateStr}`;
+	output += `<br>Gist last updated: ${new Date(gist.updated_at)}`;
 
 	const rateLimit = await fetch('https://api.github.com/rate_limit').then(r => r.json());
 	console.log(rateLimit);
