@@ -27,6 +27,8 @@ async function run() {
 		checkGitAPI();
 		console.log('Has No Gist Session Storage', gist);
 	}
+	gistLastUpdated = gist.updated_at;
+	console.log(gist, gist.updated_at);
 
 	await getJSON();
 	draw();
@@ -45,8 +47,6 @@ async function checkGitAPI() {
 	}).then(
 		r => r.json()
 	);
-	gistLastUpdated = gist.updated_at;
-	console.log(gist, gist.updated_at);
 
 	sessionStorage.setItem('gist', JSON.stringify(gist));
 }
