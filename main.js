@@ -177,6 +177,10 @@ window.onbeforeunload = function (event) {
 }
 
 function sortDragons(a, b) {
+	const aAdults = a.adults !== a.view.length ? 0. : 1.;
+	const bAdults = b.adults !== b.view.length ? 0. : 1.;
+	if (aAdults !== bAdults) return aAdults - bAdults;
+
 	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
 	if (a.adults !== b.adults) return a.adults - b.adults;
 	if (a.date !== b.date) return b.date - a.date;
