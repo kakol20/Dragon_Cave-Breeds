@@ -22,13 +22,13 @@ async function run() {
 
 	if (gist) {
 		gist = JSON.parse(gist);
-		console.log('Has Gist Session Storage', gist);
+		console.log('Has Gist Session Storage', gist, gist.updated_at);
 	} else {
-		checkGitAPI();
-		console.log('Has No Gist Session Storage', gist);
+		await checkGitAPI();
+		console.log('Has No Gist Session Storage', gist, gist.updated_at);
+		// console.log(gist);
 	}
 	gistLastUpdated = gist.updated_at;
-	console.log(gist, gist.updated_at);
 
 	await getJSON();
 	draw();
@@ -44,9 +44,8 @@ async function checkGitAPI() {
 
 	gist = await fetch(`${main.gist}`, {
 		cache: 'no-store'
-	}).then(
-		r => r.json()
-	);
+	}).then(r => r.json());
+	// console.log(gist);
 
 	sessionStorage.setItem('gist', JSON.stringify(gist));
 }
