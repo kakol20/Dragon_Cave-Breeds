@@ -120,7 +120,19 @@ async function draw() {
 			output += `<img src="${breeds[breed.id].img[egg]}"`;
 			output += `title="${breeds[breed.id].name[egg]}`;
 			output += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
-			output += `</a> `;
+			output += `</a>`;
+
+			if (window.innerHeight >= window.innerWidth && egg + 1 >= breeds[breed.id].name.length) {
+				// portrait
+				output += `<br>`
+				continue;
+			}
+
+			if (egg + 1 >= breeds[breed.id].name.length) {
+				// landscape
+				output += ` `;
+				continue;
+			}
 		}
 		output += `</td>`;
 
