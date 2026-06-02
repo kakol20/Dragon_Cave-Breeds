@@ -1,5 +1,5 @@
 let main;
-let player;
+let dragons;
 let breeds;
 
 let gistLastUpdated;
@@ -65,9 +65,9 @@ async function getJSON() {
 		document.getElementById('output').innerHTML = `Error fetching main.player json file: ${playerResponse.status}`;
 		return;
 	}
-	player = await playerResponse.json();
-	player.dragons.sort(sortDragons);
-	// console.log(playerResponse, player);
+	dragons = await playerResponse.json();
+	dragons.sort(sortDragons);
+	console.log('Dragons', dragons);
 
 	const breedsResponse = await fetch(`${main.breeds}`, {
 		cache: 'no-store'
@@ -102,7 +102,7 @@ async function draw() {
 	let hidden = [];
 	let dragonsDisplayed = 0;
 
-	for (const breed of player.dragons) {
+	for (const breed of dragons) {
 		// console.log(breed);
 		if (breed.view.length >= 3 &&
 			breed.view.length === breed.adults &&
