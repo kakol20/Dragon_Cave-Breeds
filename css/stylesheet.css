@@ -39,14 +39,14 @@ form {
 } */
 
 th, td {
-	border: 1px solid;
+	border: 1px solid oklab(100% 0 -0.00011 / 0.5);
 	padding: 5px;
 }
 
 table {
-	/*width: 100%;*/
 	border-collapse: collapse;
 	text-align: center;
+	border-style: hidden;
 }
 
 img {
