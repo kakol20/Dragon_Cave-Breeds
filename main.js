@@ -94,7 +94,10 @@ async function draw() {
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
 	output += `<br>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
-	output += `<br>Rate limit reset on: ${new Date(rateLimit.rate.reset * 1000)}</h5>`
+	output += `<br>Rate limit reset on: ${new Date(rateLimit.rate.reset * 1000)}`;
+	output += `<br> <input type="checkbox" id="pauseReload">`;
+	output += `<label for="pauseReload"> Pause Reload</label>`;
+	output += `</h5>`;
 
 	output += `<tr><th>Egg</th><th>Dragons</th></tr>`;
 
@@ -170,6 +173,8 @@ async function draw() {
 }
 
 setInterval(async () => {
+	if (document.getElementById('pauseReload').checked) return;
+
 	sessionStorage.setItem('scrollY', window.scrollY);
 
 	const dateNow = Date.now();
