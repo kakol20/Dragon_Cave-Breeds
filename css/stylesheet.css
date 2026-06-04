@@ -5,6 +5,13 @@
 	font-style: normal;
 }
 
+:root {
+	--background: color-mix(in oklab, Canvas, CanvasText 2.5%);
+	/* --background: Canvas; */
+	--foreground: color-mix(in oklab, Canvas, CanvasText 85%);
+	/* --foreground: CanvasText; */
+}
+
 .cascadia-code-cascadia {
 	font-family: "Cascadia Code", sans-serif;
 	font-optical-sizing: auto;
@@ -21,8 +28,8 @@ body {
 
 	/* Canvas: 18, CanvasText: 255 */
 	/* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/system-color */
-	background-color: color-mix(in oklab, Canvas, CanvasText 2.5%);
-	color: color-mix(in oklab, Canvas, CanvasText 85%);
+	background-color: var(--background);
+	color: var(--foreground);
 	color-scheme: light dark;
 }
 
@@ -35,14 +42,9 @@ form {
 	line-height: 1.75;
 }
 
-/* form span {
-	text-decoration-line: underline;
-	text-decoration-style: dotted;
-} */
-
 th,
 td {
-	border: 1px solid color-mix(in oklab, CanvasText, Canvas 43.75%);
+	border: 2px solid color-mix(in oklab, var(--background), var(--foreground) 50%);
 	padding: 5px;
 }
 
