@@ -88,7 +88,7 @@ async function draw() {
 	let output = `<table>`;
 
 	//  ========== HEADER ==========
-	output += `<h5>Last reloaded: ${dateStr}`;
+	output += `<p><small>Last reloaded: ${dateStr}`;
 	output += `<br>Gist last updated: ${new Date(gist.updated_at)}`;
 
 	const rateLimit = await checkRateLimit();
@@ -97,7 +97,7 @@ async function draw() {
 	output += `<br>Rate limit reset on: ${new Date(rateLimit.rate.reset * 1000)}`;
 	output += `<br> <input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label>`;
-	output += `</h5>`;
+	output += `</small><p>`;
 
 	output += `<tr><th>Egg</th><th>Dragons</th></tr>`;
 
