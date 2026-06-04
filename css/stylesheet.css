@@ -6,10 +6,10 @@
 }
 
 .cascadia-code-cascadia {
-  font-family: "Cascadia Code", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 200;
-  font-style: normal;
+	font-family: "Cascadia Code", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 200;
+	font-style: normal;
 }
 
 body {
@@ -19,10 +19,13 @@ body {
 	padding: 10px;
 	/* line-height: 1.75; */
 
+	/* Canvas: 18, CanvasText: 255 */
+	/* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/system-color */
 	background-color: color-mix(in oklab, Canvas, CanvasText 2.5%);
-	color: color-mix(in oklab, CanvasText, Canvas 15%);
+	color: color-mix(in oklab, Canvas, CanvasText 85%);
 	color-scheme: light dark;
 }
+
 
 textarea {
 	width: 95%;
@@ -38,8 +41,9 @@ form {
 	text-decoration-style: dotted;
 } */
 
-th, td {
-	border: 1px solid oklab(100% 0 -0.00011 / 0.5);
+th,
+td {
+	border: 1px solid color-mix(in oklab, CanvasText, Canvas 43.75%);
 	padding: 5px;
 }
 
