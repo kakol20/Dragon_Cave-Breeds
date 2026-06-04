@@ -6,10 +6,11 @@
 }
 
 :root {
-	--background: color-mix(in oklab, Canvas, CanvasText 2.5%);
-	/* --background: Canvas; */
-	--foreground: color-mix(in oklab, Canvas, CanvasText 85%);
-	/* --foreground: CanvasText; */
+	--ref1: color-mix(in oklab, rgb(0, 0, 0), var(--ref2) 18.22%);
+	--ref2: rgb(255 230 209);
+
+	--background: color-mix(in oklab, var(--ref1), var(--ref2) 2.5%);
+	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 85%);
 }
 
 .cascadia-code-cascadia {
@@ -30,7 +31,7 @@ body {
 	/* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/system-color */
 	background-color: var(--background);
 	color: var(--foreground);
-	color-scheme: light dark;
+	color-scheme: dark;
 }
 
 textarea {
@@ -44,7 +45,7 @@ form {
 
 th, td {
 	padding: 5px;
-	background-color: color-mix(in oklab, var(--background), var(--foreground) 12.5%);
+	background-color: color-mix(in oklab, var(--background), var(--foreground) 5%);
 }
 
 table, th, td {
