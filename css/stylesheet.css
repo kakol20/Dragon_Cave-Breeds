@@ -42,17 +42,16 @@ form {
 	line-height: 1.75;
 }
 
-th,
-td {
-	border: 2px solid color-mix(in oklab, var(--background), var(--foreground) 50%);
+th, td {
 	padding: 5px;
+	background-color: color-mix(in oklab, var(--background), var(--foreground) 12.5%);
 }
 
-table {
+table, th, td {
 	border-collapse: collapse;
 	text-align: center;
-	border-style: hidden;
 	vertical-align: middle;
+	border: 2px solid var(--background);
 }
 
 img {
@@ -78,4 +77,5 @@ hr {
 	padding: none;
 	position: relative;
 	left: -10px;
+	border-collapse: collapse;
 }
