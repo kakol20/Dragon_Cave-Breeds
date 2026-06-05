@@ -67,7 +67,7 @@ async function getJSON() {
 	}
 	dragons = await playerResponse.json();
 	dragons.sort(sortDragons);
-	console.log('Dragons', JSON.stringify(dragons));
+	console.log(JSON.stringify(dragons));
 
 	const breedsResponse = await fetch(`${main.breeds}`, {
 		cache: 'no-store'
