@@ -133,7 +133,7 @@ async function draw() {
 
 			if (egg + 1 >= breeds[breed.id].name.length) continue;
 			// landscape
-				output += ` `;
+			output += ` `;
 		}
 		output += `</td>`;
 
