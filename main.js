@@ -67,7 +67,7 @@ async function getJSON() {
 	}
 	dragons = await playerResponse.json();
 	dragons.sort(sortDragons);
-	console.log('Dragons', dragons);
+	console.log('Dragons', JSON.stringify(dragons));
 
 	const breedsResponse = await fetch(`${main.breeds}`, {
 		cache: 'no-store'
@@ -201,6 +201,7 @@ function sortDragons(a, b) {
 	if (aAdults === 1 && bAdults === 1) return a.id.localeCompare(b.id);
 
 	if (a.adults !== b.adults) return a.adults - b.adults;
+	if (a.hatchlings !== b.hatchlings) return a.hatchlings - b.hatchlings;
 	if (a.date !== b.date) return b.date - a.date;
 
 	return a.id.localeCompare(b.id);
