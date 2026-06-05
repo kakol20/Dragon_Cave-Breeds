@@ -89,13 +89,8 @@ async function draw() {
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br>Gist last updated: ${new Date(gist.updated_at)}`;
-
-	const rateLimit = await checkRateLimit();
-	console.log(rateLimit);
-	output += `<br>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
-	output += `<br>Rate limit reset on: ${new Date(rateLimit.rate.reset * 1000)}`;
-	output += `<br> <input type="checkbox" id="pauseReload">`;
+	output += `<br>Gist last updated: ${new Date(gist.updated_at)}`
+	output += `<br><input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label>`;
 	output += `</small><p>`;
 
@@ -166,6 +161,12 @@ async function draw() {
 			output += `</a> `;
 		}
 	}
+
+	const rateLimit = await checkRateLimit();
+	console.log(rateLimit);
+	output += `<p><small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
+	output += `<br>Rate limit reset on: ${new Date(rateLimit.rate.reset * 1000)}`;
+	output += `</small><p>`;
 
 	document.getElementById('output').innerHTML = output;
 }
