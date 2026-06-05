@@ -179,7 +179,7 @@ setInterval(async () => {
 	const dateNow = Date.now();
 	const dateStr = new Date(dateNow);
 
-	checkGitAPI();
+	await checkGitAPI();
 	const update_at = gist.updated_at;
 
 	// if (gistLastUpdated !== update_at) location.reload();
