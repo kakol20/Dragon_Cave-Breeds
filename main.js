@@ -67,7 +67,7 @@ async function getJSON() {
 	}
 	dragons = await playerResponse.json();
 	dragons.sort(sortDragons);
-	console.log(JSON.stringify(dragons));
+	console.log('Dragons', dragons);
 
 	const breedsResponse = await fetch(`${main.breeds}`, {
 		cache: 'no-store'
@@ -120,11 +120,11 @@ async function draw() {
 			output += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
 			output += `</a>`;
 
-			if (window.innerHeight >= window.innerWidth && egg + 1 < breeds[breed.id].name.length) {
-				// portrait
-				output += `<br>`
-				continue;
-			}
+			// if (window.innerHeight >= window.innerWidth && egg + 1 < breeds[breed.id].name.length) {
+			// 	// portrait
+			// 	output += `<br>`
+			// 	continue;
+			// }
 
 			if (egg + 1 >= breeds[breed.id].name.length) continue;
 			// landscape
@@ -199,7 +199,7 @@ function sortDragons(a, b) {
 	if (aAdults !== bAdults) return aAdults - bAdults;
 	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
 
-	if (aAdults === 1 && bAdults === 1) return a.id.localeCompare(b.id);
+	// if (aAdults === 1 && bAdults === 1) return a.id.localeCompare(b.id);
 
 	if (a.adults !== b.adults) return a.adults - b.adults;
 	if (a.hatchlings !== b.hatchlings) return a.hatchlings - b.hatchlings;
