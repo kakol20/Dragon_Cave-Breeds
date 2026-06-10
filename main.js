@@ -149,7 +149,7 @@ async function draw() {
 	// console.log('==========')
 	console.log('Dragons displayed', dragonsDisplayed);
 
-	if (hidden.length > 0) output += `\n<h4 title="Breed group has >= 3 adults & displayed dragons is >= 50">Hidden</h4>`;
+	if (hidden.length > 0) output += `\n<h4 title="Breed group has >= 3 dragons, has all of them adults & displayed dragons is >= 50">Hidden</h4>`;
 	// console.log(hidden);
 	for (const id of hidden) {
 		// console.log(id, breeds[id]);
@@ -158,7 +158,7 @@ async function draw() {
 			output += `<img src="${breeds[id].img[egg]}"`;
 			output += `title="${breeds[id].name[egg]}`;
 			output += `\n${breeds[id].description}">`;
-			output += `</a> `;
+			output += `</a>`;
 		}
 	}
 
