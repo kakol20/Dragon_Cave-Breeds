@@ -160,6 +160,7 @@ async function draw() {
 			output += `\n${breeds[id].description}">`;
 			output += `</a>`;
 		}
+		output += ` `;
 	}
 
 	const rateLimit = await checkRateLimit();
