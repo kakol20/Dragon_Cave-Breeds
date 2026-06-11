@@ -1,5 +1,5 @@
 {
-	"player": "https://gist.githubusercontent.com/kakol20/b2c8310069f3c4289fc4db8d3f310bbb/raw/kakol20.json",
-	"breeds": "https://gist.githubusercontent.com/kakol20/b2c8310069f3c4289fc4db8d3f310bbb/raw/breeds.json",
-	"gist": "https://api.github.com/gists/b2c8310069f3c4289fc4db8d3f310bbb"
+	"player": "https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/player.json",
+	"breeds": "https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/breeds.json",
+	"jsonRepo": "https://api.github.com/repos/kakol20/Dragon-Cave-JSON-Files"
 }

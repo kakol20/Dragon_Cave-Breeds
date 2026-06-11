@@ -2,9 +2,9 @@ let main;
 let dragons;
 let breeds;
 
-let gistLastUpdated;
+let jsonLastUpdated;
 let firstDate;
-let gist = null;
+let jsonRepo = null;
 
 async function run() {
 	firstDate = Date.now();
@@ -18,17 +18,17 @@ async function run() {
 	main = await mainResponse.json();
 	// console.log(main);
 
-	gist = sessionStorage.getItem('gist');
+	jsonRepo = sessionStorage.getItem('jsonRepo');
 
-	if (gist) {
-		gist = JSON.parse(gist);
-		console.log('Has Gist Session Storage', gist, gist.updated_at);
+	if (jsonRepo) {
+		jsonRepo = JSON.parse(jsonRepo);
+		console.log('Has jsonRepo Session Storage', jsonRepo, jsonRepo.updated_at);
 	} else {
 		await checkGitAPI();
-		console.log('Has No Gist Session Storage', gist, gist.updated_at);
+		console.log('Has No jsonRepo Session Storage', jsonRepo, jsonRepo.updated_at);
 		// console.log(gist);
 	}
-	gistLastUpdated = gist.updated_at;
+	jsonLastUpdated = jsonRepo.updated_at;
 
 	await getJSON();
 	draw();
@@ -42,12 +42,12 @@ async function checkGitAPI() {
 
 	if (rate_limit.rate.remaining <= 0) return;
 
-	gist = await fetch(`${main.gist}`, {
+	jsonRepo = await fetch(`${main.jsonRepo}`, {
 		cache: 'no-store'
 	}).then(r => r.json());
 	// console.log(gist);
 
-	sessionStorage.setItem('gist', JSON.stringify(gist));
+	sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 }
 
 async function checkRateLimit() {
@@ -89,7 +89,7 @@ async function draw() {
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br>Gist last updated: ${new Date(gist.updated_at)}`
+	output += `<br>JSON last updated: ${new Date(jsonRepo.updated_at)}`
 	output += `<br><input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label>`;
 	output += `</small><p>`;
@@ -181,10 +181,10 @@ setInterval(async () => {
 	const dateStr = new Date(dateNow);
 
 	await checkGitAPI();
-	const update_at = gist.updated_at;
+	const update_at = jsonRepo.updated_at;
 
 	// if (gistLastUpdated !== update_at) location.reload();
-	if (gistLastUpdated !== update_at) sessionStorage.setItem('gist', JSON.stringify(gist));
+	if (jsonLastUpdated !== update_at) sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 
 	location.reload();
 }, 10 * 60 * 1000);
