@@ -2,7 +2,7 @@ let main;
 let dragons;
 let breeds;
 
-let jsonLastUpdated;
+let jsonLastPushed;
 let firstDate;
 let jsonRepo = null;
 
@@ -22,13 +22,13 @@ async function run() {
 
 	if (jsonRepo) {
 		jsonRepo = JSON.parse(jsonRepo);
-		console.log('Has jsonRepo Session Storage', jsonRepo, jsonRepo.updated_at);
+		console.log('Has jsonRepo Session Storage', jsonRepo, jsonRepo.pushed_at);
 	} else {
 		await checkGitAPI();
-		console.log('Has No jsonRepo Session Storage', jsonRepo, jsonRepo.updated_at);
+		console.log('Has No jsonRepo Session Storage', jsonRepo, jsonRepo.pushed_at);
 		// console.log(gist);
 	}
-	jsonLastUpdated = jsonRepo.updated_at;
+	jsonLastPushed = jsonRepo.pushed_at;
 
 	await getJSON();
 	draw();
@@ -89,7 +89,7 @@ async function draw() {
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br>JSON last updated: ${new Date(jsonRepo.updated_at)}`
+	output += `<br>JSON last updated: ${new Date(jsonRepo.pushed_at)}`
 	output += `<br><input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label>`;
 	output += `</small><p>`;
@@ -181,10 +181,10 @@ setInterval(async () => {
 	const dateStr = new Date(dateNow);
 
 	await checkGitAPI();
-	const update_at = jsonRepo.updated_at;
+	const pushed_at = jsonRepo.pushed_at;
 
 	// if (gistLastUpdated !== update_at) location.reload();
-	if (jsonLastUpdated !== update_at) sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
+	if (jsonLastPushed !== pushed_at) sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 
 	location.reload();
 }, 10 * 60 * 1000);
