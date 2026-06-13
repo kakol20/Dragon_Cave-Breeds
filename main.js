@@ -92,7 +92,7 @@ async function draw() {
 	output += `<br>JSON last updated: ${new Date(jsonRepo.pushed_at)}`
 	output += `<br><input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label>`;
-	output += `</small><p>`;
+	output += `</small></p>`;
 
 	output += `<tr><th>Egg</th><th>Dragons</th></tr>`;
 
@@ -165,9 +165,9 @@ async function draw() {
 
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
-	output += `<p><small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
-	output += `<br>Rate limit reset on: ${new Date(rateLimit.rate.reset * 1000)}`;
-	output += `</small><p>`;
+	output += `<p id="rateLimit"><small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
+	output += `<br>Rate limit reset on: ${new Date((rateLimit.rate.reset + 1) * 1000)}`;
+	output += `</small></p>`;
 
 	document.getElementById('output').innerHTML = output;
 }
@@ -198,6 +198,13 @@ setInterval(async () => {
 	}
 
 	if (dateMinutes % 30 === 0) location.reload();
+
+	const rateLimit = await checkRateLimit();
+	console.log(rateLimit);
+	let output = `<small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
+	output += `<br>Rate limit reset on: ${new Date((rateLimit.rate.reset + 1) * 1000)}`;
+	output += `</small>`;
+	document.getElementById('rateLimit').innerHTML = output;
 
 }, 1 * 1000);
 
