@@ -121,9 +121,9 @@ async function draw() {
 			output += `</a>`;
 
 			if (window.innerHeight >= window.innerWidth && egg + 1 < breeds[breed.id].name.length) {
-			 	// portrait
-			 	output += `<br>`
-			 	continue;
+				// portrait
+				output += `<br>`
+				continue;
 			}
 
 			if (egg + 1 >= breeds[breed.id].name.length) continue;
@@ -172,22 +172,34 @@ async function draw() {
 	document.getElementById('output').innerHTML = output;
 }
 
+// let counter = 0;
 setInterval(async () => {
+	// ++counter;
 	if (document.getElementById('pauseReload').checked) return;
-
-	sessionStorage.setItem('scrollY', window.scrollY);
 
 	const dateNow = Date.now();
 	const dateStr = new Date(dateNow);
+	const dateMinutes = dateStr.getMinutes() + 1;
+	// console.log(dateStr.getMinutes());
+
+	if (dateMinutes % 10 !== 0) return;
+	if (dateStr.getSeconds() !== 59) return;
+	console.log('Check', dateStr);
+
+	sessionStorage.setItem('scrollY', window.scrollY);
 
 	await checkGitAPI();
 	const pushed_at = jsonRepo.pushed_at;
 
 	// if (gistLastUpdated !== update_at) location.reload();
-	if (jsonLastPushed !== pushed_at) sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
+	if (jsonLastPushed !== pushed_at) {
+		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
+		location.reload();
+	}
 
-	location.reload();
-}, 10 * 60 * 1000);
+	if (dateMinutes % 30 === 0) location.reload();
+
+}, 1 * 1000);
 
 window.onbeforeunload = function (event) {
 	sessionStorage.setItem('scrollY', window.scrollY);
