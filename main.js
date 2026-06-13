@@ -179,11 +179,11 @@ setInterval(async () => {
 
 	const dateNow = Date.now();
 	const dateStr = new Date(dateNow);
-	const dateMinutes = dateStr.getMinutes() + 1;
+	const dateMinutes = dateStr.getMinutes();
 	// console.log(dateStr.getMinutes());
 
 	if (dateMinutes % 10 !== 0) return;
-	if (dateStr.getSeconds() !== 59) return;
+	if (dateStr.getSeconds() !== 0) return;
 	console.log('Check', dateStr);
 
 	sessionStorage.setItem('scrollY', window.scrollY);
@@ -202,7 +202,7 @@ setInterval(async () => {
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
 	let output = `<small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
-	output += `<br>Rate limit reset on: ${new Date((rateLimit.rate.reset + 1) * 1000)}`;
+	output += `<br>Rate limit reset on: ${new Date(rateLimit.rate.reset * 1000)}`;
 	output += `</small>`;
 	document.getElementById('rateLimit').innerHTML = output;
 
