@@ -136,7 +136,7 @@ async function draw() {
 		output += `<td>`;
 		for (const dragon of breed.view) {
 			output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
-			output += `<img src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
+			output += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
 			output += `</a> `;
 			++dragonsDisplayed;
 		}
