@@ -82,7 +82,7 @@ async function getJSON() {
 }
 
 async function draw() {
-	const dateNow = Date.now();
+	const dateNow = lastReloaded;
 	const dateStr = new Date(dateNow);
 
 	let output = `<table>`;
@@ -173,6 +173,7 @@ async function draw() {
 }
 
 // let counter = 0;
+const lastReloaded = Date.now();
 setInterval(async () => {
 	// ++counter;
 	if (document.getElementById('pauseReload').checked) return;
@@ -198,6 +199,7 @@ setInterval(async () => {
 	}
 
 	if (dateMinutes % 30 === 0) location.reload();
+	if (Date.now() - lastReloaded > 30 * 60 * 1000) location.reload();
 
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
