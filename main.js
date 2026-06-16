@@ -215,6 +215,8 @@ window.onbeforeunload = function (event) {
 }
 
 function sortDragons(a, b) {
+	if (a.finished !== b.finished) return a.finished - b.finished;
+
 	const aAdults = a.adults === a.view.length ? 1 : 0;
 	const bAdults = b.adults === b.view.length ? 1 : 0;
 
