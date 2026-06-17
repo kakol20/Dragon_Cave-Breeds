@@ -4,6 +4,11 @@
 
 	--background: color-mix(in oklab, var(--ref1), var(--ref2) 2.5%);
 	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 85%);
+
+	--background2: color-mix(in oklab, var(--ref1), var(--ref2) 0.5%);
+
+	--backgroundFinal: linear-gradient(in oklab, var(--background), var(--background2));
+	/* --backgroundFinal: var(--background); */
 }
 
 .cascadia-code-cascadia {
@@ -22,7 +27,7 @@ body {
 
 	/* Canvas: 18, CanvasText: 255 */
 	/* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/system-color */
-	background-color: var(--background);
+	background: var(--backgroundFinal);
 	color: var(--foreground);
 	color-scheme: dark;
 }
@@ -38,7 +43,7 @@ form {
 
 th, td {
 	padding: 5px;
-	background-color: color-mix(in oklab, var(--background), var(--foreground) 5%);
+	background-color: color-mix(in oklab, transparent, var(--foreground) 5%);
 }
 
 table, th, td {
