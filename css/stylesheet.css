@@ -1,11 +1,18 @@
 :root {
-	--ref1: color-mix(in oklab, rgb(0, 0, 0), var(--ref2) 18.22%);
-	--ref2: rgb(255 230 209);
+	color-scheme: light dark;
+	/* --ref1: color-mix(in oklab, rgb(0, 0, 0), var(--ref2) 18.22%); */
+	/* --ref2: rgb(255 230 209); */
 
-	--background: color-mix(in oklab, var(--ref1), var(--ref2) 2.5%);
+	--light: rgb(255 230 209);
+	--dark: color-mix(in oklab, rgb(0, 0, 0), var(--light) 18.22%);
+
+	--ref1: light-dark(var(--light), var(--dark));
+	--ref2: light-dark(var(--dark), var(--light));
+
+	--background: color-mix(in oklab, var(--ref1), var(--ref2) 5%);
 	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 85%);
 
-	--background2: color-mix(in oklab, var(--ref1), var(--ref2) 0.5%);
+	--background2: color-mix(in oklab, var(--ref1), var(--ref2) 1%);
 
 	--backgroundFinal: linear-gradient(in oklab, var(--background), var(--background2));
 	/* --backgroundFinal: var(--background); */
@@ -29,7 +36,6 @@ body {
 	/* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/system-color */
 	background: var(--backgroundFinal);
 	color: var(--foreground);
-	color-scheme: dark;
 }
 
 textarea {
