@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "1b1714",
-  "background_color": "1b1714",
+  "theme_color": "#1b1714",
+  "background_color": "#1b1714",
   "display": "standalone"
 }
