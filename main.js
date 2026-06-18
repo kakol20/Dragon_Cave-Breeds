@@ -109,8 +109,8 @@ async function drawPortrait() {
 	output += `</small></p>`;
 
 	output += `<table style="width:100%"><tr>
-		<th style="padding:2px;">Egg</th>
-		<th style="padding:2px;">Dragons</th></tr>`;
+		<th style="padding:5px;">Egg</th>
+		<th style="padding:5px;">Dragons</th></tr>`;
 
 	// ========== DRAGONS ==========
 	let hidden = [];
