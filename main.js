@@ -82,10 +82,24 @@ async function getJSON() {
 }
 
 async function draw() {
+	const portrait = window.matchMedia("(orientation: portrait)").matches;
+
+	if (!portrait) {
+		await drawLandscape();
+	} else {
+		await drawPortrait();
+	}
+}
+
+window.matchMedia("(orientation: portrait)").addEventListener("change", async e => {
+	await draw();
+});
+
+async function drawPortrait() {
 	const dateNow = lastReloaded;
 	const dateStr = new Date(dateNow);
 
-	let output = `<table>`;
+	let output = ``;
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
@@ -94,7 +108,115 @@ async function draw() {
 	output += `<label for="pauseReload"> Pause Reload</label>`;
 	output += `</small></p>`;
 
-	output += `<tr><th>Egg</th><th>Dragons</th></tr>`;
+	output += `<table style="width:100%"><tr>
+		<th style="padding:2px;">Egg</th>
+		<th style="padding:2px;">Dragons</th></tr>`;
+
+	// ========== DRAGONS ==========
+	let hidden = [];
+	let unfinished = [];
+	let dragonsDisplayed = 0;
+
+	for (const breed of dragons) {
+		// console.log(breed);
+		if (breed.view.length >= 3 &&
+			breed.view.length === breed.adults &&
+			dragonsDisplayed >= 50) {
+			// hidden.push(breed.id);
+
+			if (breed.finished) {
+				hidden.push(breed.id);
+				continue;
+			}
+			unfinished.push(breed.id);
+			continue;
+		}
+
+		// ==== EGGS ====
+		for (const egg in breeds[breed.id].name) {
+			output += `<tr>`
+
+			output += `<td style="padding:2px;"><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
+			output += `<img src="${breeds[breed.id].img[egg]}"`;
+			output += `title="${breeds[breed.id].name[egg]}`;
+			output += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
+			output += `</a></td>`;
+
+			// ==== DRAGONS ====
+			if (egg === '0') {
+				output += `<td rowspan="${breeds[breed.id].name.length}" style="padding:2px;">`;
+
+				for (const dragon of breed.view) {
+					output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
+					output += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
+					output += `</a> `;
+					++dragonsDisplayed;
+				}
+
+				output += `</td>`;
+				// console.log('Hit');
+			}
+
+			output += `</tr>`
+		}
+	}
+	output += `</table>`;
+
+	console.log('Dragons displayed', dragonsDisplayed);
+
+	if (unfinished.length > 0) output += `<h4 title="Breeds whose sprites are not fully discovered">Unfinished</h4>`;
+	for (const id of unfinished) {
+		for (const egg in breeds[id].name) {
+			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
+			output += `<img src="${breeds[id].img[egg]}"`;
+			output += `title="${breeds[id].name[egg]}`;
+			output += `\n${breeds[id].description}">`;
+			output += `</a>`;
+		}
+		output += ` `;
+	}
+
+	if (hidden.length > 0) output += `<h4 title="Breed group has >= 3 dragons, has all of them adults & displayed dragons is >= 50">Hidden</h4>`;
+	// console.log(hidden);
+	for (const id of hidden) {
+		// console.log(id, breeds[id]);
+		for (const egg in breeds[id].name) {
+			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
+			output += `<img src="${breeds[id].img[egg]}"`;
+			output += `title="${breeds[id].name[egg]}`;
+			output += `\n${breeds[id].description}">`;
+			output += `</a>`;
+		}
+		output += ` `;
+	}
+
+	const rateLimit = await checkRateLimit();
+	console.log(rateLimit);
+	output += `<p id="rateLimit"><small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
+	output += `<br>Rate limit reset on: ${new Date((rateLimit.rate.reset + 1) * 1000)}`;
+	output += `</small></p>`;
+
+	// console.log(output);
+
+	document.getElementById('output').innerHTML = output;
+}
+
+async function drawLandscape() {
+	const dateNow = lastReloaded;
+	const dateStr = new Date(dateNow);
+
+	let output = ``;
+
+	//  ========== HEADER ==========
+	output += `<p><small>Last reloaded: ${dateStr}`;
+	output += `<br>JSON last updated: ${new Date(jsonRepo.pushed_at)}`
+	output += `<br><input type="checkbox" id="pauseReload">`;
+	output += `<label for="pauseReload"> Pause Reload</label>`;
+	output += `</small></p>`;
+
+	output += `<table><tr>
+		<th style="padding:5px;">Egg</th>
+		<th style="padding:5px;">Dragons</th></tr>`;
 
 	// ========== DRAGONS ==========
 	let hidden = [];
@@ -118,8 +240,8 @@ async function draw() {
 
 		output += `<tr>`;
 
-		// Show egg
-		output += `<td>`;
+		// ==== EGGS ====
+		output += `<td style="padding:5px;">`;
 		for (const egg in breeds[breed.id].name) {
 			output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
 			output += `<img src="${breeds[breed.id].img[egg]}"`;
@@ -127,20 +249,15 @@ async function draw() {
 			output += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
 			output += `</a>`;
 
-			if (window.innerHeight >= window.innerWidth && egg + 1 < breeds[breed.id].name.length) {
-				// portrait
-				output += `<br>`
-				continue;
-			}
-
 			if (egg + 1 >= breeds[breed.id].name.length) continue;
 			// landscape
 			output += ` `;
 		}
 		output += `</td>`;
 
+		// ==== DRAGONS ====	
 		// View https://dragcave.net/image/r5HjG.gif
-		output += `<td>`;
+		output += `<td style="padding:5px;">`;
 		for (const dragon of breed.view) {
 			output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
 			output += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
