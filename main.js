@@ -118,16 +118,18 @@ async function drawPortrait() {
 	let dragonsDisplayed = 0;
 
 	for (const breed of dragons) {
-		// console.log(breed);
-		if (breed.view.length >= 3 &&
-			breed.view.length === breed.adults &&
-			dragonsDisplayed >= 50) {
-			// hidden.push(breed.id);
+		if (dragonsDisplayed >= 50 &&
+			breed.view.length >= breed.adults && 
+			breed.finished) {
+			hidden.push(breed.id);
+			continue;
+		} 
 
-			if (breed.finished) {
-				hidden.push(breed.id);
-				continue;
-			}
+		if (dragonsDisplayed >= 50 &&
+			breed.view.length >= 3 &&
+			breed.view.length === breed.adults) {
+			// hidden.push(breed.id);
+			
 			unfinished.push(breed.id);
 			continue;
 		}
@@ -224,16 +226,18 @@ async function drawLandscape() {
 	let dragonsDisplayed = 0;
 
 	for (const breed of dragons) {
-		// console.log(breed);
+		if (dragonsDisplayed >= 50 &&
+			breed.view.length >= breed.adults && 
+			breed.finished) {
+			hidden.push(breed.id);
+			continue;
+		} 
+
 		if (breed.view.length >= 3 &&
 			breed.view.length === breed.adults &&
 			dragonsDisplayed >= 50) {
 			// hidden.push(breed.id);
-
-			if (breed.finished) {
-				hidden.push(breed.id);
-				continue;
-			}
+			
 			unfinished.push(breed.id);
 			continue;
 		}
