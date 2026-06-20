@@ -361,9 +361,9 @@ function sortDragons(a, b) {
 
 	if (aAllAdults !== bAllAdults) return aAllAdults - bAllAdults;
 
-	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
 	if (a.adults !== b.adults) return a.adults - b.adults;
 	if (a.hatchlings !== b.hatchlings) return a.hatchlings - b.hatchlings;
+	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
 	if (a.date !== b.date) return b.date - a.date;
 
 	return a.id.localeCompare(b.id);
