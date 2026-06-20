@@ -233,11 +233,8 @@ async function drawLandscape() {
 			continue;
 		} 
 
-		if (breed.view.length >= 3 &&
-			breed.view.length === breed.adults &&
-			dragonsDisplayed >= 50) {
-			// hidden.push(breed.id);
-			
+		if (dragonsDisplayed >= 50 &&
+			breed.view.length >= breed.adults) {
 			unfinished.push(breed.id);
 			continue;
 		}
