@@ -234,6 +234,7 @@ async function drawLandscape() {
 		} 
 
 		if (dragonsDisplayed >= 50 &&
+			breed.adults >= 3 &&
 			breed.view.length >= breed.adults) {
 			unfinished.push(breed.id);
 			continue;
