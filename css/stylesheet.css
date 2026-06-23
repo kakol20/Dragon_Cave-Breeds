@@ -49,23 +49,17 @@ form {
 	line-height: 1.75;
 }
 
-table, th {
+table, th, td {
 	border-collapse: collapse;
 	text-align: center;
 	vertical-align: middle;
-	background-clip: padding-box, border-box;
-	border: 2px solid transparent;
-	background-color: color-mix(in oklab, transparent, var(--foreground) 5%);
+	background-clip: padding-box;
+	border: 2px solid var(--background);
+	background: color-mix(in oklab, transparent, var(--foreground) 5%);
 }
 
 td {
 	line-height: 0%;
-	border-collapse: collapse;
-	text-align: center;
-	vertical-align: middle;
-	background-clip: padding-box, border-box;
-	border: 2px solid transparent;
-	background-color: color-mix(in oklab, transparent, var(--foreground) 5%);
 }
 
 img {
