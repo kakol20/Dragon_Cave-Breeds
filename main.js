@@ -95,6 +95,7 @@ window.matchMedia("(orientation: portrait)").addEventListener("change", async e 
 	await draw();
 });
 
+const maxDisplay = 50;
 async function drawPortrait() {
 	const dateNow = lastReloaded;
 	const dateStr = new Date(dateNow);
@@ -118,15 +119,14 @@ async function drawPortrait() {
 	let dragonsDisplayed = 0;
 
 	for (const breed of dragons) {
-		if (dragonsDisplayed >= 50 &&
+		if (dragonsDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults && 
 			breed.finished) {
 			hidden.push(breed.id);
 			continue;
 		} 
 
-		if (dragonsDisplayed >= 50 &&
-			breed.view.length >= 3 &&
+		if (dragonsDisplayed >= maxDisplay &&
 			breed.view.length === breed.adults) {
 			// hidden.push(breed.id);
 			
@@ -166,7 +166,10 @@ async function drawPortrait() {
 
 	console.log('Dragons displayed', dragonsDisplayed);
 
-	if (unfinished.length > 0) output += `<h4 title="Breeds whose sprites are not fully discovered">Unfinished</h4>`;
+	if (unfinished.length > 0) output += `
+		<h4 title="Breeds whose sprites are not fully discovered">
+			Unfinished
+		</h4>`;
 	for (const id of unfinished) {
 		for (const egg in breeds[id].name) {
 			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
@@ -178,7 +181,7 @@ async function drawPortrait() {
 		output += ` `;
 	}
 
-	if (hidden.length > 0) output += `<h4 title="Breed group has >= 3 dragons, has all of them adults & displayed dragons is >= 50">Hidden</h4>`;
+	if (hidden.length > 0) output += `<h4>Finished</h4>`;
 	// console.log(hidden);
 	for (const id of hidden) {
 		// console.log(id, breeds[id]);
@@ -226,15 +229,14 @@ async function drawLandscape() {
 	let dragonsDisplayed = 0;
 
 	for (const breed of dragons) {
-		if (dragonsDisplayed >= 50 &&
+		if (dragonsDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults && 
 			breed.finished) {
 			hidden.push(breed.id);
 			continue;
 		} 
 
-		if (dragonsDisplayed >= 50 &&
-			breed.adults >= 3 &&
+		if (dragonsDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults) {
 			unfinished.push(breed.id);
 			continue;
@@ -274,7 +276,10 @@ async function drawLandscape() {
 	// console.log('==========')
 	console.log('Dragons displayed', dragonsDisplayed);
 
-	if (unfinished.length > 0) output += `<h4 title="Breeds whose sprites are not fully discovered">Unfinished</h4>`;
+	if (unfinished.length > 0) output += `
+		<h4 title="Breeds whose sprites are not fully discovered">
+			Unfinished
+		</h4>`;
 	for (const id of unfinished) {
 		for (const egg in breeds[id].name) {
 			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
@@ -286,7 +291,8 @@ async function drawLandscape() {
 		output += ` `;
 	}
 
-	if (hidden.length > 0) output += `<h4 title="Breed group has >= 3 dragons, has all of them adults & displayed dragons is >= 50">Hidden</h4>`;
+	if (hidden.length > 0) output += `<h4>Finished</h4>`;
+
 	// console.log(hidden);
 	for (const id of hidden) {
 		// console.log(id, breeds[id]);
