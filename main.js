@@ -82,13 +82,23 @@ async function getJSON() {
 }
 
 async function draw() {
-	const portrait = window.matchMedia("(orientation: portrait)").matches;
+	try {
+		const portrait = window.matchMedia("(orientation: portrait)").matches;
 
-	if (!portrait) {
-		await drawLandscape();
-	} else {
-		await drawPortrait();
+		if (!portrait) {
+			await drawLandscape();
+		} else {
+			await drawPortrait();
+		}
+	} catch (error) {
+		document.getElementById('output').innerHTML = `${err}<br>Reloading in 5 seconds`;
+		await sleep(5 * 1000);
+		location.reload();
 	}
+}
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 window.matchMedia("(orientation: portrait)").addEventListener("change", async e => {
@@ -120,16 +130,16 @@ async function drawPortrait() {
 
 	for (const breed of dragons) {
 		if (dragonsDisplayed >= maxDisplay &&
-			breed.view.length >= breed.adults && 
+			breed.view.length >= breed.adults &&
 			breed.finished) {
 			hidden.push(breed.id);
 			continue;
-		} 
+		}
 
 		if (dragonsDisplayed >= maxDisplay &&
 			breed.view.length === breed.adults) {
 			// hidden.push(breed.id);
-			
+
 			unfinished.push(breed.id);
 			continue;
 		}
@@ -230,11 +240,11 @@ async function drawLandscape() {
 
 	for (const breed of dragons) {
 		if (dragonsDisplayed >= maxDisplay &&
-			breed.view.length >= breed.adults && 
+			breed.view.length >= breed.adults &&
 			breed.finished) {
 			hidden.push(breed.id);
 			continue;
-		} 
+		}
 
 		if (dragonsDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults) {
@@ -253,7 +263,7 @@ async function drawLandscape() {
 			output += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
 			output += `</a>`;
 
-			if (egg + 1 >= breeds[breed.id].name.length) continue;
+			if (parseInt(egg) + 1 >= breeds[breed.id].name.length) continue;
 			// landscape
 			output += ` `;
 		}
@@ -318,38 +328,45 @@ async function drawLandscape() {
 // let counter = 0;
 const lastReloaded = Date.now();
 setInterval(async () => {
-	// ++counter;
-	if (document.getElementById('pauseReload').checked) return;
+	try {
+		// ++counter;
+		if (document.getElementById('pauseReload').checked) return;
 
-	const dateNow = Date.now();
-	const dateStr = new Date(dateNow);
-	const dateMinutes = dateStr.getMinutes();
-	// console.log(dateStr.getMinutes());
+		const dateNow = Date.now();
+		const dateStr = new Date(dateNow);
+		const dateMinutes = dateStr.getMinutes();
+		// console.log(dateStr.getMinutes());
 
-	if (dateMinutes % 10 !== 0) return;
-	if (dateStr.getSeconds() !== 0) return;
-	console.log('Check', dateStr);
+		if (dateMinutes % 10 !== 0) return;
+		if (dateStr.getSeconds() !== 0) return;
+		console.log('Check', dateStr);
 
-	sessionStorage.setItem('scrollY', window.scrollY);
+		sessionStorage.setItem('scrollY', window.scrollY);
 
-	await checkGitAPI();
-	const pushed_at = jsonRepo.pushed_at;
+		await checkGitAPI();
+		const pushed_at = jsonRepo.pushed_at;
 
-	// if (gistLastUpdated !== update_at) location.reload();
-	if (jsonLastPushed !== pushed_at) {
-		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
+		// if (gistLastUpdated !== update_at) location.reload();
+		if (jsonLastPushed !== pushed_at) {
+			sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
+			location.reload();
+		}
+
+		if (dateMinutes % 30 === 0) location.reload();
+		if (Date.now() - lastReloaded > 30 * 60 * 1000) location.reload();
+
+		const rateLimit = await checkRateLimit();
+		console.log(rateLimit);
+		let output = `<small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
+		output += `<br>Rate limit reset on: ${new Date(rateLimit.rate.reset * 1000)}`;
+		output += `</small>`;
+		document.getElementById('rateLimit').innerHTML = output;
+	} catch (err) {
+		// console.error(err);
+		document.getElementById('output').innerHTML = `${err}<br>Reloading in 5 seconds`;
+		await sleep(5 * 1000);
 		location.reload();
 	}
-
-	if (dateMinutes % 30 === 0) location.reload();
-	if (Date.now() - lastReloaded > 30 * 60 * 1000) location.reload();
-
-	const rateLimit = await checkRateLimit();
-	console.log(rateLimit);
-	let output = `<small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
-	output += `<br>Rate limit reset on: ${new Date(rateLimit.rate.reset * 1000)}`;
-	output += `</small>`;
-	document.getElementById('rateLimit').innerHTML = output;
 
 }, 1 * 1000);
 
