@@ -363,7 +363,7 @@ setInterval(async () => {
 		document.getElementById('rateLimit').innerHTML = output;
 	} catch (err) {
 		// console.error(err);
-		document.getElementById('output').innerHTML = `${err}<br>Reloading in 5 seconds`;
+		document.getElementById('output').innerHTML = `<p>${err}<br>Reloading in 5 seconds</p>`;
 		await sleep(5 * 1000);
 		location.reload();
 	}
@@ -387,7 +387,7 @@ function sortDragons(a, b) {
 
 	const aEggs = a.view.length - a.adults - a.hatchlings;
 	const bEggs = b.view.length - b.adults - b.hatchlings;
-	if (aEggs !== bEggs) return aEggs - bEggs;
+	if (aEggs !== bEggs) return bEggs - aEggs;
 
 	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
 	if (a.date !== b.date) return b.date - a.date;
