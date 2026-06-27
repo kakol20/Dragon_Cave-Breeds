@@ -333,6 +333,9 @@ setInterval(async () => {
 		if (document.getElementById('pauseReload').checked) return;
 
 		const dateNow = Date.now();
+
+		if (dateNow - firstDate < 10 * 60 * 1000) return;
+
 		const dateStr = new Date(dateNow);
 		const dateMinutes = dateStr.getMinutes();
 		// console.log(dateStr.getMinutes());
