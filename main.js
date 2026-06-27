@@ -334,8 +334,6 @@ setInterval(async () => {
 
 		const dateNow = Date.now();
 
-		if (dateNow - firstDate < 10 * 60 * 1000) return;
-
 		const dateStr = new Date(dateNow);
 		const dateMinutes = dateStr.getMinutes();
 		// console.log(dateStr.getMinutes());
@@ -355,8 +353,8 @@ setInterval(async () => {
 			location.reload();
 		}
 
-		if (dateMinutes % 30 === 0) location.reload();
-		if (Date.now() - lastReloaded > 30 * 60 * 1000) location.reload();
+		if (dateMinutes % 30 === 0 && dateNow - lastReloaded >= 10 * 60 * 1000) location.reload();
+		if (dateNow - lastReloaded >= 30 * 60 * 1000) location.reload();
 
 		const rateLimit = await checkRateLimit();
 		console.log(rateLimit);
