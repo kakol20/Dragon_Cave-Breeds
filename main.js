@@ -325,11 +325,13 @@ async function drawLandscape() {
 	document.getElementById('output').innerHTML = output;
 }
 
-// let counter = 0;
+let counter = 0;
 const lastReloaded = Date.now();
 setInterval(async () => {
 	try {
-		// ++counter;
+		++counter;
+		if (counter < 60) return;
+
 		if (document.getElementById('pauseReload').checked) return;
 
 		const dateNow = Date.now();
