@@ -380,23 +380,29 @@ window.onbeforeunload = function (event) {
 }
 
 function sortDragons(a, b) {
+	const aNew = a.id === '@new';
+	const bNew = b.id === '@new';
+
+	if (aNew !== bNew) return bNew - aNew;
+
 	if (a.finished !== b.finished) return a.finished - b.finished;
 
 	const aAllAdults = a.adults === a.view.length;
 	const bAllAdults = b.adults === b.view.length;
-
 	if (aAllAdults !== bAllAdults) return aAllAdults - bAllAdults;
 
 	if (a.finished && b.finished && a.date !== b.date) return b.date - a.date;
 
 	if (a.adults !== b.adults) return a.adults - b.adults;
-	if (a.hatchlings !== b.hatchlings) return a.hatchlings - b.hatchlings;
+
+	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
+
+	if (a.hatchlings !== b.hatchlings) return b.hatchlings - a.hatchlings;
 
 	const aEggs = a.view.length - a.adults - a.hatchlings;
 	const bEggs = b.view.length - b.adults - b.hatchlings;
 	if (aEggs !== bEggs) return bEggs - aEggs;
 
-	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
 	if (a.date !== b.date) return b.date - a.date;
 
 	return a.id.localeCompare(b.id);
