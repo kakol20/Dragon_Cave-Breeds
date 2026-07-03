@@ -179,7 +179,7 @@ async function drawPortrait() {
 	if (unfinished.length > 0) {
 		output += `<br><table><tbody>`
 		output += `<tr><th style="padding:5px;">Unfinished</th></tr>`;
-		output += `<tr><td style="padding:2px; line-height: 1.3;">`
+		output += `<tr><td style="padding:2px; line-height: 1;">`
 
 		for (const id of unfinished) {
 			for (const egg in breeds[id].name) {
@@ -198,7 +198,7 @@ async function drawPortrait() {
 	if (hidden.length > 0) {
 		output += `<br><table><tbody>`
 		output += `<tr><th style="padding:5px;">Finished</th></tr>`;
-		output += `<tr><td style="padding:2px; line-height: 1.3;">`;
+		output += `<tr><td style="padding:2px; line-height: 1;">`;
 
 		for (const id of hidden) {
 			// console.log(id, breeds[id]);
@@ -299,7 +299,7 @@ async function drawLandscape() {
 	if (unfinished.length > 0) {
 		output += `<br><table><tbody>`
 		output += `<tr><th style="padding:5px;">Unfinished</th></tr>`;
-		output += `<tr><td style="padding:5px; line-height: 1.3;">`
+		output += `<tr><td style="padding:5px; line-height: 1;">`
 
 		for (const id of unfinished) {
 			for (const egg in breeds[id].name) {
@@ -318,7 +318,7 @@ async function drawLandscape() {
 	if (hidden.length > 0) {
 		output += `<br><table><tbody>`
 		output += `<tr><th style="padding:5px;">Finished</th></tr>`;
-		output += `<tr><td style="padding:5px; line-height: 1.3;">`;
+		output += `<tr><td style="padding:5px; line-height: 1;">`;
 
 		for (const id of hidden) {
 			// console.log(id, breeds[id]);
