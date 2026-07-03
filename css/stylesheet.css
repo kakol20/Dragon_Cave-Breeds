@@ -54,7 +54,7 @@ form {
 }
 
 table {
-	border-spacing: 0;
+	border-spacing: 2px;
 }
 
 th,
@@ -66,7 +66,7 @@ td {
 
 	text-align: center;
 	vertical-align: middle;
-	border: 1px solid var(--background);
+	/* border: 1px solid var(--background); */
 	background: color-mix(in oklch shorter hue, transparent, var(--foreground) 5%);
 }
 
