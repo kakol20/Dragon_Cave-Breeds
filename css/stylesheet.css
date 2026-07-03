@@ -1,8 +1,8 @@
 :root {
 	color-scheme: light dark;
 
-	--light: rgb(255 230 209);
-	--dark: color-mix(in oklab, rgb(0, 0, 0), var(--light) 18.22%);
+	--light: #ffe6d2;
+	--dark: color-mix(in oklch shorter hue, rgb(0, 0, 0), var(--light) 18.22%);
 
 	/* For Debugging */
 	/* --light: white; */
@@ -12,18 +12,22 @@
 	--ref1: light-dark(var(--light), var(--dark));
 	--ref2: light-dark(var(--dark), var(--light));
 
-	--background: color-mix(in oklab, var(--ref1), var(--ref2) 5%);
-	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 85%);
+	--background: color-mix(in oklch shorter hue, var(--ref1), var(--ref2) 5%);
+	--foreground: color-mix(in oklch shorter hue, var(--ref1), var(--ref2) 85%);
 
-	--background2: color-mix(in oklab, var(--ref1), var(--ref2) 0.5%);
+	--background2: color-mix(in oklch shorter hue, var(--ref1), var(--ref2) 0.5%);
 
-	--backgroundFinal: linear-gradient(in oklab, var(--background), var(--background2));
+	--backgroundFinal: linear-gradient(in oklch shorter hue, var(--background), var(--background2));
 }
 
 .dm-mono-regular {
-  font-family: "DM Mono", monospace;
-  font-weight: 400;
-  font-style: normal;
+	font-family: "DM Mono", monospace;
+	font-weight: 400;
+	font-style: normal;
+}
+
+header {
+	text-align: center;
 }
 
 body {
@@ -49,13 +53,19 @@ form {
 	line-height: 1.3;
 }
 
-table, th, td {
-	border-collapse: collapse;
+table,
+th,
+td {
+	/* border-collapse: collapse; */
+	border-collapse: separate;
+	border-spacing: 0;
+	border-radius: 5px;
+	/* background-clip: content-box; */
+
 	text-align: center;
 	vertical-align: middle;
-	background-clip: padding-box;
-	border: 2px solid var(--background);
-	background: color-mix(in oklab, transparent, var(--foreground) 5%);
+	border: 1px solid var(--background);
+	background: color-mix(in oklch shorter hue, transparent, var(--foreground) 5%);
 }
 
 td {
