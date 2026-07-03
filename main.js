@@ -176,33 +176,43 @@ async function drawPortrait() {
 
 	console.log('Dragons displayed', dragonsDisplayed);
 
-	if (unfinished.length > 0) output += `
-		<h4 title="Breeds whose sprites are not fully discovered">
-			Unfinished
-		</h4>`;
-	for (const id of unfinished) {
-		for (const egg in breeds[id].name) {
-			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
-			output += `<img src="${breeds[id].img[egg]}"`;
-			output += `title="${breeds[id].name[egg]}`;
-			output += `\n${breeds[id].description}">`;
-			output += `</a>`;
+	if (unfinished.length > 0) {
+		output += `<br><table><tbody>`
+		output += `<tr><th style="padding:5px;">Unfinished</th></tr>`;
+		output += `<tr><td style="padding:2px; line-height: 1.3;">`
+
+		for (const id of unfinished) {
+			for (const egg in breeds[id].name) {
+				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
+				output += `<img src="${breeds[id].img[egg]}"`;
+				output += `title="${breeds[id].name[egg]}`;
+				output += `\n${breeds[id].description}">`;
+				output += `</a>`;
+			}
+			output += ` `;
 		}
-		output += ` `;
+		output += `</td></tr>`;
+		output += `</tbody></table>`;
 	}
 
-	if (hidden.length > 0) output += `<h4>Finished</h4>`;
-	// console.log(hidden);
-	for (const id of hidden) {
-		// console.log(id, breeds[id]);
-		for (const egg in breeds[id].name) {
-			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
-			output += `<img src="${breeds[id].img[egg]}"`;
-			output += `title="${breeds[id].name[egg]}`;
-			output += `\n${breeds[id].description}">`;
-			output += `</a>`;
+	if (hidden.length > 0) {
+		output += `<br><table><tbody>`
+		output += `<tr><th style="padding:5px;">Finished</th></tr>`;
+		output += `<tr><td style="padding:2px; line-height: 1.3;">`;
+
+		for (const id of hidden) {
+			// console.log(id, breeds[id]);
+			for (const egg in breeds[id].name) {
+				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
+				output += `<img src="${breeds[id].img[egg]}"`;
+				output += `title="${breeds[id].name[egg]}`;
+				output += `\n${breeds[id].description}">`;
+				output += `</a>`;
+			}
+			output += ` `;
 		}
-		output += ` `;
+		output += `</td></tr>`;
+		output += `</tbody></table>`;
 	}
 
 	const rateLimit = await checkRateLimit();
@@ -286,34 +296,43 @@ async function drawLandscape() {
 	// console.log('==========')
 	console.log('Dragons displayed', dragonsDisplayed);
 
-	if (unfinished.length > 0) output += `
-		<h4 title="Breeds whose sprites are not fully discovered">
-			Unfinished
-		</h4>`;
-	for (const id of unfinished) {
-		for (const egg in breeds[id].name) {
-			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
-			output += `<img src="${breeds[id].img[egg]}"`;
-			output += `title="${breeds[id].name[egg]}`;
-			output += `\n${breeds[id].description}">`;
-			output += `</a>`;
+	if (unfinished.length > 0) {
+		output += `<br><table><tbody>`
+		output += `<tr><th style="padding:5px;">Unfinished</th></tr>`;
+		output += `<tr><td style="padding:5px; line-height: 1.3;">`
+
+		for (const id of unfinished) {
+			for (const egg in breeds[id].name) {
+				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
+				output += `<img src="${breeds[id].img[egg]}"`;
+				output += `title="${breeds[id].name[egg]}`;
+				output += `\n${breeds[id].description}">`;
+				output += `</a>`;
+			}
+			output += ` `;
 		}
-		output += ` `;
+		output += `</td></tr>`;
+		output += `</tbody></table>`;
 	}
 
-	if (hidden.length > 0) output += `<h4>Finished</h4>`;
+	if (hidden.length > 0) {
+		output += `<br><table><tbody>`
+		output += `<tr><th style="padding:5px;">Finished</th></tr>`;
+		output += `<tr><td style="padding:5px; line-height: 1.3;">`;
 
-	// console.log(hidden);
-	for (const id of hidden) {
-		// console.log(id, breeds[id]);
-		for (const egg in breeds[id].name) {
-			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
-			output += `<img src="${breeds[id].img[egg]}"`;
-			output += `title="${breeds[id].name[egg]}`;
-			output += `\n${breeds[id].description}">`;
-			output += `</a>`;
+		for (const id of hidden) {
+			// console.log(id, breeds[id]);
+			for (const egg in breeds[id].name) {
+				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
+				output += `<img src="${breeds[id].img[egg]}"`;
+				output += `title="${breeds[id].name[egg]}`;
+				output += `\n${breeds[id].description}">`;
+				output += `</a>`;
+			}
+			output += ` `;
 		}
-		output += ` `;
+		output += `</td></tr>`;
+		output += `</tbody></table>`;
 	}
 
 	const rateLimit = await checkRateLimit();
