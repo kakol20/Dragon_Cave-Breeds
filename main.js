@@ -344,16 +344,14 @@ async function drawLandscape() {
 	document.getElementById('output').innerHTML = output;
 }
 
-let counter = 0;
 const lastReloaded = Date.now();
 setInterval(async () => {
 	try {
-		++counter;
-		if (counter < 60) return;
-
 		if (document.getElementById('pauseReload').checked) return;
 
 		const dateNow = Date.now();
+
+		if (dateNow - lastReloaded < 5 * 60 * 1000) return;
 
 		const dateStr = new Date(dateNow);
 		const dateMinutes = dateStr.getMinutes();
@@ -392,7 +390,7 @@ setInterval(async () => {
 		location.reload();
 	}
 
-}, 1 * 1000);
+}, 0.5 * 1000);
 
 window.onbeforeunload = function (event) {
 	sessionStorage.setItem('scrollY', window.scrollY);
