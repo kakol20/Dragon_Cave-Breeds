@@ -93,7 +93,7 @@ async function draw() {
 	} catch (err) {
 		document.getElementById('output').innerHTML = `${err}<br>Reloading in 5 seconds`;
 		await sleep(5 * 1000);
-		location.reload();
+		await customReload();
 	}
 }
 
@@ -366,16 +366,16 @@ setInterval(async () => {
 		await checkGitAPI();
 		const pushed_at = jsonRepo.pushed_at;
 
-		// if (gistLastUpdated !== update_at) location.reload();
+		// if (gistLastUpdated !== update_at) await customReload();
 		if (jsonLastPushed !== pushed_at) {
 			sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
-			location.reload();
+			await customReload();
 		}
 
 		// if (dateNow - lastReloaded < 10 * 60 * 1000) return;
 
-		if (dateMinutes % 30 === 0 && dateNow - lastReloaded >= 10 * 60 * 1000) location.reload();
-		if (dateNow - lastReloaded >= 30 * 60 * 1000) location.reload();
+		if (dateMinutes % 30 === 0 && dateNow - lastReloaded >= 10 * 60 * 1000) await customReload();
+		if (dateNow - lastReloaded >= 30 * 60 * 1000) await customReload();
 
 		const rateLimit = await checkRateLimit();
 		console.log(rateLimit);
@@ -387,10 +387,15 @@ setInterval(async () => {
 		// console.error(err);
 		document.getElementById('output').innerHTML = `<p>${err}<br>Reloading in 5 seconds</p>`;
 		await sleep(5 * 1000);
-		location.reload();
+		await customReload();
 	}
 
 }, 0.5 * 1000);
+
+async function customReload() {
+	location.reload();
+	await sleep(1.5 * 1000);
+}
 
 window.onbeforeunload = function (event) {
 	sessionStorage.setItem('scrollY', window.scrollY);
