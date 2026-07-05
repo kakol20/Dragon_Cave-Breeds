@@ -3,11 +3,12 @@ let dragons;
 let breeds;
 
 let jsonLastPushed;
-let firstDate;
 let jsonRepo = null;
 
+const maxDisplay = 50;
+
 async function run() {
-	firstDate = Date.now();
+	lastReloaded = Date.now()
 
 	const mainResponse = await fetch('main.json');
 	if (!mainResponse.ok) {
@@ -93,7 +94,7 @@ async function draw() {
 	} catch (err) {
 		document.getElementById('output').innerHTML = `${err}<br>Reloading in 5 seconds`;
 		await sleep(5 * 1000);
-		await customReload();
+		customReload();
 	}
 }
 
@@ -105,7 +106,8 @@ window.matchMedia("(orientation: portrait)").addEventListener("change", async e 
 	await draw();
 });
 
-const maxDisplay = 50;
+
+const portrait_td_style = `padding-left:2px;padding-right: 2px;padding-top: 1px; padding-bottom: 1px;`;
 async function drawPortrait() {
 	const dateNow = lastReloaded;
 	const dateStr = new Date(dateNow);
@@ -148,7 +150,7 @@ async function drawPortrait() {
 		for (const egg in breeds[breed.id].name) {
 			output += `<tr>`
 
-			output += `<td style="padding:2px;"><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
+			output += `<td style=${portrait_td_style}><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
 			output += `<img src="${breeds[breed.id].img[egg]}"`;
 			output += `title="${breeds[breed.id].name[egg]}`;
 			output += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
@@ -179,7 +181,7 @@ async function drawPortrait() {
 	if (unfinished.length > 0) {
 		output += `<br><table><tbody>`
 		output += `<tr><th style="padding:5px;">Unfinished</th></tr>`;
-		output += `<tr><td style="padding:2px; line-height: 1;">`
+		output += `<tr><td style="${portrait_td_style}">`
 
 		for (const id of unfinished) {
 			for (const egg in breeds[id].name) {
@@ -198,7 +200,7 @@ async function drawPortrait() {
 	if (hidden.length > 0) {
 		output += `<br><table><tbody>`
 		output += `<tr><th style="padding:5px;">Finished</th></tr>`;
-		output += `<tr><td style="padding:2px; line-height: 1;">`;
+		output += `<tr><td style="${portrait_td_style}">`;
 
 		for (const id of hidden) {
 			// console.log(id, breeds[id]);
@@ -225,7 +227,7 @@ async function drawPortrait() {
 
 	document.getElementById('output').innerHTML = output;
 }
-
+const landscape_td_style = `padding-left:5px;padding-right: 5px;padding-top: 4px; padding-bottom: 4px;`;
 async function drawLandscape() {
 	const dateNow = lastReloaded;
 	const dateStr = new Date(dateNow);
@@ -265,7 +267,7 @@ async function drawLandscape() {
 		output += `<tr>`;
 
 		// ==== EGGS ====
-		output += `<td style="padding:5px;">`;
+		output += `<td style="${landscape_td_style}">`;
 		for (const egg in breeds[breed.id].name) {
 			output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
 			output += `<img src="${breeds[breed.id].img[egg]}"`;
@@ -299,7 +301,7 @@ async function drawLandscape() {
 	if (unfinished.length > 0) {
 		output += `<br><table><tbody>`
 		output += `<tr><th style="padding:5px;">Unfinished</th></tr>`;
-		output += `<tr><td style="padding:5px; line-height: 1;">`
+		output += `<tr><td style="${landscape_td_style}">`
 
 		for (const id of unfinished) {
 			for (const egg in breeds[id].name) {
@@ -318,7 +320,7 @@ async function drawLandscape() {
 	if (hidden.length > 0) {
 		output += `<br><table><tbody>`
 		output += `<tr><th style="padding:5px;">Finished</th></tr>`;
-		output += `<tr><td style="padding:5px; line-height: 1;">`;
+		output += `<tr><td style="${landscape_td_style}">`;
 
 		for (const id of hidden) {
 			// console.log(id, breeds[id]);
@@ -344,14 +346,15 @@ async function drawLandscape() {
 	document.getElementById('output').innerHTML = output;
 }
 
-const lastReloaded = Date.now();
-setInterval(async () => {
+let lastReloaded = Date.now();
+const reloadInterval = setInterval(async () => {
 	try {
 		if (document.getElementById('pauseReload')?.checked) return;
 
 		const dateNow = Date.now();
 
 		if (dateNow - lastReloaded < 5 * 60 * 1000) return;
+		console.log(dateNow, lastReloaded, dateNow - lastReloaded < 5 * 60 * 1000);
 
 		const dateStr = new Date(dateNow);
 		const dateMinutes = dateStr.getMinutes();
@@ -366,16 +369,16 @@ setInterval(async () => {
 		await checkGitAPI();
 		const pushed_at = jsonRepo.pushed_at;
 
-		// if (gistLastUpdated !== update_at) await customReload();
+		// if (gistLastUpdated !== update_at) customReload();
 		if (jsonLastPushed !== pushed_at) {
 			sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
-			await customReload();
+			customReload();
 		}
 
 		// if (dateNow - lastReloaded < 10 * 60 * 1000) return;
 
-		if (dateMinutes % 30 === 0 && dateNow - lastReloaded >= 10 * 60 * 1000) await customReload();
-		if (dateNow - lastReloaded >= 30 * 60 * 1000) await customReload();
+		if (dateMinutes % 30 === 0 && dateNow - lastReloaded >= 10 * 60 * 1000) customReload();
+		if (dateNow - lastReloaded >= 30 * 60 * 1000) customReload();
 
 		const rateLimit = await checkRateLimit();
 		console.log(rateLimit);
@@ -384,17 +387,22 @@ setInterval(async () => {
 		output += `</small>`;
 		document.getElementById('rateLimit').innerHTML = output;
 	} catch (err) {
-		// console.error(err);
+		console.error(err);
 		document.getElementById('output').innerHTML = `<p>${err}<br>Reloading in 5 seconds</p>`;
 		await sleep(5 * 1000);
-		await customReload();
+		customReload();
 	}
 
 }, 0.5 * 1000);
 
-async function customReload() {
+function customReload() {
+	console.trace();
+	const dateNow = Date.now();
+	console.log(dateNow, lastReloaded, dateNow - lastReloaded < 1 * 60 * 1000);
+	if (dateNow - lastReloaded < 1 * 60 * 1000) return;
+
+	clearInterval(reloadInterval);
 	location.reload();
-	await sleep(1.5 * 1000);
 }
 
 window.onbeforeunload = function (event) {
@@ -404,7 +412,6 @@ window.onbeforeunload = function (event) {
 function sortDragons(a, b) {
 	const aNew = a.id === '@new';
 	const bNew = b.id === '@new';
-
 	if (aNew !== bNew) return bNew - aNew;
 
 	if (a.finished !== b.finished) return a.finished - b.finished;
