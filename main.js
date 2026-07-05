@@ -347,7 +347,7 @@ async function drawLandscape() {
 const lastReloaded = Date.now();
 setInterval(async () => {
 	try {
-		if (document.getElementById('pauseReload').checked) return;
+		if (document.getElementById('pauseReload')?.checked) return;
 
 		const dateNow = Date.now();
 
