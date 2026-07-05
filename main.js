@@ -158,7 +158,7 @@ async function drawPortrait() {
 
 			// ==== DRAGONS ====
 			if (egg === '0') {
-				output += `<td rowspan="${breeds[breed.id].name.length}" style="padding:2px;">`;
+				output += `<td rowspan="${breeds[breed.id].name.length}" style="${portrait_td_style}">`;
 
 				for (const dragon of breed.view) {
 					output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
@@ -283,7 +283,7 @@ async function drawLandscape() {
 
 		// ==== DRAGONS ====	
 		// View https://dragcave.net/image/r5HjG.gif
-		output += `<td style="padding:5px;">`;
+		output += `<td style="${landscape_td_style}">`;
 		for (const dragon of breed.view) {
 			output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
 			output += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
