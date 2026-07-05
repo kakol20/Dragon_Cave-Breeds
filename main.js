@@ -85,12 +85,15 @@ async function getJSON() {
 async function draw() {
 	try {
 		const portrait = window.matchMedia("(orientation: portrait)").matches;
+		unfinished.length = 0;
 
 		if (!portrait) {
 			await drawLandscape();
 		} else {
 			await drawPortrait();
 		}
+
+		toggleHidden_unfinished(lastUnfinish_shown);
 	} catch (err) {
 		document.getElementById('output').innerHTML = `${err}<br>Reloading in 5 seconds`;
 		await sleep(5 * 1000);
@@ -106,6 +109,8 @@ window.matchMedia("(orientation: portrait)").addEventListener("change", async e 
 	await draw();
 });
 
+const unfinished = [];
+let lastUnfinish_shown = 'none';
 
 const portrait_td_style = `padding-left:2px;padding-right: 2px;padding-top: 1px; padding-bottom: 1px;`;
 async function drawPortrait() {
@@ -113,6 +118,7 @@ async function drawPortrait() {
 	const dateStr = new Date(dateNow);
 
 	let output = ``;
+	let unfinishedOutput = '';
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
@@ -126,8 +132,7 @@ async function drawPortrait() {
 		<th style="padding:5px;">Dragons</th></tr>`;
 
 	// ========== DRAGONS ==========
-	let hidden = [];
-	let unfinished = [];
+	const hidden = [];
 	let dragonsDisplayed = 0;
 
 	for (const breed of dragons) {
@@ -143,6 +148,38 @@ async function drawPortrait() {
 			// hidden.push(breed.id);
 
 			unfinished.push(breed.id);
+
+			unfinishedOutput += `<table id="${breed.id}_hide" hidden>`;
+			unfinishedOutput += `<tr><th style="padding:5px;" colspan="2">${breeds[breed.id].description}</th></tr>`;
+
+			// ==== EGGS ====
+			for (const egg in breeds[breed.id].name) {
+				unfinishedOutput += `<tr>`
+
+				unfinishedOutput += `<td style=${portrait_td_style}><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
+				unfinishedOutput += `<img src="${breeds[breed.id].img[egg]}"`;
+				unfinishedOutput += `title="${breeds[breed.id].name[egg]}`;
+				unfinishedOutput += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
+				unfinishedOutput += `</a></td>`;
+
+				// ==== DRAGONS ====
+				if (egg === '0') {
+					unfinishedOutput += `<td rowspan="${breeds[breed.id].name.length}" style="${portrait_td_style}">`;
+
+					for (const dragon of breed.view) {
+						unfinishedOutput += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
+						unfinishedOutput += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
+						unfinishedOutput += `</a> `;
+					}
+
+					unfinishedOutput += `</td>`;
+					// console.log('Hit');
+				}
+
+				unfinishedOutput += `</tr>`;
+			}
+
+			unfinishedOutput += `</table>`;
 			continue;
 		}
 
@@ -185,7 +222,8 @@ async function drawPortrait() {
 
 		for (const id of unfinished) {
 			for (const egg in breeds[id].name) {
-				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
+				// output += `<a href="${breeds[id].encyclopedia}" target="_blank">`;
+				output += `<a onclick="toggleHidden_unfinished('${id}')">`;
 				output += `<img src="${breeds[id].img[egg]}"`;
 				output += `title="${breeds[id].name[egg]}`;
 				output += `\n${breeds[id].description}">`;
@@ -196,6 +234,7 @@ async function drawPortrait() {
 		output += `</td></tr>`;
 		output += `</tbody></table>`;
 	}
+	output += unfinishedOutput;
 
 	if (hidden.length > 0) {
 		output += `<br><table><tbody>`
@@ -246,9 +285,10 @@ async function drawLandscape() {
 		<th style="padding:5px;">Dragons</th></tr>`;
 
 	// ========== DRAGONS ==========
-	let hidden = [];
-	let unfinished = [];
+	const hidden = [];
 	let dragonsDisplayed = 0;
+
+	let unfinishedOutput = '';
 
 	for (const breed of dragons) {
 		if (dragonsDisplayed >= maxDisplay &&
@@ -261,6 +301,38 @@ async function drawLandscape() {
 		if (dragonsDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults) {
 			unfinished.push(breed.id);
+
+			unfinishedOutput += `<table id="${breed.id}_hide" hidden>`;
+			unfinishedOutput += `<tr><th style="padding:5px;" colspan="2">${breeds[breed.id].description}</th></tr>`;
+
+			// ==== EGGS ====
+			unfinishedOutput += `<tr><td style="${landscape_td_style}">`;
+
+			for (const egg in breeds[breed.id].name) {
+				unfinishedOutput += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
+				unfinishedOutput += `<img src="${breeds[breed.id].img[egg]}"`;
+				unfinishedOutput += `title="${breeds[breed.id].name[egg]}`;
+				unfinishedOutput += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
+				unfinishedOutput += `</a>`;
+
+				if (parseInt(egg) + 1 >= breeds[breed.id].name.length) continue;
+				// landscape
+				unfinishedOutput += ` `;
+			}
+			unfinishedOutput += `</td>`;
+
+			// ==== DRAGONS ====	
+			// View https://dragcave.net/image/r5HjG.gif
+			unfinishedOutput += `<td style="${landscape_td_style}">`;
+			for (const dragon of breed.view) {
+				unfinishedOutput += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
+				unfinishedOutput += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
+				unfinishedOutput += `</a> `;
+			}
+			// End
+			unfinishedOutput += `</td></tr>`;
+
+			unfinishedOutput += `</table>`;
 			continue;
 		}
 
@@ -305,7 +377,8 @@ async function drawLandscape() {
 
 		for (const id of unfinished) {
 			for (const egg in breeds[id].name) {
-				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
+				// output += `<a href="${breeds[id].encyclopedia}" target="_blank">`;
+				output += `<a onclick="toggleHidden_unfinished('${id}')">`;
 				output += `<img src="${breeds[id].img[egg]}"`;
 				output += `title="${breeds[id].name[egg]}`;
 				output += `\n${breeds[id].description}">`;
@@ -316,6 +389,7 @@ async function drawLandscape() {
 		output += `</td></tr>`;
 		output += `</tbody></table>`;
 	}
+	output += unfinishedOutput;
 
 	if (hidden.length > 0) {
 		output += `<br><table><tbody>`
@@ -346,6 +420,22 @@ async function drawLandscape() {
 	document.getElementById('output').innerHTML = output;
 }
 
+function toggleHidden_unfinished(id) {
+	lastUnfinish_shown = id;
+	if (unfinished.length <= 0) return;
+	for (const tag of unfinished) {
+		const elementId = `${tag}_hide`;
+		// element.toggleAttribute('hidden');
+		// console.log(tag);
+		// document.getElementById('seasonal_summer_hide').toggleAttribute('hidden');
+		if (id === tag) {
+			document.getElementById(elementId).hidden = false;
+		} else {
+			document.getElementById(elementId).hidden = true;
+		}
+	}
+}
+
 let lastReloaded = Date.now();
 const reloadInterval = setInterval(async () => {
 	try {
@@ -354,7 +444,7 @@ const reloadInterval = setInterval(async () => {
 		const dateNow = Date.now();
 
 		if (dateNow - lastReloaded < 5 * 60 * 1000) return;
-		console.log(dateNow, lastReloaded, dateNow - lastReloaded < 5 * 60 * 1000);
+		// console.log(dateNow, lastReloaded, dateNow - lastReloaded < 5 * 60 * 1000);
 
 		const dateStr = new Date(dateNow);
 		const dateMinutes = dateStr.getMinutes();
