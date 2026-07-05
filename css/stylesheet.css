@@ -63,7 +63,7 @@ td {
 	/* border-collapse: separate; */
 	/* border-radius: 5px; */
 	background-clip: content-box;
-	line-height: 1;
+	/* line-height: 1; */
 
 	text-align: center;
 	vertical-align: middle;
