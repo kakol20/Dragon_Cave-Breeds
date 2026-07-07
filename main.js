@@ -263,25 +263,7 @@ async function drawPortrait() {
 	}
 	output += unfinishedOutput;
 
-	if (hidden.length > 0) {
-		output += `<br><table>`
-		output += `<tr><th style="padding:5px;">Finished</th></tr>`;
-		output += `<tr><td style="${portrait_td_style}border-bottom-right-radius: 5px;">`;
-
-		for (const id of hidden) {
-			// console.log(id, breeds[id]);
-			for (const egg in breeds[id].name) {
-				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
-				output += `<img src="${breeds[id].img[egg]}"`;
-				output += `title="${breeds[id].name[egg]}`;
-				output += `\n${breeds[id].description}">`;
-				output += `</a>`;
-			}
-			output += ` `;
-		}
-		output += `</td></tr>`;
-		output += `</table>`;
-	}
+	output += drawHidden_finished(hidden, portrait_td_style);
 
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
@@ -444,25 +426,7 @@ async function drawLandscape() {
 	}
 	output += unfinishedOutput;
 
-	if (hidden.length > 0) {
-		output += `<br><table>`
-		output += `<tr><th style="padding:5px;">Finished</th></tr>`;
-		output += `<tr><td style="${landscape_td_style}border-bottom-right-radius: 5px;">`;
-
-		for (const id of hidden) {
-			// console.log(id, breeds[id]);
-			for (const egg in breeds[id].name) {
-				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
-				output += `<img src="${breeds[id].img[egg]}"`;
-				output += `title="${breeds[id].name[egg]}`;
-				output += `\n${breeds[id].description}">`;
-				output += `</a>`;
-			}
-			output += ` `;
-		}
-		output += `</td></tr>`;
-		output += `</table>`;
-	}
+	output += drawHidden_finished(hidden, landscape_td_style);
 
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
@@ -484,6 +448,31 @@ function toggleHidden_unfinished(id) {
 			document.getElementById(elementId).hidden = true;
 		}
 	}
+}
+
+function drawHidden_finished(hidden, style) {
+	if (hidden.length <= 0) return '';
+
+	console.log('Hidden Amount', hidden.length);
+	
+	let output = `<br><table>`
+	output += `<tr><th style="padding:5px;">Finished</th></tr>`;
+	output += `<tr><td style="${style}border-bottom-right-radius: 5px;">`;
+
+	for (const id of hidden) {
+		// console.log(id, breeds[id]);
+		for (const egg in breeds[id].name) {
+			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
+			output += `<img src="${breeds[id].img[egg]}"`;
+			output += `title="${breeds[id].name[egg]}`;
+			output += `\n${breeds[id].description}">`;
+			output += `</a>`;
+		}
+		output += ` `;
+	}
+	output += `</td></tr>`;
+	output += `</table>`;
+	return output;
 }
 
 let lastReloaded = Date.now();
