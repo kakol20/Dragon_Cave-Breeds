@@ -157,7 +157,7 @@ async function drawPortrait() {
 			for (const egg in breeds[breed.id].name) {
 				unfinishedOutput += `<tr>`
 
-				unfinishedOutput += `<td style=${portrait_td_style}><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
+				unfinishedOutput += `<td style="${portrait_td_style}border-bottom-right-radius:0;"><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
 				unfinishedOutput += `<img src="${breeds[breed.id].img[egg]}"`;
 				unfinishedOutput += `title="${breeds[breed.id].name[egg]}`;
 				unfinishedOutput += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
@@ -165,7 +165,7 @@ async function drawPortrait() {
 
 				// ==== DRAGONS ====
 				if (egg === '0') {
-					unfinishedOutput += `<td rowspan="${breeds[breed.id].name.length}" style="${portrait_td_style}">`;
+					unfinishedOutput += `<td rowspan="${breeds[breed.id].name.length}" style="${portrait_td_style}border-bottom-right-radius:5px;">`;
 
 					for (const dragon of breed.view) {
 						unfinishedOutput += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
@@ -188,7 +188,7 @@ async function drawPortrait() {
 		for (const egg in breeds[breed.id].name) {
 			output += `<tr>`
 
-			output += `<td style=${portrait_td_style}><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
+			output += `<td style="${portrait_td_style}"><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
 			output += `<img src="${breeds[breed.id].img[egg]}"`;
 			output += `title="${breeds[breed.id].name[egg]}`;
 			output += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
