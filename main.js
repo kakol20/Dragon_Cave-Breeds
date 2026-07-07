@@ -20,6 +20,7 @@ async function run() {
 	// console.log(main);
 
 	jsonRepo = sessionStorage.getItem('jsonRepo');
+	lastUnfinish_shown = sessionStorage.getItem('lastUnfinish_shown');
 
 	if (jsonRepo) {
 		jsonRepo = JSON.parse(jsonRepo);
@@ -425,9 +426,6 @@ function toggleHidden_unfinished(id) {
 	if (unfinished.length <= 0) return;
 	for (const tag of unfinished) {
 		const elementId = `${tag}_hide`;
-		// element.toggleAttribute('hidden');
-		// console.log(tag);
-		// document.getElementById('seasonal_summer_hide').toggleAttribute('hidden');
 		if (id === tag) {
 			document.getElementById(elementId).hidden = false;
 		} else {
@@ -486,6 +484,7 @@ const reloadInterval = setInterval(async () => {
 }, 0.5 * 1000);
 
 function customReload() {
+	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
 	console.trace();
 	const dateNow = Date.now();
 	console.log(dateNow, lastReloaded, dateNow - lastReloaded < 1 * 60 * 1000);
