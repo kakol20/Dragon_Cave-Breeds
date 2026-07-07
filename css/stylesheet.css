@@ -89,9 +89,9 @@ tr:last-of-type td:first-of-type {
 	border-bottom-left-radius: 5px;
 }
 
-tr:last-of-type td:last-of-type {
+/* tr:last-of-type td:last-of-type {
 	border-bottom-right-radius: 5px;
-}
+} */
 
 img {
 	image-rendering: pixelated;
