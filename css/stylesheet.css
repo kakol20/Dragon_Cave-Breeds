@@ -2,7 +2,7 @@
 	color-scheme: light dark;
 
 	--light: #ffe6d2;
-	--dark: color-mix(in oklch shorter hue, rgb(0, 0, 0), var(--light) 18.22%);
+	--dark: color-mix(in oklab, rgb(0, 0, 0), var(--light) 18.22%);
 
 	/* For Debugging */
 	/* --light: white; */
@@ -12,12 +12,12 @@
 	--ref1: light-dark(var(--light), var(--dark));
 	--ref2: light-dark(var(--dark), var(--light));
 
-	--background: color-mix(in oklch shorter hue, var(--ref1), var(--ref2) 5%);
-	--foreground: color-mix(in oklch shorter hue, var(--ref1), var(--ref2) 85%);
+	--background: color-mix(in oklab, var(--ref1), var(--ref2) 5%);
+	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 85%);
 
-	--background2: color-mix(in oklch shorter hue, var(--ref1), var(--ref2) 0.5%);
+	--background2: color-mix(in oklab, var(--ref1), var(--ref2) 0.5%);
 
-	--backgroundFinal: linear-gradient(in oklch shorter hue, var(--background), var(--background2));
+	--backgroundFinal: linear-gradient(in oklab, var(--background), var(--background2));
 }
 
 .dm-mono-regular {
@@ -68,7 +68,7 @@ td {
 	text-align: center;
 	vertical-align: middle;
 	/* border: 1px solid var(--background); */
-	background: color-mix(in oklch shorter hue, transparent, var(--foreground) 5%);
+	background: color-mix(in oklab, transparent, var(--foreground) 5%);
 }
 
 img {
@@ -88,10 +88,6 @@ th:last-of-type {
 tr:last-of-type td:first-of-type {
 	border-bottom-left-radius: 5px;
 }
-
-/* tr:last-of-type td:last-of-type {
-	border-bottom-right-radius: 5px;
-} */
 
 img {
 	image-rendering: pixelated;
