@@ -487,7 +487,7 @@ function drawHidden_finished(hidden, style) {
 
 		if (previousPage === page) {
 			output += `<td style="padding:5px;">
-				<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Previous</a>
+				<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>
 			</td>`;
 		} else {
 			output += `<td style="padding:5px;">
