@@ -47,7 +47,6 @@ body {
 .isDisabled {
   color: color-mix(in oklab, transparent, var(--foreground) 50%);
   cursor: not-allowed;
-  /* opacity: 0.5; */
   text-decoration: none;
 	pointer-events: none;
 }

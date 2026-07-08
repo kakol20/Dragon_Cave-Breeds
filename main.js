@@ -142,17 +142,11 @@ async function drawPortrait() {
 
 		if (dragonsDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults &&
-			breed.finished) {
-			// hidden.push(breed.id);
-			lastDragon = dragons[i - 1].id;
-			break;
-		}
+			breed.finished) continue;
 		if (dragonsDisplayed >= maxDisplay &&
-			breed.view.length === breed.adults) {
-			lastDragon = dragons[i - 1].id;
-			break;
-		}
+			breed.view.length === breed.adults)	continue;
 
+		lastDragon = dragons[i].id;
 		for (const dragon of breed.view) ++dragonsDisplayed;
 	}
 	console.log('Last dragon', lastDragon);
@@ -303,17 +297,11 @@ async function drawLandscape() {
 
 		if (dragonsDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults &&
-			breed.finished) {
-			// hidden.push(breed.id);
-			lastDragon = dragons[i - 1].id;
-			break;
-		}
+			breed.finished) continue;
 		if (dragonsDisplayed >= maxDisplay &&
-			breed.view.length === breed.adults) {
-			lastDragon = dragons[i - 1].id;
-			break;
-		}
+			breed.view.length === breed.adults)	continue;
 
+		lastDragon = dragons[i].id;
 		for (const dragon of breed.view) ++dragonsDisplayed;
 	}
 	console.log('Last dragon', lastDragon);
