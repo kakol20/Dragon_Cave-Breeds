@@ -2,7 +2,7 @@
 	color-scheme: light dark;
 
 	--light: #ffe6d2;
-	--dark: color-mix(in oklab, rgb(0, 0, 0), var(--light) 18.22%);
+	--dark: color-mix(in oklab, rgb(0, 0, 0), var(--light) 15%);
 
 	/* For Debugging */
 	/* --light: white; */
@@ -44,6 +44,14 @@ body {
 	background-repeat: no-repeat;
 }
 
+.isDisabled {
+  color: color-mix(in oklab, transparent, var(--foreground) 50%);
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+	pointer-events: none;
+}
+
 textarea {
 	width: 95%;
 }
@@ -71,12 +79,6 @@ td {
 	background: color-mix(in oklab, transparent, var(--foreground) 5%);
 }
 
-img {
-	vertical-align: text-bottom;
-	margin-top: 1px;
-	margin-bottom: 1px;
-}
-
 th:first-of-type {
 	border-top-left-radius: 5px;
 }
@@ -92,6 +94,9 @@ tr:last-of-type td:first-of-type {
 img {
 	image-rendering: pixelated;
 	image-rendering: -moz-crisp-edges;
+	vertical-align: text-bottom;
+	margin-top: 1px;
+	margin-bottom: 1px;
 }
 
 label {

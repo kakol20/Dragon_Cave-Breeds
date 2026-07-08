@@ -450,29 +450,81 @@ function toggleHidden_unfinished(id) {
 	}
 }
 
+let hidden_pageShown = 0;
 function drawHidden_finished(hidden, style) {
 	if (hidden.length <= 0) return '';
 
-	console.log('Hidden Amount', hidden.length);
-	
-	let output = `<br><table>`
-	output += `<tr><th style="padding:5px;">Finished</th></tr>`;
-	output += `<tr><td style="${style}border-bottom-right-radius: 5px;">`;
+	const hidden_maxDisplay = 50;
+	const maxPages = Math.ceil(hidden.length / hidden_maxDisplay);
 
-	for (const id of hidden) {
-		// console.log(id, breeds[id]);
-		for (const egg in breeds[id].name) {
-			output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
-			output += `<img src="${breeds[id].img[egg]}"`;
-			output += `title="${breeds[id].name[egg]}`;
-			output += `\n${breeds[id].description}">`;
-			output += `</a>`;
+	let output = '<br>';
+
+	for (let page = 0; page < maxPages; ++page) {
+		const maxIndex = Math.min(hidden.length, (page + 1) * hidden_maxDisplay);
+		console.log('Page', page);
+
+		output += `<table id="hidden_page${page}" ${page === hidden_pageShown ? '' : 'hidden'}>`;
+		output += `<tr><th colspan="3" style="padding:5px;">Finished</th></tr>`;
+		output += `<tr><td colspan="3" style="${style}">`;
+		for (let i = page * hidden_maxDisplay; i < maxIndex; ++i) {
+			const id = hidden[i];
+			for (const egg in breeds[id].name) {
+				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
+				output += `<img src="${breeds[id].img[egg]}"`;
+				output += `title="${breeds[id].name[egg]}`;
+				output += `\n${breeds[id].description}">`;
+				output += `</a>`;
+			}
+			output += ` `;
 		}
-		output += ` `;
+		output += `</td></tr>`;
+
+		// ==== Page Navigation ====
+		const previousPage = Math.max(0, page - 1);
+		const nextPage = Math.min(maxPages - 1, page + 1);
+
+		output += '<tr>';
+
+		if (previousPage === page) {
+			output += `<td style="padding:5px;">
+				<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>
+			</td>`;
+		} else {
+			output += `<td style="padding:5px;">
+				<a href="javascript:void(0);" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>
+			</td>`;
+		}
+
+		output += `<td style="padding:5px;">${page * hidden_maxDisplay + 1} to ${maxIndex} of ${maxIndex}</td>`;
+
+		if (nextPage === page) {
+			output += `<td style="padding:5px;border-bottom-right-radius: 5px;">
+				<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${nextPage}, ${maxPages})" style="padding:5px;">Next</a>
+			</td>`;
+		} else {
+			output += `<td style="padding:5px;border-bottom-right-radius: 5px;">
+				<a href="javascript:void(0);" onclick="hidden_switchPage(${nextPage}, ${maxPages})" style="padding:5px;">Next</a>
+			</td>`;
+		}
+
+		output += '</tr></table>';
 	}
-	output += `</td></tr>`;
-	output += `</table>`;
 	return output;
+}
+
+function hidden_switchPage(page, maxPages) {
+	// console.log(page, maxPages);
+	hidden_pageShown = page;
+
+	for (let i = 0; i < maxPages; ++i) {
+		const id = `hidden_page${i}`;
+
+		if (i === page) {
+			document.getElementById(id).hidden = false;
+		} else {
+			document.getElementById(id).hidden = true;
+		}
+	}
 }
 
 let lastReloaded = Date.now();
