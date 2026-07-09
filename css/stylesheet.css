@@ -2,12 +2,11 @@
 	color-scheme: dark;
 
 	--light: #FFE4AF;
-
-	/* --dark: color-mix(in oklab, black, var(--light) 5%); */
+	--dark: color-mix(in oklab, black, var(--light) 10%);
 	
 	/* For Debugging */
 	/* --light: white; */
-	--dark: black;
+	/* --dark: black; */
 	/* --background2: color-mix(in oklab, var(--ref1), var(--ref2) 100%); */
 
 	--ref1: light-dark(var(--light), var(--dark));
