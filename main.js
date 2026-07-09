@@ -1,7 +1,16 @@
 async function run() {
 	const root = document.documentElement;
 
-	lastReloaded = Date.now()
+	const toggleThemeStore = sessionStorage.getItem('toggleTheme') === 'true';
+	console.log(toggleThemeStore);
+
+	if (toggleThemeStore) {
+		root.style.colorScheme = 'light';
+	} else {
+		root.style.colorScheme = 'dark';
+	}
+
+	lastReloaded = Date.now();
 
 	const mainResponse = await fetch('main.json');
 	if (!mainResponse.ok) {
@@ -31,14 +40,9 @@ async function run() {
 	const y = sessionStorage.getItem('scrollY');
 	if (y) window.scrollTo(0, parseInt(y));
 
-	const toggleThemeStore = sessionStorage.getItem('toggleTheme') === 'true';
-	console.log(toggleThemeStore);
-
 	if (toggleThemeStore) {
-		root.style.colorScheme = 'light';
 		document.getElementById('toggleTheme').checked = true;
 	} else {
-		root.style.colorScheme = 'dark';
 		document.getElementById('toggleTheme').checked = false;
 	}
 }

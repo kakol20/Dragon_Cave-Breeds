@@ -1,12 +1,11 @@
 :root {
 	color-scheme: dark;
 
-	/* --light: #ffe6d2; */
-	/* --dark: color-mix(in oklab, black, var(--light) 15%); */
-	
 	--light: #FFE4AE;
-	--dark: #0b0907;
+	/* --light: #ffe6d2; */
 
+	--dark: color-mix(in oklab, black, var(--light) 15%);
+	
 	/* For Debugging */
 	/* --light: white; */
 	/* --dark: blue; */
@@ -15,12 +14,13 @@
 	--ref1: light-dark(var(--light), var(--dark));
 	--ref2: light-dark(var(--dark), var(--light));
 
-	--background: color-mix(in oklab, var(--ref1), var(--ref2) 15.65%);
-	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 84.35%);
+	--background: color-mix(in oklab, var(--ref1), var(--ref2) 5%);
+	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 95%);
 
 	--background2: color-mix(in oklab, var(--ref1), var(--ref2) 0.5%);
 
 	--backgroundFinal: linear-gradient(in oklab, var(--background), var(--background2));
+	/* --backgroundFinal: var(--background); */
 }
 
 .dm-mono-regular {
