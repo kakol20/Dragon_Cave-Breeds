@@ -1,9 +1,11 @@
 :root {
 	color-scheme: dark;
 
-	--light: #ffe6d2;
-	--dark: color-mix(in oklab, black, var(--light) 15%);
-	/* --dark: black; */
+	/* --light: #ffe6d2; */
+	/* --dark: color-mix(in oklab, black, var(--light) 15%); */
+	
+	--light: #FFEBC0;
+	--dark: #0b0907;
 
 	/* For Debugging */
 	/* --light: white; */
@@ -13,8 +15,8 @@
 	--ref1: light-dark(var(--light), var(--dark));
 	--ref2: light-dark(var(--dark), var(--light));
 
-	--background: color-mix(in oklab, var(--ref1), var(--ref2) 8.42%);
-	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 91.58%);
+	--background: color-mix(in oklab, var(--ref1), var(--ref2) 9.89%);
+	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 90.10%);
 
 	--background2: color-mix(in oklab, var(--ref1), var(--ref2) 0.5%);
 
