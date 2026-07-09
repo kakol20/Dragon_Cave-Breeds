@@ -1,5 +1,5 @@
 :root {
-	color-scheme: light dark;
+	color-scheme: dark;
 
 	--light: #ffe6d2;
 	--dark: color-mix(in oklab, rgb(0, 0, 0), var(--light) 15%);
