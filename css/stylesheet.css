@@ -1,23 +1,22 @@
 :root {
 	color-scheme: dark;
 
-	--light: #FFE4AE;
-	/* --light: #ffe6d2; */
+	--light: #FFE4AF;
 
-	--dark: color-mix(in oklab, black, var(--light) 15%);
+	/* --dark: color-mix(in oklab, black, var(--light) 5%); */
 	
 	/* For Debugging */
 	/* --light: white; */
-	/* --dark: blue; */
+	--dark: black;
 	/* --background2: color-mix(in oklab, var(--ref1), var(--ref2) 100%); */
 
 	--ref1: light-dark(var(--light), var(--dark));
 	--ref2: light-dark(var(--dark), var(--light));
 
-	--background: color-mix(in oklab, var(--ref1), var(--ref2) 5%);
-	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 95%);
+	--background: color-mix(in oklab, var(--ref1), var(--ref2) 13.314%);
+	--foreground: color-mix(in oklab, var(--ref1), var(--ref2) 86.686%);
 
-	--background2: color-mix(in oklab, var(--ref1), var(--ref2) 0.5%);
+	--background2: color-mix(in oklab, var(--ref1), var(--ref2) 9.985%);
 
 	--backgroundFinal: linear-gradient(in oklab, var(--background), var(--background2));
 	/* --backgroundFinal: var(--background); */
@@ -42,13 +41,13 @@ body {
 
 	/* Canvas: 18, CanvasText: 255 */
 	/* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/system-color */
-	color: var(--foreground);
+	color: var(--ref2);
 	background: var(--backgroundFinal);
 	background-repeat: no-repeat;
 }
 
 .isDisabled {
-  color: color-mix(in oklab, transparent, var(--foreground) 50%);
+  color: color-mix(in oklab, transparent, var(--ref2) 50%);
   cursor: not-allowed;
   text-decoration: none;
 	pointer-events: none;
@@ -118,7 +117,7 @@ input {
 }
 
 hr {
-	border: 1.5px solid var(--foreground);
+	border: 1.5px solid var(--ref2);
 	width: calc(100% + 20px);
 	padding: none;
 	position: relative;
