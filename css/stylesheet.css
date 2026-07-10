@@ -21,6 +21,33 @@
 	/* --backgroundFinal: var(--background); */
 }
 
+.backgroundImg {
+	position: relative;
+	width: 100%;
+	max-width: max-content;
+	min-height: max-content;
+}
+
+.backgroundImg::before {
+	content: "";
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+
+	background-image: url("https://dragcave.net/image/0xmpe.gif");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+  background-attachment: fixed;
+	image-rendering: pixelated;
+	opacity: 0.1;
+	z-index: -1;
+	/* filter: blur(5px); */
+}
+.main {
+	position: relative;
+	z-index: 1;
+}
+
 .dm-mono-regular {
 	font-family: "DM Mono", monospace;
 	font-weight: 400;
@@ -77,6 +104,7 @@ td {
 	vertical-align: middle;
 	/* border: 1px solid var(--background); */
 	background: color-mix(in oklab, transparent, var(--foreground) 5%);
+	backdrop-filter: blur(3px);
 }
 
 th:first-of-type {
