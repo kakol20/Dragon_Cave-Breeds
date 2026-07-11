@@ -28,11 +28,33 @@
 	<!-- <img class="backgroundImg" src="https://dragcave.net/image/0xmpe.gif"> -->
 	<div class="backgroundImg">
 		<div class="main">
-			<header>
-				<a href="https://dragcave.net/user/kakol20" target="_blank">
+			<header style="display: flex; gap: 5px; align-items: flex-end;">
+				<!-- <a href="https://dragcave.net/user/kakol20" target="_blank">
 					<img alt="kakol20" title="Link to Dragon Cave page" src="https://greg-kennedy.com/dragcave/sig/kakol20.png">
 				</a>
-				<br>
+				<br> -->
+				<table>
+					<tr>
+						<th style="padding:5px;" colspan="2"><a href="https://dragcave.net/user/kakol20" target="_blank">kakol20</a>
+						</th>
+					</tr>
+					<tr>
+						<td style="padding:5px; text-align: left;">Eggs</td>
+						<td style="padding:5px; text-align: right;" id="stats_eggs">0</td>
+					</tr>
+					<tr>
+						<td style="padding:5px; text-align: left;">Hatchlings</td>
+						<td style="padding:5px; text-align: right;" id="stats_hatch">0</td>
+					</tr>
+					<tr>
+						<td style="padding:5px; text-align: left;" title="Frozen Dragons will count towards Adult count">Adults</td>
+						<td style="padding:5px; text-align: right;" id="stats_adult">0</td>
+					</tr>
+					<tr>
+						<td style="padding:5px; text-align: left;">Total</td>
+						<td style="padding:5px; text-align: right; border-bottom-right-radius: 5px;" id="stats_total">0</td>
+					</tr>
+				</table>
 				<a href="https://dragcave.net/view/0xmpe" target="_blank">
 					<img src="https://dragcave.net/image/0xmpe.gif" alt="0xmpe" title="0xmpe
 Oh my. There is a leetle tree among the eggs.">

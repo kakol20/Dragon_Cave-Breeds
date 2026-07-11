@@ -20,6 +20,33 @@ async function checkGitAPI() {
 	sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 }
 
+function updateStats() {
+	// 53 pre 2026 Adults not in JSON file + 1 Leetle Tree
+	const extraAdults = 54;
+
+	let eggs = 0, hatch = 0, adult = 0, total = 0;
+
+	for (const breed of dragons) {
+		console.log(breed);
+		const currentAdult = breed.adults;
+		const currentHatch = breed.hatchlings;
+		const currentEggs = breed.view.length - currentAdult - currentHatch;
+
+		eggs += currentEggs;
+		hatch += currentHatch;
+		adult += currentAdult;
+		total += breed.view.length;
+	}
+
+	adult += extraAdults;
+	total += extraAdults;
+
+	document.getElementById('stats_eggs').innerHTML = eggs;
+	document.getElementById('stats_hatch').innerHTML = hatch;
+	document.getElementById('stats_adult').innerHTML = adult;
+	document.getElementById('stats_total').innerHTML = total;
+}
+
 async function checkRateLimit() {
 	return await fetch('https://api.github.com/rate_limit', {
 		cache: 'no-store'

@@ -35,6 +35,7 @@ async function run() {
 	jsonLastPushed = jsonRepo.pushed_at;
 
 	await getJSON();
+	updateStats();
 	await draw();
 
 	const y = sessionStorage.getItem('scrollY');

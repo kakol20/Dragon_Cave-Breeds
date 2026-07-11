@@ -24,8 +24,9 @@
 .backgroundImg {
 	position: relative;
 	width: 100%;
-	max-width: max-content;
-	min-height: max-content;
+	/* max-width: max-content; */
+	/* min-height: max-content; */
+	width: 100%;
 }
 
 .backgroundImg::before {
@@ -54,13 +55,14 @@
 	font-style: normal;
 }
 
-header {
+/* header {
 	text-align: center;
-}
+} */
 
 body {
 	font-family: 'DM Mono';
 	font-size: 14px;
+
 
 	padding: 10px;
 	/* line-height: 1.3; */
