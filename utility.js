@@ -27,7 +27,7 @@ function updateStats() {
 	let eggs = 0, hatch = 0, adult = 0, total = 0;
 
 	for (const breed of dragons) {
-		console.log(breed);
+		// console.log(breed);
 		const currentAdult = breed.adults;
 		const currentHatch = breed.hatchlings;
 		const currentEggs = breed.view.length - currentAdult - currentHatch;
