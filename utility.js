@@ -5,7 +5,7 @@ let breeds;
 let jsonLastPushed;
 let jsonRepo = null;
 
-const maxDisplay = 50;
+const maxDisplay = 75;
 
 async function checkGitAPI() {
 	const rate_limit = await checkRateLimit();

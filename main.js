@@ -102,33 +102,35 @@ async function drawPortrait() {
 
 	// ========== DRAGONS ==========
 	const hidden = [];
-	let dragonsDisplayed = 0;
+	let imagesDisplayed = 0;
 
 	let lastDragon = 'none';
 	for (let i = 0; i < dragons.length; ++i) {
 		const breed = dragons[i];
 
-		if (dragonsDisplayed >= maxDisplay &&
+		if (imagesDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults &&
 			breed.finished) continue;
-		if (dragonsDisplayed >= maxDisplay &&
+		if (imagesDisplayed >= maxDisplay &&
 			breed.view.length === breed.adults)	continue;
 
 		lastDragon = dragons[i].id;
-		for (const dragon of breed.view) ++dragonsDisplayed;
+		// for (const dragon of breed.view) ++imagesDisplayed;
+		imagesDisplayed += breed.view.length;
+		imagesDisplayed += breeds[breed.id].name.length;
 	}
 	console.log('Last dragon', lastDragon);
-	dragonsDisplayed = 0;
+	imagesDisplayed = 0;
 
 	for (const breed of dragons) {
-		if (dragonsDisplayed >= maxDisplay &&
+		if (imagesDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults &&
 			breed.finished) {
 			hidden.push(breed.id);
 			continue;
 		}
 
-		if (dragonsDisplayed >= maxDisplay &&
+		if (imagesDisplayed >= maxDisplay &&
 			breed.view.length === breed.adults) {
 			// hidden.push(breed.id);
 
@@ -190,19 +192,19 @@ async function drawPortrait() {
 					output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
 					output += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
 					output += `</a> `;
-					++dragonsDisplayed;
+					++imagesDisplayed;
 				}
 
 				output += `</td>`;
 				// console.log('Hit');
 			}
-
+			++imagesDisplayed;
 			output += `</tr>`
 		}
 	}
 	output += `</table>`;
 
-	console.log('Dragons displayed', dragonsDisplayed);
+	console.log('Images displayed on main table', imagesDisplayed);
 
 	if (unfinished.length > 0) {
 		output += `<br><table>`
@@ -261,35 +263,37 @@ async function drawLandscape() {
 
 	// ========== DRAGONS ==========
 	const hidden = [];
-	let dragonsDisplayed = 0;
+	let imagesDisplayed = 0;
 
 	let lastDragon = 'none';
 	for (let i = 0; i < dragons.length; ++i) {
 		const breed = dragons[i];
 
-		if (dragonsDisplayed >= maxDisplay &&
+		if (imagesDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults &&
 			breed.finished) continue;
-		if (dragonsDisplayed >= maxDisplay &&
+		if (imagesDisplayed >= maxDisplay &&
 			breed.view.length === breed.adults)	continue;
 
 		lastDragon = dragons[i].id;
-		for (const dragon of breed.view) ++dragonsDisplayed;
+		// for (const dragon of breed.view) ++dragonsDisplayed;
+		imagesDisplayed += breed.view.length;
+		imagesDisplayed += breeds[breed.id].name.length;
 	}
 	console.log('Last dragon', lastDragon);
-	dragonsDisplayed = 0;
+	imagesDisplayed = 0;
 
 	let unfinishedOutput = '';
 
 	for (const breed of dragons) {
-		if (dragonsDisplayed >= maxDisplay &&
+		if (imagesDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults &&
 			breed.finished) {
 			hidden.push(breed.id);
 			continue;
 		}
 
-		if (dragonsDisplayed >= maxDisplay &&
+		if (imagesDisplayed >= maxDisplay &&
 			breed.view.length >= breed.adults) {
 			unfinished.push(breed.id);
 
@@ -338,6 +342,7 @@ async function drawLandscape() {
 			output += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
 			output += `</a>`;
 
+			++imagesDisplayed;
 			if (parseInt(egg) + 1 >= breeds[breed.id].name.length) continue;
 			// landscape
 			output += ` `;
@@ -355,7 +360,7 @@ async function drawLandscape() {
 			output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
 			output += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
 			output += `</a> `;
-			++dragonsDisplayed;
+			++imagesDisplayed;
 		}
 		// End
 		output += `</td></tr>`;
@@ -363,7 +368,7 @@ async function drawLandscape() {
 	output += `</table>`;
 
 	// console.log('==========')
-	console.log('Dragons displayed', dragonsDisplayed);
+	console.log('Dragons displayed', imagesDisplayed);
 
 	if (unfinished.length > 0) {
 		output += `<br><table>`
