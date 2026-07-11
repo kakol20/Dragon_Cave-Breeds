@@ -225,7 +225,7 @@ async function drawPortrait() {
 	}
 	output += unfinishedOutput;
 
-	output += drawHidden_finished(hidden, portrait_td_style);
+	output += drawHidden_finished(hidden, portrait_td_style, true);
 
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
@@ -411,7 +411,7 @@ function toggleHidden_unfinished(id) {
 }
 
 let hidden_pageShown = 0;
-function drawHidden_finished(hidden, style) {
+function drawHidden_finished(hidden, style, fullWidth = false) {
 	if (hidden.length <= 0) return '';
 
 	const hidden_maxDisplay = 50;
@@ -423,7 +423,7 @@ function drawHidden_finished(hidden, style) {
 		const maxIndex = Math.min(hidden.length, (page + 1) * hidden_maxDisplay);
 		console.log('Page', page);
 
-		output += `<table id="hidden_page${page}" ${page === hidden_pageShown ? '' : 'hidden'}>`;
+		output += `<table id="hidden_page${page}" ${page === hidden_pageShown ? '' : 'hidden'} ${fullWidth ? `style="width:100%"` : ''}>`;
 		output += `<tr><th colspan="3" style="padding:5px;">Finished</th></tr>`;
 		output += `<tr><td colspan="3" style="${style}">`;
 		for (let i = page * hidden_maxDisplay; i < maxIndex; ++i) {
