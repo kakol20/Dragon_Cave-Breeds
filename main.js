@@ -113,7 +113,7 @@ async function drawPortrait() {
 			breed.view.length >= breed.adults &&
 			breed.finished) continue;
 		if (imagesDisplayed >= maxDisplay &&
-			breed.view.length === breed.adults)	continue;
+			breed.view.length === breed.adults) continue;
 
 		lastDragon = dragons[i].id;
 		// for (const dragon of breed.view) ++imagesDisplayed;
@@ -145,9 +145,7 @@ async function drawPortrait() {
 				unfinishedOutput += `<tr>`
 
 				unfinishedOutput += `<td style="${portrait_td_style}border-bottom-right-radius:0;"><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
-				unfinishedOutput += `<img src="${breeds[breed.id].img[egg]}"`;
-				unfinishedOutput += `title="${breeds[breed.id].name[egg]}`;
-				unfinishedOutput += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
+				unfinishedOutput += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg], breeds[breed.id].name[egg]);
 				unfinishedOutput += `</a></td>`;
 
 				// ==== DRAGONS ====
@@ -156,7 +154,7 @@ async function drawPortrait() {
 
 					for (const dragon of breed.view) {
 						unfinishedOutput += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
-						unfinishedOutput += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
+						unfinishedOutput += customImgElement(`https://dragcave.net/image/${dragon}.gif`, dragon, dragon);
 						unfinishedOutput += `</a> `;
 					}
 
@@ -176,9 +174,9 @@ async function drawPortrait() {
 			output += `<tr>`
 
 			output += `<td style="${portrait_td_style}"><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
-			output += `<img src="${breeds[breed.id].img[egg]}"`;
-			output += `title="${breeds[breed.id].name[egg]}`;
-			output += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
+			output += customImgElement(breeds[breed.id].img[egg],
+				breeds[breed.id].name[egg],
+				`${breeds[breed.id].name[egg]}\n${breeds[breed.id].description}`);
 			output += `</a></td>`;
 
 			// ==== DRAGONS ====
@@ -191,7 +189,7 @@ async function drawPortrait() {
 
 				for (const dragon of breed.view) {
 					output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
-					output += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
+					output += customImgElement(`https://dragcave.net/image/${dragon}.gif`, dragon, dragon);
 					output += `</a> `;
 					++imagesDisplayed;
 				}
@@ -214,11 +212,10 @@ async function drawPortrait() {
 
 		for (const id of unfinished) {
 			for (const egg in breeds[id].name) {
-				// output += `<a href="${breeds[id].encyclopedia}" target="_blank">`;
 				output += `<a onclick="toggleHidden_unfinished('${id}')">`;
-				output += `<img src="${breeds[id].img[egg]}"`;
-				output += `title="${breeds[id].name[egg]}`;
-				output += `\n${breeds[id].description}">`;
+				output += customImgElement(breeds[id].img[egg],
+					breeds[id].name[egg],
+					`${breeds[id].name[egg]}\n${breeds[id].description}`);
 				output += `</a>`;
 			}
 			output += ` `;
@@ -235,8 +232,6 @@ async function drawPortrait() {
 	output += `<p id="rateLimit"><small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
 	output += `<br>Rate limit reset on: ${new Date((rateLimit.rate.reset + 1) * 1000)}`;
 	output += `</small></p>`;
-
-	// console.log(output);
 
 	document.getElementById('output').innerHTML = output;
 }
@@ -274,7 +269,7 @@ async function drawLandscape() {
 			breed.view.length >= breed.adults &&
 			breed.finished) continue;
 		if (imagesDisplayed >= maxDisplay &&
-			breed.view.length === breed.adults)	continue;
+			breed.view.length === breed.adults) continue;
 
 		lastDragon = dragons[i].id;
 		// for (const dragon of breed.view) ++dragonsDisplayed;
@@ -306,9 +301,8 @@ async function drawLandscape() {
 
 			for (const egg in breeds[breed.id].name) {
 				unfinishedOutput += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
-				unfinishedOutput += `<img src="${breeds[breed.id].img[egg]}"`;
-				unfinishedOutput += `title="${breeds[breed.id].name[egg]}`;
-				unfinishedOutput += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
+				unfinishedOutput += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg], 
+					`${breeds[breed.id].name[egg]}\n${breeds[breed.id].description}`);
 				unfinishedOutput += `</a>`;
 
 				if (parseInt(egg) + 1 >= breeds[breed.id].name.length) continue;
@@ -322,7 +316,7 @@ async function drawLandscape() {
 			unfinishedOutput += `<td style="${landscape_td_style}border-bottom-right-radius: 5px;">`;
 			for (const dragon of breed.view) {
 				unfinishedOutput += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
-				unfinishedOutput += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
+				unfinishedOutput += customImgElement(`https://dragcave.net/image/${dragon}.gif`, dragon, dragon);
 				unfinishedOutput += `</a> `;
 			}
 			// End
@@ -338,9 +332,8 @@ async function drawLandscape() {
 		output += `<td style="${landscape_td_style}">`;
 		for (const egg in breeds[breed.id].name) {
 			output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
-			output += `<img src="${breeds[breed.id].img[egg]}"`;
-			output += `title="${breeds[breed.id].name[egg]}`;
-			output += `\n${breeds[breed.id].description}" alt="${breeds[breed.id].name[egg]}">`;
+			output += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg], 
+				`${breeds[breed.id].name[egg]}\n${breeds[breed.id].description}`);
 			output += `</a>`;
 
 			++imagesDisplayed;
@@ -359,7 +352,7 @@ async function drawLandscape() {
 		}
 		for (const dragon of breed.view) {
 			output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
-			output += `<img title="${dragon}" src="https://dragcave.net/image/${dragon}.gif" alt="${dragon}">`;
+			output += customImgElement(`https://dragcave.net/image/${dragon}.gif`, dragon, dragon);
 			output += `</a> `;
 			++imagesDisplayed;
 		}
@@ -378,11 +371,9 @@ async function drawLandscape() {
 
 		for (const id of unfinished) {
 			for (const egg in breeds[id].name) {
-				// output += `<a href="${breeds[id].encyclopedia}" target="_blank">`;
 				output += `<a onclick="toggleHidden_unfinished('${id}')">`;
-				output += `<img src="${breeds[id].img[egg]}"`;
-				output += `title="${breeds[id].name[egg]}`;
-				output += `\n${breeds[id].description}">`;
+				output += customImgElement(breeds[id].img[egg], breeds[id].name[egg], 
+					`${breeds[id].name[egg]}\n${breeds[id].description}`);
 				output += `</a>`;
 			}
 			output += ` `;
@@ -435,10 +426,9 @@ function drawHidden_finished(hidden, style, fullWidth = false) {
 		for (let i = page * hidden_maxDisplay; i < maxIndex; ++i) {
 			const id = hidden[i];
 			for (const egg in breeds[id].name) {
-				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`
-				output += `<img src="${breeds[id].img[egg]}"`;
-				output += `title="${breeds[id].name[egg]}`;
-				output += `\n${breeds[id].description}">`;
+				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`;
+				output += customImgElement(breeds[id].img[egg], breeds[id].name[egg],
+					`${breeds[id].name[egg]}\n${breeds[id].description}`);
 				output += `</a>`;
 			}
 			output += ` `;

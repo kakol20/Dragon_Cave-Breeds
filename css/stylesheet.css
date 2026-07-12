@@ -3,7 +3,7 @@
 
 	--light: #FFE4AF;
 	--dark: color-mix(in oklab, black, var(--light) 10%);
-	
+
 	/* For Debugging */
 	/* --light: white; */
 	/* --dark: black; */
@@ -32,18 +32,22 @@
 .backgroundImg::before {
 	content: "";
 	position: absolute;
-	top: 0; left: 0; right: 0; bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 
 	background-image: url("https://dragcave.net/image/0xmpe.gif");
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
-  background-attachment: fixed;
+	background-attachment: fixed;
 	image-rendering: pixelated;
 	opacity: 0.1;
 	z-index: -1;
 	filter: blur(5px);
 }
+
 .main {
 	position: relative;
 	z-index: 1;
@@ -63,7 +67,6 @@ body {
 	font-family: 'DM Mono';
 	font-size: 14px;
 
-
 	padding: 10px;
 	/* line-height: 1.3; */
 
@@ -75,9 +78,9 @@ body {
 }
 
 .isDisabled {
-  color: color-mix(in oklab, transparent, var(--ref2) 50%);
-  cursor: not-allowed;
-  text-decoration: none;
+	color: color-mix(in oklab, transparent, var(--ref2) 50%);
+	cursor: not-allowed;
+	text-decoration: none;
 	pointer-events: none;
 }
 
@@ -152,4 +155,32 @@ hr {
 	position: relative;
 	left: -10px;
 	border-collapse: collapse;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip-box {
+	position: fixed;
+	z-index: 9999;
+
+	backdrop-filter: blur(3px);
+	background-color: color-mix(in oklab, transparent, var(--background) 50%);
+	padding: 4px;
+	border-radius: 5px;
+	color: var(--ref2);
+	border: 1px solid color-mix(in oklab, transparent, var(--ref2) 50%);
+	font-size: 12px;
+
+	width: max-content;
+	max-width: calc(100vw - 20px);
+
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+
+	pointer-events: none;
+	text-align: left;
+	line-height: normal;
 }
