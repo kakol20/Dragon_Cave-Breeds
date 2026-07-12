@@ -215,7 +215,7 @@ document.addEventListener("pointerover", e => {
 	tooltip.style.top = `${y}px`;
 
 	// Limit width so it can wrap on narrow screens
-	tooltip.style.maxWidth = `${viewportWidth}px`;
+	tooltip.style.maxWidth = `${viewportWidth - 20}px`;
 
 	// Measure after layout
 	let tooltipRect = tooltip.getBoundingClientRect();
