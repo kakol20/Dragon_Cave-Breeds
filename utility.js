@@ -44,7 +44,29 @@ function updateStats() {
 	document.getElementById('stats_eggs').innerHTML = eggs;
 	document.getElementById('stats_hatch').innerHTML = hatch;
 	document.getElementById('stats_adult').innerHTML = adult;
-	document.getElementById('stats_total').innerHTML = total;
+	// document.getElementById('stats_total').innerHTML = total;
+	document.getElementById('stats_total').innerHTML = `<span 
+		onclick="document.getElementById('stats_group').hidden = !(document.getElementById('stats_group')?.hidden)">
+			${total}</span>`;
+
+	// ========== GROUP COUNT ==========
+
+	const eggLimit = 
+		adult >= 1000 ? 8 : 
+		adult >= 500 ? 7 :
+		adult >= 200 ? 6 :
+		adult >= 50 ? 5 : 4;
+	const totalLimit = eggLimit * 3;
+	
+	const group3 = Math.ceil((total + 1) / totalLimit) * totalLimit;
+	const group2 = group3 - eggLimit;
+	const group1 = group2 - eggLimit;
+
+	// console.log(group1, group2, group3);
+
+	document.getElementById('stats_g1').innerHTML = group1;
+	document.getElementById('stats_g2').innerHTML = group2;
+	document.getElementById('stats_g3').innerHTML = group3;
 }
 
 async function checkRateLimit() {
