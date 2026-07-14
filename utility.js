@@ -57,10 +57,15 @@ function updateStats() {
 		adult >= 200 ? 6 :
 		adult >= 50 ? 5 : 4;
 	const totalLimit = eggLimit * 3;
-	
+
+	/*
 	const group3 = Math.ceil((total + 1) / totalLimit) * totalLimit;
 	const group2 = group3 - eggLimit;
 	const group1 = group2 - eggLimit;
+	*/
+	const group1 = Math.ceil((total + 1) / eggLimit) * eggLimit;
+	const group2 = group1 + eggLimit;
+	const group3 = group2 + eggLimit;
 
 	// console.log(group1, group2, group3);
 
