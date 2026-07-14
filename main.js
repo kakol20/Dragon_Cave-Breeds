@@ -88,7 +88,8 @@ async function drawPortrait() {
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br>JSON last updated: ${new Date(jsonRepo.pushed_at)}`
+	output += `<br>JSON last updated: ${new Date(jsonRepo.pushed_at)}`;
+	output += `<br>${nextUpdatePredicted()}`;
 	output += `<br><span style="display: inline-flex;gap: 4px;margin-right: 16px;margin-top: 2px;">`;
 	output += `<input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label></span>`;
@@ -244,7 +245,8 @@ async function drawLandscape() {
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br>JSON last updated: ${new Date(jsonRepo.pushed_at)}`
+	output += `<br>JSON last updated: ${new Date(jsonRepo.pushed_at)}`;
+	output += `<br>${nextUpdatePredicted()}`;
 	output += `<br><span style="display: inline-flex;gap: 4px;margin-right: 16px;margin-top: 2px;">`;
 	output += `<input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label></span>`;

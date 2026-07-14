@@ -268,3 +268,29 @@ document.addEventListener("pointerout", e => {
 	element._tooltip?.remove();
 	element._tooltip = null;
 });
+
+function nextUpdatePredicted() {
+	let nextDate = Date.now() + (1000*60*60*24*365);
+	for (const breed of dragons) {
+		if (breed.view.length === breed.adults) continue;
+		const dateStr = breed.date.toFixed(4);
+		const yearStr = dateStr.substring(0, 4);
+		const monthStr = dateStr.substring(4, 6);
+		const dayStr = dateStr.substring(6, 8);
+		const hourStr = dateStr.substring(9, 11);
+		const minStr = dateStr.substring(11, 13);
+
+		const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} EDT`;
+		const fullDateStr = new Date(fullDateInit);
+		const fullDateTime = fullDateStr.getTime() + (3 * 86400 * 1000);
+
+		if (fullDateTime < nextDate) {
+			nextDate = fullDateTime;
+			// console.log(breed);
+		}
+	}
+
+	const dateStr = new Date(nextDate);
+
+	return `Next Update Predicted: ${dateStr}`;
+}
