@@ -58,11 +58,6 @@ function updateStats() {
 		adult >= 50 ? 5 : 4;
 	const totalLimit = eggLimit * 3;
 
-	/*
-	const group3 = Math.ceil((total + 1) / totalLimit) * totalLimit;
-	const group2 = group3 - eggLimit;
-	const group1 = group2 - eggLimit;
-	*/
 	const group1 = Math.ceil((total + 1) / eggLimit) * eggLimit;
 	const group2 = group1 + eggLimit;
 	const group3 = group2 + eggLimit;
@@ -275,7 +270,8 @@ document.addEventListener("pointerout", e => {
 });
 
 function nextUpdatePredicted() {
-	let nextDate = Date.now() + (1000*60*60*24*365);
+	const one_year = 1000*60*60*24*365;
+	let nextDate = Date.now() + one_year;
 	for (const breed of dragons) {
 		if (breed.view.length === breed.adults) continue;
 		const dateStr = breed.date.toFixed(4);
@@ -289,13 +285,8 @@ function nextUpdatePredicted() {
 		const fullDateStr = new Date(fullDateInit);
 		const fullDateTime = fullDateStr.getTime() + (3 * 86400 * 1000);
 
-		if (fullDateTime < nextDate) {
-			nextDate = fullDateTime;
-			// console.log(breed);
-		}
+		if (fullDateTime < nextDate) nextDate = fullDateTime;
 	}
 
-	const dateStr = new Date(nextDate);
-
-	return `Next Update Predicted: ${dateStr}`;
+	return `Next Update Predicted: ${new Date(nextDate)}`;
 }
