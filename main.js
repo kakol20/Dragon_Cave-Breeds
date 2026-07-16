@@ -24,15 +24,15 @@ async function run() {
 	jsonRepo = sessionStorage.getItem('jsonRepo');
 	lastUnfinish_shown = sessionStorage.getItem('lastUnfinish_shown');
 
-	if (jsonRepo) {
+	if (jsonRepo && jsonRepo.name === 'main') {
 		jsonRepo = JSON.parse(jsonRepo);
-		console.log('Has jsonRepo Session Storage', jsonRepo, jsonRepo.pushed_at);
+		console.log('Has jsonRepo Session Storage', jsonRepo, jsonRepo.commit.commit.committer.date);
 	} else {
 		await checkGitAPI();
-		console.log('Has No jsonRepo Session Storage', jsonRepo, jsonRepo.pushed_at);
+		console.log('Has No jsonRepo Session Storage', jsonRepo, jsonRepo.commit.commit.committer.date);
 		// console.log(gist);
 	}
-	jsonLastPushed = jsonRepo.pushed_at;
+	jsonLastPushed = jsonRepo.commit.commit.committer.date;
 
 	await getJSON();
 	updateStats();
@@ -88,7 +88,11 @@ async function drawPortrait() {
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br>JSON last updated: ${new Date(jsonRepo.pushed_at)}`;
+	output += `<br>JSON last updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
+
+	output += `<br><span style="text-indent: 3em each-line;display:inline-block;font-style: italic;">
+		${jsonRepo.commit.commit.message.replace(/\n/g, '-')}</span>`;
+		
 	output += `<br>${nextUpdatePredicted()}`;
 	output += `<br><span style="display: inline-flex;gap: 4px;margin-right: 16px;margin-top: 2px;">`;
 	output += `<input type="checkbox" id="pauseReload">`;
@@ -245,7 +249,11 @@ async function drawLandscape() {
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br>JSON last updated: ${new Date(jsonRepo.pushed_at)}`;
+	output += `<br>JSON last updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
+	
+	output += `<br><span style="text-indent: 3em each-line;display:inline-block;font-style: italic;">
+		${jsonRepo.commit.commit.message.replace(/\n/g, '-')}</span>`;
+		
 	output += `<br>${nextUpdatePredicted()}`;
 	output += `<br><span style="display: inline-flex;gap: 4px;margin-right: 16px;margin-top: 2px;">`;
 	output += `<input type="checkbox" id="pauseReload">`;

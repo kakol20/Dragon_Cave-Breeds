@@ -15,7 +15,6 @@ async function checkGitAPI() {
 	jsonRepo = await fetch(`${main.jsonRepo}`, {
 		cache: 'no-store'
 	}).then(r => r.json());
-	// console.log(gist);
 
 	sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 }
@@ -179,7 +178,8 @@ const reloadInterval = setInterval(async () => {
 		console.log('Check', dateStr);
 
 		await checkGitAPI();
-		const pushed_at = jsonRepo.pushed_at;
+		const pushed_at = jsonRepo.commit.commit.committer.date;
+		// const pushed_at = jsonLastPushed;
 
 		// if (gistLastUpdated !== update_at) customReload();
 		if (jsonLastPushed !== pushed_at) {

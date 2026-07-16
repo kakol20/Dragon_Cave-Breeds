@@ -1,5 +1,5 @@
 {
 	"player": "https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/player.json",
 	"breeds": "https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/breeds.json",
-	"jsonRepo": "https://api.github.com/repos/kakol20/Dragon-Cave-JSON-Files"
+	"jsonRepo": "https://api.github.com/repos/kakol20/Dragon-Cave-JSON-Files/branches/main"
 }
