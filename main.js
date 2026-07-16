@@ -88,12 +88,12 @@ async function drawPortrait() {
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br>JSON last updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
+	output += `<br><br>JSON last updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
 
-	output += `<br><span style="text-indent: 3em each-line;display:inline-block;font-style: italic;">
-		${jsonRepo.commit.commit.message.replace(/\n/g, '-')}</span>`;
+	output += `<br><span style="text-indent: 2em each-line;display:inline-block;font-style: italic;">
+		${jsonRepo.commit.commit.message.replace(/\n/g, '<br>')}</span>`;
 		
-	output += `<br>${nextUpdatePredicted()}`;
+	output += `<br><br>${nextUpdatePredicted()}`;
 	output += `<br><span style="display: inline-flex;gap: 4px;margin-right: 16px;margin-top: 2px;">`;
 	output += `<input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label></span>`;
@@ -249,12 +249,12 @@ async function drawLandscape() {
 
 	//  ========== HEADER ==========
 	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br>JSON last updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
+	output += `<br><br>JSON last updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
 	
-	output += `<br><span style="text-indent: 3em each-line;display:inline-block;font-style: italic;">
-		${jsonRepo.commit.commit.message.replace(/\n/g, '-')}</span>`;
+	output += `<br><span style="text-indent: 2em each-line;display:inline-block;font-style: italic;">
+		${jsonRepo.commit.commit.message.replace(/\n/g, '<br>')}</span>`;
 		
-	output += `<br>${nextUpdatePredicted()}`;
+	output += `<br><br>${nextUpdatePredicted()}`;
 	output += `<br><span style="display: inline-flex;gap: 4px;margin-right: 16px;margin-top: 2px;">`;
 	output += `<input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label></span>`;
