@@ -484,7 +484,3 @@ function hidden_switchPage(page, maxPages) {
 		}
 	}
 }
-
-window.onbeforeunload = function (event) {
-	sessionStorage.setItem('scrollY', window.scrollY);
-}

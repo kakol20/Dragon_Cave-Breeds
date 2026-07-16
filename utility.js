@@ -51,8 +51,8 @@ function updateStats() {
 
 	// ========== GROUP COUNT ==========
 
-	const eggLimit = 
-		adult >= 1000 ? 8 : 
+	const eggLimit =
+		adult >= 1000 ? 8 :
 		adult >= 500 ? 7 :
 		adult >= 200 ? 6 :
 		adult >= 50 ? 5 : 4;
@@ -103,6 +103,7 @@ async function getJSON() {
 function customReload() {
 	sessionStorage.setItem('scrollY', window.scrollY);
 	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
+
 	// console.trace();
 	const dateNow = Date.now();
 	console.log(dateNow, lastReloaded, dateNow - lastReloaded < 1 * 60 * 1000);
@@ -110,6 +111,11 @@ function customReload() {
 
 	clearInterval(reloadInterval);
 	location.reload();
+}
+
+window.onbeforeunload = function (event) {
+	sessionStorage.setItem('scrollY', window.scrollY);
+	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
 }
 
 function toggleTheme() {
@@ -172,8 +178,6 @@ const reloadInterval = setInterval(async () => {
 		if (dateStr.getSeconds() !== 0) return;
 		console.log('Check', dateStr);
 
-		sessionStorage.setItem('scrollY', window.scrollY);
-
 		await checkGitAPI();
 		const pushed_at = jsonRepo.pushed_at;
 
@@ -216,7 +220,7 @@ function customImgElement(src = ' ', alt = ' ', title = ' ') {
 document.addEventListener("pointerover", e => {
 	const element = e.target.closest(".tooltip");
 
-	if (!element || element._tooltip || element.contains(e.relatedTarget))return;
+	if (!element || element._tooltip || element.contains(e.relatedTarget)) return;
 
 	const tooltip = document.createElement("div");
 	tooltip.className = "tooltip-box";
@@ -270,7 +274,7 @@ document.addEventListener("pointerout", e => {
 });
 
 function nextUpdatePredicted() {
-	const one_year = 1000*60*60*24*365;
+	const one_year = 1000 * 60 * 60 * 24 * 365;
 	let nextDate = Date.now() + one_year;
 	for (const breed of dragons) {
 		if (breed.view.length === breed.adults) continue;
