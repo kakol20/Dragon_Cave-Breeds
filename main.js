@@ -24,7 +24,7 @@ async function run() {
 	jsonRepo = sessionStorage.getItem('jsonRepo');
 	lastUnfinish_shown = sessionStorage.getItem('lastUnfinish_shown');
 
-	if (jsonRepo) {
+	if (jsonRepo && jsonRepo.name === 'main') {
 		jsonRepo = JSON.parse(jsonRepo);
 		console.log('Has jsonRepo Session Storage', jsonRepo, jsonRepo.commit.commit.committer.date);
 	} else {
