@@ -19,6 +19,24 @@ async function checkGitAPI() {
 	sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 }
 
+function getCommitMessage() {
+	let output = `<span style="text-indent: 2em each-line;display:inline-block;font-style: italic;">`;
+
+	const commitArr = jsonRepo.commit.commit.message.split('\n').filter(Boolean);
+	for (let i = 0; i < commitArr.length; ++i) {
+		if (i === 0) output += `<span style="font-weight:bold;">`;
+
+		output += commitArr[i];
+
+		if (i === 0) output += `</span>`;
+
+		if (i + 1 < commitArr.length) output += '<br>';
+	}
+	output += '</span>';
+	// console.log(commitArr);
+	return output;
+}
+
 function updateStats() {
 	// 53 pre 2026 Adults not in JSON file + 1 Leetle Tree
 	const extraAdults = 54;
