@@ -87,8 +87,8 @@ async function drawPortrait() {
 	let unfinishedOutput = '';
 
 	//  ========== HEADER ==========
-	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br><br>JSON last updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
+	output += `<p><small>Last Reloaded: ${dateStr}`;
+	output += `<br><br>JSON Last Updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
 
 	output += `<br>${getCommitMessage()}`;
 		
@@ -233,8 +233,8 @@ async function drawPortrait() {
 
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
-	output += `<p id="rateLimit"><small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
-	output += `<br>Rate limit reset on: ${new Date((rateLimit.rate.reset + 1) * 1000)}`;
+	output += `<p id="rateLimit"><small>Rate Limit Remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
+	output += `<br>Rate Limit Reset On: ${new Date((rateLimit.rate.reset + 1) * 1000)}`;
 	output += `</small></p>`;
 
 	document.getElementById('output').innerHTML = output;
@@ -247,8 +247,8 @@ async function drawLandscape() {
 	let output = ``;
 
 	//  ========== HEADER ==========
-	output += `<p><small>Last reloaded: ${dateStr}`;
-	output += `<br><br>JSON last updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
+	output += `<p><small>Last Reloaded: ${dateStr}`;
+	output += `<br><br>JSON Last Updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
 	
 	output += `<br>${getCommitMessage()}`;
 		
@@ -395,8 +395,8 @@ async function drawLandscape() {
 
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
-	output += `<p id="rateLimit"><small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
-	output += `<br>Rate limit reset on: ${new Date((rateLimit.rate.reset + 1) * 1000)}`;
+	output += `<p id="rateLimit"><small>Rate Limit Remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
+	output += `<br>Rate Limit Reset On: ${new Date((rateLimit.rate.reset + 1) * 1000)}`;
 	output += `</small></p>`;
 
 	document.getElementById('output').innerHTML = output;
