@@ -46,7 +46,7 @@ function updateStats() {
 	for (const breed of dragons) {
 		// console.log(breed);
 		const currentAdult = breed.adults;
-		const currentHatch = breed.hatchlings;
+		const currentHatch = breed.hatch;
 		const currentEggs = breed.view.length - currentAdult - currentHatch;
 
 		eggs += currentEggs;
@@ -166,10 +166,10 @@ function sortDragons(a, b) {
 	if (a.adults !== b.adults) return a.adults - b.adults;
 
 	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
-	if (a.hatchlings !== b.hatchlings) return a.hatchlings - b.hatchlings;
+	if (a.hatch !== b.hatch) return a.hatch - b.hatch;
 
-	const aEggs = a.view.length - a.adults - a.hatchlings;
-	const bEggs = b.view.length - b.adults - b.hatchlings;
+	const aEggs = a.view.length - a.adults - a.hatch;
+	const bEggs = b.view.length - b.adults - b.hatch;
 	if (aEggs !== bEggs) return bEggs - aEggs;
 
 	if (a.date !== b.date) return b.date - a.date;
