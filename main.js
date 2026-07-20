@@ -87,13 +87,8 @@ async function drawPortrait() {
 	let unfinishedOutput = '';
 
 	//  ========== HEADER ==========
-	output += `<p><small>Last Reloaded: ${dateStr}`;
-	output += `<br><br>JSON Last Updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
-
-	output += `<br>${getCommitMessage()}`;
-		
-	output += `<br><br>${nextUpdatePredicted()}`;
-	output += `<br><span style="display: inline-flex;gap: 4px;margin-right: 16px;margin-top: 2px;">`;
+	output += '<p><small>';
+	output += `<span style="display: inline-flex;gap: 4px;margin-right: 16px;margin-top: 2px;">`;
 	output += `<input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label></span>`;
 	output += `<span style="display: inline-flex;gap: 4px;margin-right: 20px;margin-top: 2px;">`;
@@ -231,6 +226,12 @@ async function drawPortrait() {
 
 	output += drawHidden_finished(hidden, portrait_td_style, true);
 
+	output += `<p><small>Last Reloaded: ${dateStr}`;
+	output += `<br>JSON Last Updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
+	output += `<br>${getCommitMessage()}`;
+	output += `<br>${nextUpdatePredicted()}`;
+	output += `</small></p>`;
+
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
 	output += `<p id="rateLimit"><small>Rate Limit Remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
@@ -247,13 +248,8 @@ async function drawLandscape() {
 	let output = ``;
 
 	//  ========== HEADER ==========
-	output += `<p><small>Last Reloaded: ${dateStr}`;
-	output += `<br><br>JSON Last Updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
-	
-	output += `<br>${getCommitMessage()}`;
-		
-	output += `<br><br>${nextUpdatePredicted()}`;
-	output += `<br><span style="display: inline-flex;gap: 4px;margin-right: 16px;margin-top: 2px;">`;
+	output += '<p><small>';
+	output += `<span style="display: inline-flex;gap: 4px;margin-right: 16px;margin-top: 2px;">`;
 	output += `<input type="checkbox" id="pauseReload">`;
 	output += `<label for="pauseReload"> Pause Reload</label></span>`;
 	output += `<span style="display: inline-flex;gap: 4px;margin-right: 20px;margin-top: 2px;">`;
@@ -309,7 +305,7 @@ async function drawLandscape() {
 
 			for (const egg in breeds[breed.id].name) {
 				unfinishedOutput += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
-				unfinishedOutput += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg], 
+				unfinishedOutput += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg],
 					`${breeds[breed.id].name[egg]}\n${breeds[breed.id].description}`);
 				unfinishedOutput += `</a>`;
 
@@ -340,7 +336,7 @@ async function drawLandscape() {
 		output += `<td style="${landscape_td_style}">`;
 		for (const egg in breeds[breed.id].name) {
 			output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
-			output += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg], 
+			output += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg],
 				`${breeds[breed.id].name[egg]}\n${breeds[breed.id].description}`);
 			output += `</a>`;
 
@@ -380,7 +376,7 @@ async function drawLandscape() {
 		for (const id of unfinished) {
 			for (const egg in breeds[id].name) {
 				output += `<a onclick="toggleHidden_unfinished('${id}')">`;
-				output += customImgElement(breeds[id].img[egg], breeds[id].name[egg], 
+				output += customImgElement(breeds[id].img[egg], breeds[id].name[egg],
 					`${breeds[id].name[egg]}\n${breeds[id].description}`);
 				output += `</a>`;
 			}
@@ -392,6 +388,12 @@ async function drawLandscape() {
 	output += unfinishedOutput;
 
 	output += drawHidden_finished(hidden, landscape_td_style);
+
+	output += `<p><small>Last Reloaded: ${dateStr}`;
+	output += `<br>JSON Last Updated: ${new Date(jsonRepo.commit.commit.committer.date)}`;
+	output += `<br>${getCommitMessage()}`;
+	output += `<br>${nextUpdatePredicted()}`;
+	output += `</small></p>`;
 
 	const rateLimit = await checkRateLimit();
 	console.log(rateLimit);
