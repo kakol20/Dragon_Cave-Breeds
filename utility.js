@@ -151,15 +151,15 @@ function toggleTheme() {
 }
 
 function sortDragons(a, b) {
-	const aNew = a.id === '@new';
-	const bNew = b.id === '@new';
+	const aNew = a.id.includes('@new');
+	const bNew = b.id.includes('@new');
 	if (aNew !== bNew) return bNew - aNew;
-
-	if (a.finished !== b.finished) return a.finished - b.finished;
 
 	const aAllAdults = a.adults === a.view.length;
 	const bAllAdults = b.adults === b.view.length;
 	if (aAllAdults !== bAllAdults) return aAllAdults - bAllAdults;
+
+	if (a.finished !== b.finished) return a.finished - b.finished;
 
 	if (a.finished && b.finished && a.date !== b.date) return b.date - a.date;
 
