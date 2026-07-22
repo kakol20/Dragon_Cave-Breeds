@@ -11,16 +11,13 @@ async function draw() {
 		root.style.colorScheme = 'dark';
 	}
 
-	const debugMode = true;
+	const debugMode = false;
 	await getMainJson(debugMode);
 
 	await Promise.all([getPlayerJson(debugMode), getBreedsJson(debugMode), getJsonRepo(true, debugMode)]);
 
 	const portrait = window.matchMedia("(orientation: portrait)").matches;
-
-	let output = mainTable(portrait);
-
-	document.getElementById('output').innerHTML = output;
+	document.getElementById('output').innerHTML = mainTable(portrait);
 }
 
 function toggleTheme() {
@@ -106,7 +103,7 @@ function drawDragons(portrait = false) {
 		imagesDisplayed += breed.view.length;
 		imagesDisplayed += breeds[breed.id].name.length;
 	}
-	console.log('Last dragon', lastDragon);
+	// console.log('Last dragon', lastDragon);
 	imagesDisplayed = 0;
 
 	// ========== MAIN DISPLAY ==========
@@ -160,6 +157,14 @@ function drawDragons(portrait = false) {
 			}
 			output += `</td>`;
 
+			// ==== DRAGONS ====	
+			if (breed.id === lastDragon) {
+				output += `<td style="${landscape_td_style}border-bottom-right-radius: 5px;">`;
+			} else {
+				output += `<td style="${landscape_td_style}">`;
+			}
+			output += showIndivDragons(breed);
+			output += `</td></tr>`;
 		}
 
 		imagesDisplayed += breed.view.length;
@@ -178,7 +183,6 @@ function drawUnfinished(portrait = false, breed) {
 		output += `<tr><th style="padding:5px;" colspan="2">${breeds[breed.id].description}</th></tr>`;
 
 		// ==== EGGS ====
-
 		for (const egg in breeds[breed.id].name) {
 			output += '<tr>';
 			output += `<td style="${portrait_td_style}border-bottom-right-radius:0;"><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
@@ -193,6 +197,37 @@ function drawUnfinished(portrait = false, breed) {
 			}
 			output += `</tr>`;
 		}
+		output += `</table>`;
+	} else {
+		output += `<table id="${breed.id}_hide" hidden>`;
+		output += `<tr><th style="padding:5px;" colspan="2">${breeds[breed.id].description}</th></tr>`;
+
+		// ==== EGGS ====
+		output += `<tr><td style="${landscape_td_style}">`;
+
+		for (const egg in breeds[breed.id].name) {
+			output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
+			output += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg],
+				`${breeds[breed.id].name[egg]}\n${breeds[breed.id].description}`);
+			output += `</a>`;
+
+			if (parseInt(egg) + 1 >= breeds[breed.id].name.length) continue;
+			// landscape
+			output += ` `;
+		}
+		output += `</td>`;
+
+		// ==== DRAGONS ====	
+		// View https://dragcave.net/image/r5HjG.gif
+		output += `<td style="${landscape_td_style}border-bottom-right-radius: 5px;">`;
+		for (const dragon of breed.view) {
+			output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
+			output += customImgElement(`https://dragcave.net/image/${dragon}.gif`, dragon, dragon);
+			output += `</a> `;
+		}
+		// End
+		output += `</td></tr>`;
+
 		output += `</table>`;
 	}
 
@@ -298,5 +333,6 @@ function hidden_switchPage(page, maxPages) {
 }
 
 async function orientationChange() {
-	console.log('orientation change');
+	const portrait = window.matchMedia("(orientation: portrait)").matches;
+	document.getElementById('output').innerHTML = mainTable(portrait);
 }

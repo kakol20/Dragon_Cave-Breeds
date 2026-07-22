@@ -75,7 +75,7 @@ async function checkRateLimit(debug = false) {
 		return;
 	}
 	rateLimit = await response.json();
-	rateLimitReset = rateLimit.rate.reset * 1000;
+	rateLimitReset = (rateLimit.rate.reset + 1) * 1000;
 	if (debug) {
 		// rateLimit.rate.remaining
 		console.log('Rate Limit', rateLimit);
