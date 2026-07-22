@@ -97,14 +97,14 @@ async function getJsonRepo(begin = false, debug = false) {
 			jsonLastCommitDate = new Date(jsonRepo.commit.commit.committer.date);
 			jsonLastCommit = jsonLastCommitDate.getTime();
 			generateCommitMsg();
+			console.log('Has session storage');
 
 			if (debug) {
-				console.log('Has session storage');
 				console.log('jsonRepo', jsonRepo);
 				console.log('jsonLastCommitDate', jsonLastCommitDate);
 				console.log('jsonLastCommit', jsonLastCommit);
 			}
-			
+
 			await checkRateLimit(debug);
 			return;
 		}
