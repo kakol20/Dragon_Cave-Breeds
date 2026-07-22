@@ -96,6 +96,7 @@ async function getJsonRepo(begin = false, debug = false) {
 			jsonRepo = JSON.parse(jsonRepo);
 			jsonLastCommitDate = new Date(jsonRepo.commit.commit.committer.date);
 			jsonLastCommit = jsonLastCommitDate.getTime();
+			generateCommitMsg();
 
 			if (debug) {
 				console.log('Has session storage');
@@ -122,6 +123,7 @@ async function getJsonRepo(begin = false, debug = false) {
 	jsonRepo = await response.json();
 	jsonLastCommitDate = new Date(jsonRepo.commit.commit.committer.date);
 	jsonLastCommit = jsonLastCommitDate.getTime();
+	generateCommitMsg();
 
 	if (debug) {
 		console.log('jsonRepo', jsonRepo);
@@ -130,4 +132,44 @@ async function getJsonRepo(begin = false, debug = false) {
 	}
 
 	sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
+}
+
+function generateCommitMsg() {
+	let output = `<span style="text-indent: 2em each-line;display:inline-block;font-style: italic;">`;
+
+	const commitArr = jsonRepo.commit.commit.message.split('\n').filter(Boolean);
+	for (let i = 0; i < commitArr.length; ++i) {
+		if (i === 0) output += `<span style="font-weight:bold;">`;
+
+		output += commitArr[i];
+
+		if (i === 0) output += `</span>`;
+
+		if (i + 1 < commitArr.length) output += '<br>';
+	}
+	output += '</span>';
+	// console.log(commitArr);
+	jsonCommitMsg = output;
+}
+
+function nextUpdatePredicted() {
+	const one_year = 1000 * 60 * 60 * 24 * 365;
+	let nextDate = Date.now() + one_year;
+	for (const breed of player) {
+		if (breed.view.length === breed.adults) continue;
+		const dateStr = breed.date.toFixed(4);
+		const yearStr = dateStr.substring(0, 4);
+		const monthStr = dateStr.substring(4, 6);
+		const dayStr = dateStr.substring(6, 8);
+		const hourStr = dateStr.substring(9, 11);
+		const minStr = dateStr.substring(11, 13);
+
+		const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} EDT`;
+		const fullDateStr = new Date(fullDateInit);
+		const fullDateTime = fullDateStr.getTime() + (3 * 86400 * 1000);
+
+		if (fullDateTime < nextDate) nextDate = fullDateTime;
+	}
+
+	return `Next Update Predicted: ${new Date(nextDate)}`;
 }

@@ -11,6 +11,8 @@ async function draw() {
 		root.style.colorScheme = 'dark';
 	}
 
+	lastUnfinish_shown = sessionStorage.getItem('lastUnfinish_shown');
+
 	const debugMode = false;
 	await getMainJson(debugMode);
 
@@ -18,6 +20,7 @@ async function draw() {
 
 	const portrait = window.matchMedia("(orientation: portrait)").matches;
 	document.getElementById('output').innerHTML = mainTable(portrait);
+	toggleHidden_unfinished(lastUnfinish_shown);
 }
 
 function toggleTheme() {
@@ -40,6 +43,7 @@ let unfinishedOutput = '';
 let lastUnfinish_shown = 'none';
 
 function mainTable(portrait = false) {
+	unfinishedOutput = '';
 	const tdStyle = portrait ? portrait_td_style : landscape_td_style;
 
 	unfinished.length = 0;
@@ -76,6 +80,17 @@ function mainTable(portrait = false) {
 
 	// ========== FINISHED ==========
 	output += drawHidden_finished(tdStyle, portrait);
+
+	// ========== EXTRA ==========
+	output += `<p><small>Last Reloaded: ${lastReloadedStr}`;
+	output += `<br>JSON Last Updated: ${jsonLastCommitDate}`;
+	output += `<br>${jsonCommitMsg}`;
+	output += `<br>${nextUpdatePredicted()}`;
+	output += `</small></p>`;
+
+	output += `<p id="rateLimit"><small>Rate Limit Remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
+	output += `<br>Rate Limit Reset On: ${new Date(rateLimitReset)}`;
+	output += `</small></p>`;
 
 	return output;
 }
@@ -235,6 +250,7 @@ function drawUnfinished(portrait = false, breed) {
 }
 function toggleHidden_unfinished(id) {
 	lastUnfinish_shown = id;
+	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
 	if (unfinished.length <= 0) return;
 	for (const tag of unfinished) {
 		const elementId = `${tag}_hide`;
@@ -335,4 +351,5 @@ function hidden_switchPage(page, maxPages) {
 async function orientationChange() {
 	const portrait = window.matchMedia("(orientation: portrait)").matches;
 	document.getElementById('output').innerHTML = mainTable(portrait);
+	toggleHidden_unfinished(lastUnfinish_shown);
 }

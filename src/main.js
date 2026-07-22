@@ -1,7 +1,10 @@
+const lastReloaded = Date.now();
+const lastReloadedStr = new Date(lastReloaded);
+
 async function run() {
 	try {
 		await draw();
-	} catch(err) {
+	} catch (err) {
 		document.getElementById('output').innerHTML = `${err}<br>Reloading in 5 seconds`;
 		await sleep(5 * 1000);
 		location.reload();

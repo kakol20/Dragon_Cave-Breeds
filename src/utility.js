@@ -1,6 +1,11 @@
+window.onbeforeunload = function (event) {
+	sessionStorage.setItem('scrollY', window.scrollY);
+	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
+}
+
 function customReload() {
 	sessionStorage.setItem('scrollY', window.scrollY);
-	// sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
+	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
 
 	// console.trace();
 	// const dateNow = Date.now();
