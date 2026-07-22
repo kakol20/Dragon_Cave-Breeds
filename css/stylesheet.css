@@ -60,9 +60,23 @@
 	font-style: normal;
 }
 
-/* header {
-	text-align: center;
-} */
+.checkbox-label {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.checkboxes {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+header {
+	display: flex;
+	gap: 5px;
+	align-items: flex-end;
+}
 
 html {
 	min-height: 100%;

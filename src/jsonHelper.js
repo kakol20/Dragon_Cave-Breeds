@@ -1,5 +1,5 @@
 
-let main;
+let main = {};
 async function getMainJson(debug = false) {
 	// console.log('Trying to get main json');
 	const response = await fetch('main.json');
@@ -12,7 +12,7 @@ async function getMainJson(debug = false) {
 	if (debug) console.log('main', main);
 }
 
-let player;
+let player = [];
 async function getPlayerJson(debug = false) {
 	const response = await fetch(main.player, { cache: 'no-store' });
 	if (!response.ok) {
@@ -52,7 +52,7 @@ function sortPlayer(a, b) {
 	return a.id.localeCompare(b.id);
 }
 
-let breeds;
+let breeds = {};
 async function getBreedsJson(debug = false) {
 	const response = await fetch(main.breeds, { cache: 'no-store' });
 	if (!response.ok) {
@@ -64,8 +64,8 @@ async function getBreedsJson(debug = false) {
 	if (debug) console.log('breeds', breeds);
 }
 
-let rateLimit;
-let rateLimitReset;
+let rateLimit = {};
+let rateLimitReset = 0;
 async function checkRateLimit(debug = false) {
 	const response = await fetch('https://api.github.com/rate_limit', { cache: 'no-store' });
 	if (!response.ok) {
@@ -85,8 +85,9 @@ async function checkRateLimit(debug = false) {
 }
 
 let jsonRepo;
-let jsonLastCommitDate;
-let jsonLastCommit;
+let jsonLastCommitDate = new Date();
+let jsonLastCommit = 0;
+let jsonCommitMsg = '';
 async function getJsonRepo(begin = false, debug = false) {
 	if (begin) {
 		jsonRepo = sessionStorage.getItem('jsonRepo');
@@ -95,8 +96,13 @@ async function getJsonRepo(begin = false, debug = false) {
 			jsonRepo = JSON.parse(jsonRepo);
 			jsonLastCommitDate = new Date(jsonRepo.commit.commit.committer.date);
 			jsonLastCommit = jsonLastCommitDate.getTime();
-			if (debug) console.log('Has jsonRepo Session Storage', jsonLastCommitDate);
-			return;
+
+			if (debug) {
+				console.log('Has session storage');
+				console.log('jsonRepo', jsonRepo);
+				console.log('jsonLastCommitDate', jsonLastCommitDate);
+				console.log('jsonLastCommit', jsonLastCommit);
+			}
 		}
 	}
 
@@ -122,4 +128,6 @@ async function getJsonRepo(begin = false, debug = false) {
 		console.log('jsonLastCommitDate', jsonLastCommitDate);
 		console.log('jsonLastCommit', jsonLastCommit);
 	}
+
+	sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 }
