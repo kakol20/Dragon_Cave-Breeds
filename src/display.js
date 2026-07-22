@@ -3,7 +3,7 @@ async function draw() {
 	const root = document.documentElement;
 
 	const toggleThemeStore = sessionStorage.getItem('toggleTheme') === 'true';
-	console.log(toggleThemeStore);
+	// console.log(toggleThemeStore);
 
 	if (toggleThemeStore) {
 		root.style.colorScheme = 'light';
@@ -98,7 +98,7 @@ function mainTable(portrait = false) {
 const portrait_td_style = `padding-left:2px;padding-right: 2px;padding-top: 1px; padding-bottom: 1px;`;
 const landscape_td_style = `padding-left:5px;padding-right: 5px;padding-top: 4px; padding-bottom: 4px;`;
 
-const mainTableLimit = 50;
+const mainTableLimit = 75;
 function drawDragons(portrait = false) {
 	// ========== TRACK LAST DRAGON TO DISPLAY ==========
 

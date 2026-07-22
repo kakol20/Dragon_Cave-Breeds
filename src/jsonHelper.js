@@ -104,6 +104,9 @@ async function getJsonRepo(begin = false, debug = false) {
 				console.log('jsonLastCommitDate', jsonLastCommitDate);
 				console.log('jsonLastCommit', jsonLastCommit);
 			}
+			
+			await checkRateLimit(debug);
+			return;
 		}
 	}
 
