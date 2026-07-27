@@ -160,12 +160,12 @@ function nextUpdatePredicted() {
 	let nextDate = Date.now() + one_year;
 	for (const breed of player) {
 		if (breed.view.length === breed.adults) continue;
-		const dateStr = breed.date.toFixed(4);
+		const dateStr = breed.date.toFixed(0);
 		const yearStr = dateStr.substring(0, 4);
 		const monthStr = dateStr.substring(4, 6);
 		const dayStr = dateStr.substring(6, 8);
-		const hourStr = dateStr.substring(9, 11);
-		const minStr = dateStr.substring(11, 13);
+		const hourStr = dateStr.substring(8, 10);
+		const minStr = dateStr.substring(10, 12);
 
 		const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} EDT`;
 		const fullDateStr = new Date(fullDateInit);
