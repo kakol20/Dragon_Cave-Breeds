@@ -160,7 +160,7 @@ function nextUpdatePredicted() {
 	let nextDate = Date.now() + one_year;
 	for (const breed of player) {
 		if (breed.view.length === breed.adults) continue;
-		const dateStr = breed.date.toFixed(4);
+		const dateStr = breed.date.toFixed(0);
 		const yearStr = dateStr.substring(0, 4);
 		const monthStr = dateStr.substring(4, 6);
 		const dayStr = dateStr.substring(6, 8);
