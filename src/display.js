@@ -266,7 +266,7 @@ function showIndivDragons(breed) {
 	let output = `<span style="`;
 	output +=`
 		display: flex;
-		gap: 5px 5px;
+		gap: 2.5px 5px;
 		align-items: flex-end;
 		flex-wrap: wrap;
 		justify-content: center;
@@ -286,7 +286,7 @@ let finished_pageShown = 0;
 function drawHidden_finished(style, fullWidth = false) {
 	const galleryFlex = `
 		display: flex;
-		gap: 5px 5px;
+		gap: 2.5px 5px;
 		align-items: flex-end;
 		flex-wrap: wrap;
 		justify-content: center;
