@@ -195,9 +195,8 @@ function nextUpdatePredicted() {
 	}
 
 	let output = '';
-
-	if (nextEgg > 0) output += `The next egg could hatch on: ${new Date(nextEgg)}`;
+	if (nextEgg > 0) output += `Next Egg: ${new Date(nextEgg)}`;
 	if (nextEgg > 0 && nextHatch > 0) output += '<br>';
-	if (nextHatch > 0) output += `The next hatchling could grow up on: ${new Date(nextHatch)}`;
+	if (nextHatch > 0) output += `Next Hatchling: ${new Date(nextHatch)}`;
 	return output;
 }
