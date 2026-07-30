@@ -82,15 +82,15 @@ function mainTable(portrait = false) {
 	output += drawHidden_finished(tdStyle, portrait);
 
 	// ========== EXTRA ==========
-	output += `<p><small>Last Reloaded: ${lastReloadedStr}`;
+	output += `<small><br>Last Reloaded: ${lastReloadedStr}`;
 	output += `<br>JSON Last Updated: ${jsonLastCommitDate}`;
 	output += `<br>${jsonCommitMsg}`;
 	output += `<br>${nextUpdatePredicted()}`;
-	output += `</small></p>`;
+	output += `</small>`;
 
-	output += `<p id="rateLimit"><small>Rate Limit Remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
+	output += `<br><br><small id="rateLimit">Rate Limit Remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
 	output += `<br>Rate Limit Reset On: ${new Date(rateLimitReset)}`;
-	output += `</small></p>`;
+	output += `</small>`;
 
 	return output;
 }
