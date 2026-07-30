@@ -155,24 +155,49 @@ function generateCommitMsg() {
 	jsonCommitMsg = output;
 }
 
+function convertDate(d = 202607301226) {
+	const dateStr = d.toFixed(0);
+	const yearStr = dateStr.substring(0, 4);
+	const monthStr = dateStr.substring(4, 6);
+	const dayStr = dateStr.substring(6, 8);
+	const hourStr = dateStr.substring(8, 10);
+	const minStr = dateStr.substring(10, 12);
+
+	const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} EDT`;
+	return new Date(fullDateInit);
+}
+
 function nextUpdatePredicted() {
 	const one_year = 1000 * 60 * 60 * 24 * 365;
-	let nextDate = Date.now() + one_year;
+	let nextEgg = -1;
+	let nextHatch = -1;
 	for (const breed of player) {
 		if (breed.view.length === breed.adults) continue;
-		const dateStr = breed.date.toFixed(0);
-		const yearStr = dateStr.substring(0, 4);
-		const monthStr = dateStr.substring(4, 6);
-		const dayStr = dateStr.substring(6, 8);
-		const hourStr = dateStr.substring(8, 10);
-		const minStr = dateStr.substring(10, 12);
 
-		const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} EDT`;
-		const fullDateStr = new Date(fullDateInit);
-		const fullDateTime = fullDateStr.getTime() + (3 * 86400 * 1000);
+		const hatchCount = breed.hatch;
+		const eggCount = breed.view.length - breed.adults - breed.hatch;
 
-		if (fullDateTime < nextDate) nextDate = fullDateTime;
+		if (eggCount > 0) {
+			const fullDateStr = convertDate(breed.date);
+			const fullDateTime = fullDateStr.getTime() + (3 * 86400 * 1000);
+
+			if (nextEgg < 0 || fullDateTime < nextEgg) nextEgg = fullDateTime;
+			continue;
+		}
+
+		if (hatchCount > 0) {
+			const fullDateStr = convertDate(breed.date);
+			const fullDateTime = fullDateStr.getTime() + (3 * 86400 * 1000);
+
+			if (nextHatch < 0 || fullDateTime < nextHatch) nextHatch = fullDateTime;
+			continue;
+		}
 	}
 
-	return `Next Update Predicted: ${new Date(nextDate)}`;
+	let output = '';
+
+	if (nextEgg > 0) output += `The next egg could hatch on: ${new Date(nextEgg)}`;
+	if (nextEgg > 0 && nextHatch > 0) output += '<br>';
+	if (nextHatch > 0) output += `The next hatchling could grow up on: ${new Date(nextHatch)}`;
+	return output;
 }
