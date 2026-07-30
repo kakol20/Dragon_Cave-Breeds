@@ -263,17 +263,36 @@ function toggleHidden_unfinished(id) {
 }
 
 function showIndivDragons(breed) {
-	let output = '';
+	let output = `<span style="`;
+	output +=`
+		display: flex;
+		gap: 2.5px 5px;
+		align-items: flex-end;
+		flex-wrap: wrap;
+		justify-content: center;
+	`;
+	output += `">`;
+
 	for (const dragon of breed.view) {
 		output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
 		output += customImgElement(`https://dragcave.net/image/${dragon}.gif`, dragon, dragon);
-		output += `</a> `;
+		output += `</a>`;
 	}
+	output += '</span>';
 	return output;
 }
 
 let finished_pageShown = 0;
 function drawHidden_finished(style, fullWidth = false) {
+	const galleryFlex = `
+		display: flex;
+		gap: 2.5px 5px;
+		align-items: flex-end;
+		flex-wrap: wrap;
+		justify-content: center;
+	`;
+	const groupFlex = `display: flex; gap: 0;`;
+
 	if (finished.length <= 0) return '';
 
 	const finished_maxDisplay = 50;
@@ -287,18 +306,19 @@ function drawHidden_finished(style, fullWidth = false) {
 
 		output += `<table id="hidden_page${page}" ${page === finished_pageShown ? '' : 'hidden'} ${fullWidth ? `style="width:100%"` : ''}>`;
 		output += `<tr><th colspan="3" style="padding:5px;">Finished</th></tr>`;
-		output += `<tr><td colspan="3" style="${style}">`;
+		output += `<tr><td colspan="3" style="${style}"><span style="${galleryFlex}">`;
 		for (let i = page * finished_maxDisplay; i < maxIndex; ++i) {
 			const id = finished[i];
+			output += `<span style="${groupFlex}">`
 			for (const egg in breeds[id].name) {
 				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`;
 				output += customImgElement(breeds[id].img[egg], breeds[id].name[egg],
 					`${breeds[id].name[egg]}\n${breeds[id].description}`);
 				output += `</a>`;
 			}
-			output += ` `;
+			output += `</span>`;
 		}
-		output += `</td></tr>`;
+		output += `</span></td></tr>`;
 
 		// ==== Page Navigation ====
 		const previousPage = Math.max(0, page - 1);
