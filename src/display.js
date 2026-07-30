@@ -160,7 +160,7 @@ function drawDragons(portrait = false) {
 		} else {
 			// ==== EGGS ====
 			output += `<tr>`;
-			output += `<td style="${landscape_td_style}">`;
+			output += `<td style="${landscape_td_style}"><span style="${galleryFlex}">`;
 			for (const egg in breeds[breed.id].name) {
 				output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
 				output += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg],
@@ -168,9 +168,8 @@ function drawDragons(portrait = false) {
 				output += `</a>`;
 
 				if (parseInt(egg) + 1 >= breeds[breed.id].name.length) continue;
-				output += ` `;
 			}
-			output += `</td>`;
+			output += `</span></td>`;
 
 			// ==== DRAGONS ====	
 			if (breed.id === lastDragon) {
@@ -219,6 +218,7 @@ function drawUnfinished(portrait = false, breed) {
 
 		// ==== EGGS ====
 		output += `<tr><td style="${landscape_td_style}">`;
+		output += `<span style="${galleryFlex}>"`;
 
 		for (const egg in breeds[breed.id].name) {
 			output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
@@ -228,22 +228,15 @@ function drawUnfinished(portrait = false, breed) {
 
 			if (parseInt(egg) + 1 >= breeds[breed.id].name.length) continue;
 			// landscape
-			output += ` `;
+			// output += ` `;
 		}
-		output += `</td>`;
+		output += `</span></td>`;
 
 		// ==== DRAGONS ====	
 		// View https://dragcave.net/image/r5HjG.gif
 		output += `<td style="${landscape_td_style}border-bottom-right-radius: 5px;">`;
-		for (const dragon of breed.view) {
-			output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
-			output += customImgElement(`https://dragcave.net/image/${dragon}.gif`, dragon, dragon);
-			output += `</a> `;
-		}
-		// End
-		output += `</td></tr>`;
-
-		output += `</table>`;
+		output += showIndivDragons(breed);
+		output += `</td></tr></table>`;
 	}
 
 	return output;
@@ -263,15 +256,7 @@ function toggleHidden_unfinished(id) {
 }
 
 function showIndivDragons(breed) {
-	let output = `<span style="`;
-	output +=`
-		display: flex;
-		gap: 2.5px 5px;
-		align-items: flex-end;
-		flex-wrap: wrap;
-		justify-content: center;
-	`;
-	output += `">`;
+	let output = `<span style="${galleryFlex}">`;
 
 	for (const dragon of breed.view) {
 		output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
@@ -282,17 +267,17 @@ function showIndivDragons(breed) {
 	return output;
 }
 
-let finished_pageShown = 0;
-function drawHidden_finished(style, fullWidth = false) {
-	const galleryFlex = `
+const galleryFlex = `
 		display: flex;
 		gap: 2.5px 5px;
 		align-items: flex-end;
 		flex-wrap: wrap;
 		justify-content: center;
 	`;
-	const groupFlex = `display: flex; gap: 0;`;
+const groupFlex = `display: flex; gap: 0;`;
 
+let finished_pageShown = 0;
+function drawHidden_finished(style, fullWidth = false) {
 	if (finished.length <= 0) return '';
 
 	const finished_maxDisplay = 50;
@@ -372,6 +357,7 @@ async function orientationChange() {
 	const portrait = window.matchMedia("(orientation: portrait)").matches;
 	document.getElementById('output').innerHTML = mainTable(portrait);
 	toggleHidden_unfinished(lastUnfinish_shown);
+	console.log(portrait);
 }
 
 function updateStats() {
