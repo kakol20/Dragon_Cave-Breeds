@@ -51,9 +51,9 @@ const reloadInterval = setInterval(async () => {
 		if (dateMinutes % (reloadInterval * 3) === 0 && dateNow - lastReloaded >= reloadInterval * 60 * 1000) customReload();
 		if (dateNow - lastReloaded >= reloadInterval * 3 * 60 * 1000) customReload();
 
-		let output = `<small>Rate limit remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
-		output += `<br>Rate limit reset on: ${new Date(rateLimit.rate.reset * 1000)}`;
-		output += `</small>`;
+		let output = `Rate Limit Remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
+		output += `<br>Rate Limit Reset On: ${new Date(rateLimitReset)}`;
+		
 		document.getElementById('rateLimit').innerHTML = output;
 	} catch (err) {
 		console.error(err);
