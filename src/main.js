@@ -5,7 +5,6 @@ async function run() {
 	try {
 		await draw();
 		jsonLastPushed = jsonLastCommit;
-		updateStats();
 	} catch (err) {
 		console.trace();
 		document.getElementById('output').innerHTML = `${err}<br>Reloading in 5 seconds`;
