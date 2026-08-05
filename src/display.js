@@ -416,16 +416,17 @@ function updateStats() {
 		adult >= 1000 ? 'Platinum Trophy' :
 			adult >= 500 ? 'Gold Trophy' :
 				adult >= 200 ? 'Silver Trophy' :
-					adult >= 50 ? 5 : 'Bronze Trophy';
+					adult >= 50 ? 'Bronze Trophy' : '';
 
 	const trophySRC =
 		adult >= 1000 ? 'https://s.dcave.net/cache/images/1/1r9zjva.png' :
 			adult >= 500 ? 'https://s.dcave.net/cache/images/1/11idxbi.png' :
 				adult >= 200 ? 'https://s.dcave.net/cache/images/c/co58ik.png' :
-					adult >= 50 ? 5 : 'https://s.dcave.net/cache/images/1/1xlf6rx.png';
-
-	document.getElementById('trophy').innerHTML = `
-	<span class="tooltip" data-title="${trophyTitle}">
-		<img src="${trophySRC}" alt="${trophyTitle}">
-	</span>`;
+					adult >= 50 ? 'https://s.dcave.net/cache/images/1/1xlf6rx.png' : '';
+    if (adult >= 50) {
+	    document.getElementById('trophy').innerHTML = `
+	    <span class="tooltip" data-title="${trophyTitle}">
+		    <img src="${trophySRC}" alt="${trophyTitle}">
+	    </span>`;
+	}
 }
