@@ -323,7 +323,7 @@ function drawHidden_finished(style, fullWidth = false) {
 			</td>`;
 		}
 
-		output += `<td style="padding:5px;">${page * finished_maxDisplay + 1} to ${maxIndex} of ${maxIndex}</td>`;
+		output += `<td style="padding:5px;">${page * finished_maxDisplay + 1} to ${maxIndex} of ${finished.length}</td>`;
 
 		if (nextPage === page) {
 			output += `<td style="padding:5px;border-bottom-right-radius: 5px;">
