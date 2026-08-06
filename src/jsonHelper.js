@@ -3,25 +3,25 @@ let main = {};
 async function getMainJson(debug = false) {
 	// console.log('Trying to get main json');
 	const response = await fetch('main.json');
-	if (!response.ok) {
-		document.getElementById('output').innerHTML = `Error fetching main.json: ${response.status}`;
-		throw new Error(`Error fetching main.json: ${response.status}`);
-		return;
-	}
+	if (!response.ok) throw new Error(`Error fetching main.json: ${response.status}`);
+
 	main = await response.json();
 	if (debug) console.log('main', main);
 }
 
 let player = [];
 async function getPlayerJson(debug = false) {
-	const response = await fetch(main.player, { cache: 'no-store' });
-	if (!response.ok) {
-		document.getElementById('output').innerHTML = `Error fetching player.json: ${response.status}`;
-		throw new Error(`Error fetching player.json: ${response.status}`);
-		return;
-	}
-	player = await response.json();
+	const promiseArrays = await Promise.all(
+		main.player.map(async file => {
+			const response = await fetch(file,  { cache: 'no-store' });
+			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
+
+			return response.json();
+		})
+	);
+	player = promiseArrays.flat();
 	player.sort(sortPlayer);
+	
 	if (debug) console.log('player', player);
 }
 
@@ -55,11 +55,8 @@ function sortPlayer(a, b) {
 let breeds = {};
 async function getBreedsJson(debug = false) {
 	const response = await fetch(main.breeds, { cache: 'no-store' });
-	if (!response.ok) {
-		document.getElementById('output').innerHTML = `Error fetching breeds.json: ${response.status}`;
-		throw new Error(`Error fetching breeds.json: ${response.status}`);
-		return;
-	}
+	if (!response.ok) throw new Error(`Error fetching breeds.json: ${response.status}`);
+
 	breeds = await response.json();
 	if (debug) console.log('breeds', breeds);
 }
@@ -68,12 +65,8 @@ let rateLimit = {};
 let rateLimitReset = 0;
 async function checkRateLimit(debug = false) {
 	const response = await fetch('https://api.github.com/rate_limit', { cache: 'no-store' });
-	if (!response.ok) {
-		document.getElementById('output').innerHTML = `Error fetching rate limit: 
-			<a href="https://api.github.com/rate_limit" target="_blank">https://api.github.com/rate_limit</a>`;
-		throw new Error(`Error fetching rate limit: https://api.github.com/rate_limit`);
-		return;
-	}
+	if (!response.ok) throw new Error(`Error fetching rate limit: https://api.github.com/rate_limit`);
+
 	rateLimit = await response.json();
 	rateLimitReset = (rateLimit.rate.reset + 1) * 1000;
 	if (debug) {
@@ -118,11 +111,8 @@ async function getJsonRepo(begin = false, debug = false) {
 	}
 
 	const response = await fetch(main.jsonRepo, { cache: 'no-store' });
-	if (!response.ok) {
-		document.getElementById('output').innerHTML = `Error fetching jsonRepo: ${response.status}`;
-		throw new Error(`Error fetching jsonRepo: ${response.status}`);
-		return;
-	}
+	if (!response.ok) throw new Error(`Error fetching jsonRepo: ${response.status}`);
+
 	jsonRepo = await response.json();
 	jsonLastCommitDate = new Date(jsonRepo.commit.commit.committer.date);
 	jsonLastCommit = jsonLastCommitDate.getTime();
