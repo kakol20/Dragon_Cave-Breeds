@@ -34,9 +34,9 @@ function sortPlayer(a, b) {
 	const bAllAdults = b.adults === b.view.length;
 	if (aAllAdults !== bAllAdults) return aAllAdults - bAllAdults;
 
-	if (a.finished !== b.finished) return a.finished - b.finished;
+	if (a.done !== b.done) return a.done - b.done;
 
-	if (a.finished && b.finished && a.date !== b.date) return b.date - a.date;
+	if (a.done && b.done && a.date !== b.date) return b.date - a.date;
 
 	if (a.adults !== b.adults) return a.adults - b.adults;
 

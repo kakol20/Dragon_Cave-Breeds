@@ -112,7 +112,7 @@ function drawDragons(portrait = false) {
 		const breed = player[i];
 
 		if (breed.view.length === breed.adults &&
-			breed.finished) continue;
+			breed.done) continue;
 		if (imagesDisplayed >= mainTableLimit &&
 			breed.view.length === breed.adults) continue;
 
@@ -126,7 +126,7 @@ function drawDragons(portrait = false) {
 	// ========== MAIN DISPLAY ==========
 
 	for (const breed of player) {
-		if (breed.view.length === breed.adults && breed.finished) {
+		if (breed.view.length === breed.adults && breed.done) {
 			finished.push(breed.id);
 			continue;
 		}
