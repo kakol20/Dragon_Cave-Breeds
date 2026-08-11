@@ -206,3 +206,30 @@ hr {
 	text-align: left;
 	line-height: normal;
 }
+
+.galleryFlex {
+	display: flex;
+	gap: 2.5px 5px;
+	align-items: flex-end;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.groupFlex {
+	display: flex;
+	gap: 0;
+}
+
+.portraitTd {
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+.landscapeTd {
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}

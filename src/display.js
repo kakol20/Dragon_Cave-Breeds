@@ -6,7 +6,7 @@ async function draw() {
 	// console.log(toggleThemeStore);
 	document.getElementById('toggleTheme').checked = toggleThemeStore;
 	root.style.colorScheme = toggleThemeStore ? 'light' : 'dark';
-	
+
 	lastUnfinish_shown = sessionStorage.getItem('lastUnfinish_shown');
 
 	const debugMode = false;
@@ -42,7 +42,7 @@ let lastUnfinish_shown = 'none';
 
 function mainTable(portrait = false) {
 	unfinishedOutput = '';
-	const tdStyle = portrait ? portrait_td_style : landscape_td_style;
+	const tdClass = portrait ? 'portraitTd' : 'lanscapeTd';
 
 	unfinished.length = 0;
 	finished.length = 0;
@@ -59,9 +59,10 @@ function mainTable(portrait = false) {
 		output += `<br><table>`
 		output += `<tr><th style="padding:5px;">Unfinished</th></tr>`;
 
-		output += `<tr><td style="${tdStyle}border-bottom-right-radius: 5px;">`;
+		output += `<tr><td class="${tdClass} galleryFlex" style="border-bottom-right-radius: 5px;">`;
 
 		for (const id of unfinished) {
+			output += `<span class="groupFlex">`
 			for (const egg in breeds[id].name) {
 				output += `<a onclick="toggleHidden_unfinished('${id}')">`;
 				output += customImgElement(breeds[id].img[egg],
@@ -69,7 +70,7 @@ function mainTable(portrait = false) {
 					`${breeds[id].name[egg]}\n${breeds[id].description}`);
 				output += `</a>`;
 			}
-			output += ` `;
+			output += `</span>`;
 		}
 		output += `</td></tr>`;
 		output += `</table>`;
@@ -77,7 +78,7 @@ function mainTable(portrait = false) {
 	output += unfinishedOutput;
 
 	// ========== FINISHED ==========
-	output += drawHidden_finished(tdStyle, portrait);
+	output += drawHidden_finished(tdClass, portrait);
 
 	// ========== EXTRA ==========
 	output += `<small><br>Last Reloaded: ${lastReloadedStr}`;
@@ -92,9 +93,6 @@ function mainTable(portrait = false) {
 
 	return output;
 }
-
-const portrait_td_style = `padding-left:2px;padding-right: 2px;padding-top: 1px; padding-bottom: 1px;`;
-const landscape_td_style = `padding-left:5px;padding-right: 5px;padding-top: 4px; padding-bottom: 4px;`;
 
 const mainTableLimit = 75;
 function drawDragons(portrait = false) {
@@ -136,7 +134,7 @@ function drawDragons(portrait = false) {
 			// ==== EGGS ====
 			for (const egg in breeds[breed.id].name) {
 				output += `<tr>`;
-				output += `<td style="${portrait_td_style}"><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
+				output += `<td class="portraitTd"><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
 				output += customImgElement(breeds[breed.id].img[egg],
 					breeds[breed.id].name[egg],
 					`${breeds[breed.id].name[egg]}\n${breeds[breed.id].description}`);
@@ -145,9 +143,9 @@ function drawDragons(portrait = false) {
 				// ==== DRAGONS ====
 				if (egg === '0') {
 					if (breed.id === lastDragon) {
-						output += `<td rowspan="${breeds[breed.id].name.length}" style="${portrait_td_style}border-bottom-right-radius: 5px;">`;
+						output += `<td rowspan="${breeds[breed.id].name.length}" class="portraitTd" style="border-bottom-right-radius: 5px;">`;
 					} else {
-						output += `<td rowspan="${breeds[breed.id].name.length}" style="${portrait_td_style}">`;
+						output += `<td rowspan="${breeds[breed.id].name.length}" class="portraitTd">`;
 					}
 
 					output += showIndivDragons(breed);
@@ -158,7 +156,7 @@ function drawDragons(portrait = false) {
 		} else {
 			// ==== EGGS ====
 			output += `<tr>`;
-			output += `<td style="${landscape_td_style}"><span style="${galleryFlex}">`;
+			output += `<td class="landscapeTd"><span style="${galleryFlex}">`;
 			for (const egg in breeds[breed.id].name) {
 				output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
 				output += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg],
@@ -171,9 +169,9 @@ function drawDragons(portrait = false) {
 
 			// ==== DRAGONS ====	
 			if (breed.id === lastDragon) {
-				output += `<td style="${landscape_td_style}border-bottom-right-radius: 5px;">`;
+				output += `<td class="landscapeTd" style="border-bottom-right-radius: 5px;">`;
 			} else {
-				output += `<td style="${landscape_td_style}">`;
+				output += `<td class="landscapeTd">`;
 			}
 			output += showIndivDragons(breed);
 			output += `</td></tr>`;
@@ -191,19 +189,19 @@ function drawUnfinished(portrait = false, breed) {
 
 	if (portrait) {
 		output += `<table id="${breed.id}_hide" hidden>`;
-		// output += `<table id="${breed.id}_hide">`;
 		output += `<tr><th style="padding:5px;" colspan="2">${breeds[breed.id].description}</th></tr>`;
 
 		// ==== EGGS ====
 		for (const egg in breeds[breed.id].name) {
 			output += '<tr>';
-			output += `<td style="${portrait_td_style}border-bottom-right-radius:0;"><a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
+			output += `<td class="portraitTd" style="border-bottom-right-radius:0;">`;
+			output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
 			output += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg], breeds[breed.id].name[egg]);
 			output += `</a></td>`;
 
 			// ==== DRAGONS ====
 			if (egg === '0') {
-				output += `<td rowspan="${breeds[breed.id].name.length}" style="${portrait_td_style}border-bottom-right-radius:5px;">`;
+				output += `<td rowspan="${breeds[breed.id].name.length}" class="portraitTd" style="border-bottom-right-radius:5px;">`;
 				output += showIndivDragons(breed);
 				output += `</td>`;
 			}
@@ -215,8 +213,8 @@ function drawUnfinished(portrait = false, breed) {
 		output += `<tr><th style="padding:5px;" colspan="2">${breeds[breed.id].description}</th></tr>`;
 
 		// ==== EGGS ====
-		output += `<tr><td style="${landscape_td_style}">`;
-		output += `<span style="${galleryFlex}>"`;
+		output += `<tr><td class="landscapeTd">`;
+		output += `<span class="galleryFlex>"`;
 
 		for (const egg in breeds[breed.id].name) {
 			output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
@@ -225,14 +223,12 @@ function drawUnfinished(portrait = false, breed) {
 			output += `</a>`;
 
 			if (parseInt(egg) + 1 >= breeds[breed.id].name.length) continue;
-			// landscape
-			// output += ` `;
 		}
 		output += `</span></td>`;
 
 		// ==== DRAGONS ====	
 		// View https://dragcave.net/image/r5HjG.gif
-		output += `<td style="${landscape_td_style}border-bottom-right-radius: 5px;">`;
+		output += `<td class="landscapeTd" style="border-bottom-right-radius: 5px;">`;
 		output += showIndivDragons(breed);
 		output += `</td></tr></table>`;
 	}
@@ -254,7 +250,7 @@ function toggleHidden_unfinished(id) {
 }
 
 function showIndivDragons(breed) {
-	let output = `<span style="${galleryFlex}">`;
+	let output = `<span class="galleryFlex">`;
 
 	for (const dragon of breed.view) {
 		output += `<a href="https://dragcave.net/view/${dragon}" target="_blank">`;
@@ -264,15 +260,6 @@ function showIndivDragons(breed) {
 	output += '</span>';
 	return output;
 }
-
-const galleryFlex = `
-		display: flex;
-		gap: 2.5px 5px;
-		align-items: flex-end;
-		flex-wrap: wrap;
-		justify-content: center;
-	`;
-const groupFlex = `display: flex; gap: 0;`;
 
 let finished_pageShown = 0;
 function drawHidden_finished(style, fullWidth = false) {
@@ -285,14 +272,13 @@ function drawHidden_finished(style, fullWidth = false) {
 
 	for (let page = 0; page < maxPages; ++page) {
 		const maxIndex = Math.min(finished.length, (page + 1) * finished_maxDisplay);
-		// console.log('Page', page);
 
 		output += `<table id="hidden_page${page}" ${page === finished_pageShown ? '' : 'hidden'} ${fullWidth ? `style="width:100%"` : ''}>`;
 		output += `<tr><th colspan="3" style="padding:5px;">Finished</th></tr>`;
-		output += `<tr><td colspan="3" style="${style}"><span style="${galleryFlex}">`;
+		output += `<tr><td colspan="3" class="${style}"><span class="galleryFlex">`;
 		for (let i = page * finished_maxDisplay; i < maxIndex; ++i) {
 			const id = finished[i];
-			output += `<span style="${groupFlex}">`
+			output += `<span class="groupFlex">`
 			for (const egg in breeds[id].name) {
 				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`;
 				output += customImgElement(breeds[id].img[egg], breeds[id].name[egg],
@@ -310,25 +296,25 @@ function drawHidden_finished(style, fullWidth = false) {
 		output += '<tr>';
 
 		if (previousPage === page) {
-			output += `<td style="padding:5px;">
-				<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>
-			</td>`;
+			output += `<td style="padding:5px;">`
+			output += `<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>`
+			output += `</td>`;
 		} else {
-			output += `<td style="padding:5px;">
-				<a href="javascript:void(0);" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>
-			</td>`;
+			output += `<td style="padding:5px;">`
+			output += `<a href="javascript:void(0);" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>`
+			output += `</td>`;
 		}
 
 		output += `<td style="padding:5px;">${page * finished_maxDisplay + 1} to ${maxIndex} of ${finished.length}</td>`;
 
 		if (nextPage === page) {
-			output += `<td style="padding:5px;border-bottom-right-radius: 5px;">
-				<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${nextPage}, ${maxPages})" style="padding:5px;">Next</a>
-			</td>`;
+			output += `<td style="padding:5px;border-bottom-right-radius: 5px;">`
+			output += `<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${nextPage}, ${maxPages})" style="padding:5px;">Next</a>`
+			output += `</td>`;
 		} else {
-			output += `<td style="padding:5px;border-bottom-right-radius: 5px;">
-				<a href="javascript:void(0);" onclick="hidden_switchPage(${nextPage}, ${maxPages})" style="padding:5px;">Next</a>
-			</td>`;
+			output += `<td style="padding:5px;border-bottom-right-radius: 5px;">`
+			output += `<a href="javascript:void(0);" onclick="hidden_switchPage(${nextPage}, ${maxPages})" style="padding:5px;">Next</a>`
+			output += `</td>`;
 		}
 
 		output += '</tr></table>';
@@ -337,17 +323,12 @@ function drawHidden_finished(style, fullWidth = false) {
 }
 
 function hidden_switchPage(page, maxPages) {
-	// console.log(page, maxPages);
 	finished_pageShown = page;
 
 	for (let i = 0; i < maxPages; ++i) {
 		const id = `hidden_page${i}`;
 
-		if (i === page) {
-			document.getElementById(id).hidden = false;
-		} else {
-			document.getElementById(id).hidden = true;
-		}
+		document.getElementById(id).hidden = i !== page;
 	}
 }
 
@@ -382,7 +363,6 @@ function updateStats() {
 	document.getElementById('stats_eggs').innerHTML = eggs;
 	document.getElementById('stats_hatch').innerHTML = hatch;
 	document.getElementById('stats_adult').innerHTML = adult;
-	// document.getElementById('stats_total').innerHTML = total;
 	document.getElementById('stats_total').innerHTML = `<span 
 		onclick="document.getElementById('stats_group').hidden = !(document.getElementById('stats_group')?.hidden)">
 			${total}</span>`;
@@ -419,8 +399,8 @@ function updateStats() {
 			adult >= 500 ? 'https://s.dcave.net/cache/images/1/11idxbi.png' :
 				adult >= 200 ? 'https://s.dcave.net/cache/images/c/co58ik.png' :
 					adult >= 50 ? 'https://s.dcave.net/cache/images/1/1xlf6rx.png' : '';
-    if (adult >= 50) {
-	    document.getElementById('trophy').innerHTML = `
+	if (adult >= 50) {
+		document.getElementById('trophy').innerHTML = `
 	    <span class="tooltip" data-title="${trophyTitle}">
 		    <img src="${trophySRC}" alt="${trophyTitle}">
 	    </span>`;
