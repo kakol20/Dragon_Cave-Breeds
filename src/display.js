@@ -5,13 +5,8 @@ async function draw() {
 	const toggleThemeStore = sessionStorage.getItem('toggleTheme') === 'true';
 	// console.log(toggleThemeStore);
 	document.getElementById('toggleTheme').checked = toggleThemeStore;
-
-	if (toggleThemeStore) {
-		root.style.colorScheme = 'light';
-	} else {
-		root.style.colorScheme = 'dark';
-	}
-
+	root.style.colorScheme = toggleThemeStore ? 'light' : 'dark';
+	
 	lastUnfinish_shown = sessionStorage.getItem('lastUnfinish_shown');
 
 	const debugMode = false;
