@@ -4,6 +4,7 @@ async function draw() {
 
 	const toggleThemeStore = sessionStorage.getItem('toggleTheme') === 'true';
 	// console.log(toggleThemeStore);
+	document.getElementById('toggleTheme').checked = toggleThemeStore;
 
 	if (toggleThemeStore) {
 		root.style.colorScheme = 'light';
