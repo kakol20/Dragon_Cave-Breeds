@@ -7,9 +7,11 @@ async function run() {
 		jsonLastPushed = jsonLastCommit;
 	} catch (err) {
 		console.trace();
-		document.getElementById('output').innerHTML = `${err}<br>Reloading in 5 seconds`;
+		console.error(err);
+		document.getElementById('output').innerHTML = `<p>${err}<br>Reloading in 5 seconds</p>`;
 		await sleep(5 * 1000);
-		location.reload();
+		if (document.getElementById('pauseReload')?.checked) return;
+		customReload();
 	}
 }
 
@@ -55,12 +57,11 @@ const reloadInterval = setInterval(async () => {
 		
 		document.getElementById('rateLimit').innerHTML = output;
 	} catch (err) {
+		console.trace();
 		console.error(err);
 		document.getElementById('output').innerHTML = `<p>${err}<br>Reloading in 5 seconds</p>`;
-
-		if (document.getElementById('pauseReload')?.checked) return;
-		
 		await sleep(5 * 1000);
+		if (document.getElementById('pauseReload')?.checked) return;
 		customReload();
 	}
 }, 0.5 * 1000);
