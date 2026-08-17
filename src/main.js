@@ -57,6 +57,9 @@ const reloadInterval = setInterval(async () => {
 	} catch (err) {
 		console.error(err);
 		document.getElementById('output').innerHTML = `<p>${err}<br>Reloading in 5 seconds</p>`;
+
+		if (document.getElementById('pauseReload')?.checked) return;
+		
 		await sleep(5 * 1000);
 		customReload();
 	}
