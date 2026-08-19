@@ -3,7 +3,8 @@ const lastReloadedStr = new Date(lastReloaded);
 
 async function run() {
 	try {
-		await draw();
+		await Promise.all([draw(), quickLinks()]);
+
 		jsonLastPushed = jsonLastCommit;
 	} catch (err) {
 		console.trace();

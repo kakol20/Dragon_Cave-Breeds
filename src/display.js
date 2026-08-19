@@ -156,7 +156,7 @@ function drawDragons(portrait = false) {
 		} else {
 			// ==== EGGS ====
 			output += `<tr>`;
-			output += `<td class="landscapeTd"><span style="${galleryFlex}">`;
+			output += `<td class="landscapeTd"><span class="galleryFlex>">`;
 			for (const egg in breeds[breed.id].name) {
 				output += `<a href="${breeds[breed.id].encyclopedia}" target="_blank">`;
 				output += customImgElement(breeds[breed.id].img[egg], breeds[breed.id].name[egg],
@@ -405,4 +405,37 @@ function updateStats() {
 		    <img src="${trophySRC}" alt="${trophyTitle}">
 	    </span>`;
 	}
+}
+
+async function quickLinks() {
+	/*
+	<a href="https://dragcave.net/abandoned" target="_blank">Abandoned</a>,
+	<a href="https://dragcave.net/dragons" target="_blank">Dragons</a>,
+	<a href="https://www.allureofnds.net/viewer?pop=up" target="_blank">Allure Of Neglected Dragons Popup</a>,
+	<a href="https://www.allureofnds.net/daycare" target="_blank">Allure Of Neglected Dragons Daycare</a>,
+	<a href="https://dragcave.fandom.com/wiki/Egg/Identification_guide" target="_blank">Egg Identification
+		Guide</a>,
+	<a href="https://dragcave.net/market" target="_blank">Market</a>,
+	<a href="https://dragcave.net/?r=2" target="_blank">Cave</a>,
+	<a href="https://dc-shuffle-clock.vercel.app/" target="_blank">Shuffle Clock</a>,
+	<a href="https://docs.google.com/spreadsheets/d/1LBuJe96arGEagyXBigG00zs5bCl9h8e6vvCKTt1M_N4/edit?usp=sharing"
+		target="_blank">
+		Dragon Encyclopedia Sheet
+	</a>
+	*/
+	
+	const response = await fetch('json/quickLinks.json');
+	if (!response.ok) throw new Error(`Error fetching quickLinks.json: ${response.status}`);
+	const links = await response.json();
+
+	let output = '';
+	// console.log(links);
+	for (let i = 0; i < links.length; ++i) {
+		const link = links[i];
+
+		output += `<a href="${link.src}" target="_blank">${link.text}</a>`;
+
+		if (i + 1 < links.length) output += ', ';
+	}
+	document.getElementById('quickLinks').innerHTML = output;
 }
