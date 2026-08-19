@@ -1,0 +1,36 @@
+[
+  {"text": "Cave", "src": "https://dragcave.net/", "sort": 0},
+  {"text": "Abandoned", "src": "https://dragcave.net/abandoned", "sort": 0},
+  {"text": "Dragons", "src": "https://dragcave.net/dragons", "sort": 0},
+  {"text": "Market", "src": "https://dragcave.net/market", "sort": 0},
+  {
+    "text": "Allure Of Neglected Dragons Daycare",
+    "src" : "https://www.allureofnds.net/daycare",
+    "sort": 1
+  },
+  {
+    "text": "Allure Of Neglected Dragons Popup",
+    "src" : "https://www.allureofnds.net/viewer?pop=up",
+    "sort": 1
+  },
+  {
+    "text": "Egg Identification Guide",
+    "src" : "https://dragcave.fandom.com/wiki/Egg/Identification_guide",
+    "sort": 2
+  },
+  {
+    "text": "Shuffle Clock",
+    "src" : "https://dc-shuffle-clock.vercel.app/",
+    "sort": 98
+  },
+  {
+    "text": "Dragon Cave Records",
+    "src" : "https://dcrecords.tj09.net/",
+    "sort": 98
+  },
+  {
+    "text": "Dragon Encyclopedia Sheet",
+    "src": "https://docs.google.com/spreadsheets/d/1LBuJe96arGEagyXBigG00zs5bCl9h8e6vvCKTt1M_N4/edit?usp=sharing",
+    "sort": 99
+  }
+]

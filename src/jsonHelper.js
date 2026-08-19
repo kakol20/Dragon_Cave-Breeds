@@ -2,7 +2,7 @@
 let main = {};
 async function getMainJson(debug = false) {
 	// console.log('Trying to get main json');
-	const response = await fetch('main.json');
+	const response = await fetch('json/main.json');
 	if (!response.ok) throw new Error(`Error fetching main.json: ${response.status}`);
 
 	main = await response.json();
