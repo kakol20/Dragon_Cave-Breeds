@@ -153,7 +153,7 @@ function convertDate(d = 202607301226) {
 	const hourStr = dateStr.substring(8, 10);
 	const minStr = dateStr.substring(10, 12);
 
-	const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} EDT`;
+	const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} ${main.timezone}`;
 	return new Date(fullDateInit);
 }
 
