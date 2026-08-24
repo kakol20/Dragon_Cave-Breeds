@@ -3,14 +3,11 @@ let main = {};
 let misc = {};
 async function getMainJson(debug = false) {
 	// console.log('Trying to get main json');
-	const resMain = await fetch(
-		'https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/main.json',
-		{ cache: 'no-store' }
-	);
+	const resMain = await fetch('https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/main.json');
 	if (!resMain.ok) throw new Error(`Error fetching main.json: ${resMain.status}`);
 	main = await resMain.json();
 
-	const resMisc = await fetch(main.misc, { cache: 'no-store' });
+	const resMisc = await fetch(main.misc);
 	if (!resMisc.ok) throw new Error(`Error fetching ${main.misc}: ${resMisc.status}`);
 	misc = await resMisc.json();
 
@@ -24,7 +21,7 @@ let player = [];
 async function getPlayerJson(debug = false) {
 	const promiseArrays = await Promise.all(
 		main.player.map(async file => {
-			const response = await fetch(file, { cache: 'no-store' });
+			const response = await fetch(file);
 			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
 
 			return response.json();
@@ -65,7 +62,7 @@ function sortPlayer(a, b) {
 
 let breeds = {};
 async function getBreedsJson(debug = false) {
-	const response = await fetch(main.breeds, { cache: 'no-store' });
+	const response = await fetch(main.breeds);
 	if (!response.ok) throw new Error(`Error fetching breeds.json: ${response.status}`);
 
 	breeds = await response.json();
@@ -75,7 +72,7 @@ async function getBreedsJson(debug = false) {
 let rateLimit = {};
 let rateLimitReset = 0;
 async function checkRateLimit(debug = false) {
-	const response = await fetch('https://api.github.com/rate_limit', { cache: 'no-store' });
+	const response = await fetch('https://api.github.com/rate_limit');
 	if (!response.ok) throw new Error(`Error fetching rate limit: https://api.github.com/rate_limit`);
 
 	rateLimit = await response.json();
@@ -121,7 +118,7 @@ async function getJsonRepo(begin = false, debug = false) {
 		return;
 	}
 
-	const response = await fetch(main.jsonRepo, { cache: 'no-store' });
+	const response = await fetch(main.jsonRepo);
 	if (!response.ok) throw new Error(`Error fetching jsonRepo: ${response.status}`);
 
 	jsonRepo = await response.json();

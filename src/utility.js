@@ -12,7 +12,7 @@ function customReload() {
 	console.log(dateNow, lastReloaded, dateNow - lastReloaded < 1 * 60 * 1000);
 	if (dateNow - lastReloaded < 1 * 60 * 1000) return;
 
-	clearInterval(reloadInterval);
+	clearInterval(update);
 	location.reload();
 }
 

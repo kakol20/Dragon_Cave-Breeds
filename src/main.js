@@ -3,6 +3,21 @@ const lastReloadedStr = new Date(lastReloaded);
 
 async function run() {
 	try {
+		await checkRateLimit();
+
+		if (rateLimit.rate.remaining <= 0) {
+			const waitDate = rateLimitReset + (1 * 60 * 1000);
+
+			console.log('Rate limit reached zero');
+			let output = 'Rate limit reached zero.<br>';
+			output += `Waiting until ${new Date(waitDate)}.`;
+
+			document.getElementById('output').innerHTML = output;
+			clearInterval(update);
+			await sleep(waitDate - Date.now());
+			customReload();
+		}
+
 		await Promise.all([draw(), quickLinks()]);
 
 		jsonLastPushed = jsonLastCommit;
@@ -22,7 +37,7 @@ window.matchMedia("(orientation: portrait)").addEventListener("change", async e 
 
 let jsonLastPushed = 0;
 let lastChecked = lastReloaded;
-const reloadInterval = setInterval(async () => {
+const update = setInterval(async () => {
 	const reloadInterval = 10;
 	try {
 		if (document.getElementById('pauseReload')?.checked) return;
