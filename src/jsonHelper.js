@@ -29,6 +29,7 @@ async function getPlayerJson(debug = false) {
 	);
 	player = promiseArrays.flat();
 	player.sort(sortPlayer);
+	sessionStorage.setItem('playerJson', JSON.stringify(player));
 
 	if (debug) console.log('player', player);
 }
@@ -67,6 +68,7 @@ async function getBreedsJson(debug = false) {
 
 	breeds = await response.json();
 	if (debug) console.log('breeds', breeds);
+	sessionStorage.setItem('breedsJson', JSON.stringify(breeds));
 }
 
 let rateLimit = {};
