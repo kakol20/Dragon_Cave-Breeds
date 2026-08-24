@@ -1,3 +1,13 @@
+window.addEventListener('beforeunload', (event) => {
+	sessionStorage.setItem('scrollY', window.scrollY);
+	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
+});
+
+window.addEventListener('pagehide', (event) => {
+	sessionStorage.setItem('scrollY', window.scrollY);
+	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
+});
+
 function customReload() {
 	sessionStorage.setItem('scrollY', window.scrollY);
 	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
