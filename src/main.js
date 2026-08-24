@@ -18,7 +18,7 @@ async function run() {
 			document.getElementById('output').innerHTML = output;
 			clearInterval(update);
 			await sleep(waitDate - Date.now());
-			customReload();
+			location.reload();
 		}
 
 		await Promise.all([draw(), quickLinks()]);

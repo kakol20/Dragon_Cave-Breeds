@@ -1,8 +1,6 @@
 function customReload() {
 	sessionStorage.setItem('scrollY', window.scrollY);
 	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
-	sessionStorage.setItem('playerJson', JSON.stringify(player));
-	sessionStorage.setItem('breedsJson', JSON.stringify(breeds));
 
 	console.trace();
 	const dateNow = Date.now();
