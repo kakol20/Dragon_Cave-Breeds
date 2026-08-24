@@ -408,23 +408,10 @@ function updateStats() {
 }
 
 async function quickLinks() {
-	/*
-	<a href="https://dragcave.net/abandoned" target="_blank">Abandoned</a>,
-	<a href="https://dragcave.net/dragons" target="_blank">Dragons</a>,
-	<a href="https://www.allureofnds.net/viewer?pop=up" target="_blank">Allure Of Neglected Dragons Popup</a>,
-	<a href="https://www.allureofnds.net/daycare" target="_blank">Allure Of Neglected Dragons Daycare</a>,
-	<a href="https://dragcave.fandom.com/wiki/Egg/Identification_guide" target="_blank">Egg Identification
-		Guide</a>,
-	<a href="https://dragcave.net/market" target="_blank">Market</a>,
-	<a href="https://dragcave.net/?r=2" target="_blank">Cave</a>,
-	<a href="https://dc-shuffle-clock.vercel.app/" target="_blank">Shuffle Clock</a>,
-	<a href="https://docs.google.com/spreadsheets/d/1LBuJe96arGEagyXBigG00zs5bCl9h8e6vvCKTt1M_N4/edit?usp=sharing"
-		target="_blank">
-		Dragon Encyclopedia Sheet
-	</a>
-	*/
-	
-	const response = await fetch('json/quickLinks.json');
+	const response = await fetch(
+		'https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/quickLinks.json',
+		{ cache: 'no-store' }
+	);
 	if (!response.ok) throw new Error(`Error fetching quickLinks.json: ${response.status}`);
 	const links = await response.json();
 

@@ -3,7 +3,10 @@ let main = {};
 let misc = {};
 async function getMainJson(debug = false) {
 	// console.log('Trying to get main json');
-	const resMain = await fetch('json/main.json');
+	const resMain = await fetch(
+		'https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/main.json',
+		{ cache: 'no-store' }
+	);
 	if (!resMain.ok) throw new Error(`Error fetching main.json: ${resMain.status}`);
 	main = await resMain.json();
 
