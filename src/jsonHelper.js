@@ -1,19 +1,27 @@
 
 let main = {};
+let misc = {};
 async function getMainJson(debug = false) {
 	// console.log('Trying to get main json');
-	const response = await fetch('json/main.json');
-	if (!response.ok) throw new Error(`Error fetching main.json: ${response.status}`);
+	const resMain = await fetch('json/main.json');
+	if (!resMain.ok) throw new Error(`Error fetching main.json: ${resMain.status}`);
+	main = await resMain.json();
 
-	main = await response.json();
-	if (debug) console.log('main', main);
+	const resMisc = await fetch(main.misc, { cache: 'no-store' });
+	if (!resMisc.ok) throw new Error(`Error fetching ${main.misc}: ${resMisc.status}`);
+	misc = await resMisc.json();
+
+	if (debug) {
+		console.log('main', main);
+		console.log('misc', misc);
+	}
 }
 
 let player = [];
 async function getPlayerJson(debug = false) {
 	const promiseArrays = await Promise.all(
 		main.player.map(async file => {
-			const response = await fetch(file,  { cache: 'no-store' });
+			const response = await fetch(file, { cache: 'no-store' });
 			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
 
 			return response.json();
@@ -21,7 +29,7 @@ async function getPlayerJson(debug = false) {
 	);
 	player = promiseArrays.flat();
 	player.sort(sortPlayer);
-	
+
 	if (debug) console.log('player', player);
 }
 
@@ -153,7 +161,7 @@ function convertDate(d = 202607301226) {
 	const hourStr = dateStr.substring(8, 10);
 	const minStr = dateStr.substring(10, 12);
 
-	const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} ${main.timezone}`;
+	const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} ${misc.timezone}`;
 	return new Date(fullDateInit);
 }
 

@@ -55,7 +55,7 @@ const reloadInterval = setInterval(async () => {
 
 		let output = `Rate Limit Remaining: ${rateLimit.rate.remaining} of ${rateLimit.rate.limit}`;
 		output += `<br>Rate Limit Reset On: ${new Date(rateLimitReset)}`;
-		
+
 		document.getElementById('rateLimit').innerHTML = output;
 	} catch (err) {
 		console.trace();
