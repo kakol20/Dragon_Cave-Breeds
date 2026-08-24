@@ -5,7 +5,10 @@ async function run() {
 	try {
 		await checkRateLimit();
 
-		if (rateLimit.rate.remaining <= 0) {
+		const playerJson = sessionStorage.getItem('playerJson');
+		const breedsJson = sessionStorage.getItem('breedsJson');
+
+		if (rateLimit.rate.remaining <= 0 && (!playerJson || !breedsJson)) {
 			const waitDate = rateLimitReset + (1 * 60 * 1000);
 
 			console.log('Rate limit reached zero');
@@ -15,11 +18,13 @@ async function run() {
 			document.getElementById('output').innerHTML = output;
 			clearInterval(update);
 			await sleep(waitDate - Date.now());
-			customReload();
+			location.reload();
 		}
 
 		await Promise.all([draw(), quickLinks()]);
 
+		sessionStorage.setItem('playerJson', JSON.stringify(player));
+		sessionStorage.setItem('breedsJson', JSON.stringify(breeds));
 		jsonLastPushed = jsonLastCommit;
 	} catch (err) {
 		console.trace();
