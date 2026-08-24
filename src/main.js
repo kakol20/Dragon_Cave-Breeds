@@ -3,8 +3,28 @@ const lastReloadedStr = new Date(lastReloaded);
 
 async function run() {
 	try {
+		await checkRateLimit();
+
+		const playerJson = sessionStorage.getItem('playerJson');
+		const breedsJson = sessionStorage.getItem('breedsJson');
+
+		if (rateLimit.rate.remaining <= 0 && (!playerJson || !breedsJson)) {
+			const waitDate = rateLimitReset + (1 * 60 * 1000);
+
+			console.log('Rate limit reached zero');
+			let output = 'Rate limit reached zero.<br>';
+			output += `Waiting until ${new Date(waitDate)}.`;
+
+			document.getElementById('output').innerHTML = output;
+			clearInterval(update);
+			await sleep(waitDate - Date.now());
+			customReload();
+		}
+
 		await Promise.all([draw(), quickLinks()]);
 
+		sessionStorage.setItem('playerJson', JSON.stringify(player));
+		sessionStorage.setItem('breedsJson', JSON.stringify(breeds));
 		jsonLastPushed = jsonLastCommit;
 	} catch (err) {
 		console.trace();
@@ -22,7 +42,7 @@ window.matchMedia("(orientation: portrait)").addEventListener("change", async e 
 
 let jsonLastPushed = 0;
 let lastChecked = lastReloaded;
-const reloadInterval = setInterval(async () => {
+const update = setInterval(async () => {
 	const reloadInterval = 10;
 	try {
 		if (document.getElementById('pauseReload')?.checked) return;
