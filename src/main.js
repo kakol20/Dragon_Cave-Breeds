@@ -5,11 +5,10 @@ async function run() {
 	try {
 		await checkRateLimit();
 
-		const playerJson = sessionStorage.getItem('playerJson');
-		const breedsJson = sessionStorage.getItem('breedsJson');
+		jsonRepo = sessionStorage.getItem('jsonRepo');
 
-		if (rateLimit.rate.remaining <= 0 && (!playerJson || !breedsJson)) {
-			const waitDate = rateLimitReset + (1 * 60 * 1000);
+		if (rateLimit.rate.remaining <= 0 && !jsonRepo) {
+			const waitDate = rateLimitReset + 1000;
 
 			console.log('Rate limit reached zero');
 			let output = 'Rate limit reached zero.<br>';
@@ -17,14 +16,17 @@ async function run() {
 
 			document.getElementById('output').innerHTML = output;
 			clearInterval(update);
-			await sleep(waitDate - Date.now());
-			location.reload();
+			setInterval(() => {
+				if (Date.now() <= waitDate) return;
+				location.reload();
+			}, 60 * 1000);
 		}
 
 		await Promise.all([draw(), quickLinks()]);
 
 		sessionStorage.setItem('playerJson', JSON.stringify(player));
 		sessionStorage.setItem('breedsJson', JSON.stringify(breeds));
+		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 		jsonLastPushed = jsonLastCommit;
 	} catch (err) {
 		console.trace();
@@ -64,6 +66,10 @@ const update = setInterval(async () => {
 
 		await getJsonRepo(false, false);
 		const pushed_at = jsonLastCommit;
+
+		sessionStorage.setItem('playerJson', JSON.stringify(player));
+		sessionStorage.setItem('breedsJson', JSON.stringify(breeds));
+		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 
 		if (jsonLastPushed !== pushed_at) {
 			sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
