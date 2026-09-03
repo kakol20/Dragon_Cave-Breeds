@@ -63,10 +63,15 @@ function sortPlayer(a, b) {
 
 let breeds = {};
 async function getBreedsJson(debug = false) {
-	const response = await fetch(main.breeds);
-	if (!response.ok) throw new Error(`Error fetching breeds.json: ${response.status}`);
-
-	breeds = await response.json();
+	const objects = await Promise.all(
+		main.breeds.map(async file => {
+			const response = await fetch(file);
+			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
+			return response.json();
+		})
+	);
+	
+	breeds = Object.assign({}, ...objects);
 	if (debug) console.log('breeds', breeds);
 	sessionStorage.setItem('breedsJson', JSON.stringify(breeds));
 }
