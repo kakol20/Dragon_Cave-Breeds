@@ -233,3 +233,7 @@ hr {
 	padding-top: 1px;
 	padding-bottom: 1px;
 }
+
+.sig {
+	max-width: 100%;
+}
