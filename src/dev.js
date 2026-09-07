@@ -32,3 +32,11 @@ async function separatePlayerJSON() {
 	console.log('Finished', devFinished);
 	console.log(JSON.stringify(devFinished));
 }
+
+function getUsedBreeds() {
+	const used = {};
+	for (const breed of player) {
+		used[breed.id] = breeds[breed.id];
+	}
+	console.log(JSON.stringify(used));
+}
