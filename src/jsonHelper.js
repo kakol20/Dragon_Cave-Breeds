@@ -1,20 +1,10 @@
 
 let main = {};
-let misc = {};
 async function getMainJson(debug = false) {
 	// console.log('Trying to get main json');
 	const resMain = await fetch('https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/main.json');
 	if (!resMain.ok) throw new Error(`Error fetching main.json: ${resMain.status}`);
 	main = await resMain.json();
-
-	const resMisc = await fetch(main.misc);
-	if (!resMisc.ok) throw new Error(`Error fetching ${main.misc}: ${resMisc.status}`);
-	misc = await resMisc.json();
-
-	if (debug) {
-		console.log('main', main);
-		console.log('misc', misc);
-	}
 }
 
 let player = [];
@@ -168,7 +158,7 @@ function convertDate(d = 202607301226) {
 	const hourStr = dateStr.substring(8, 10);
 	const minStr = dateStr.substring(10, 12);
 
-	const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} ${misc.timezone}`;
+	const fullDateInit = `${yearStr} ${monthStr} ${dayStr} ${hourStr}:${minStr} ${main.timezone}`;
 	return new Date(fullDateInit);
 }
 
