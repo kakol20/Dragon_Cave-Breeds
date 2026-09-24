@@ -24,8 +24,6 @@ async function run() {
 
 		await Promise.all([draw(), quickLinks()]);
 
-		sessionStorage.setItem('playerJson', JSON.stringify(player));
-		sessionStorage.setItem('breedsJson', JSON.stringify(breeds));
 		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 		jsonLastPushed = jsonLastCommit;
 	} catch (err) {
@@ -67,8 +65,6 @@ const update = setInterval(async () => {
 		await getJsonRepo(false, false);
 		const pushed_at = jsonLastCommit;
 
-		sessionStorage.setItem('playerJson', JSON.stringify(player));
-		sessionStorage.setItem('breedsJson', JSON.stringify(breeds));
 		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 
 		if (jsonLastPushed !== pushed_at) {

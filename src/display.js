@@ -75,6 +75,7 @@ function mainTable(portrait = false) {
 		output += `</td></tr>`;
 		output += `</table>`;
 	}
+	output += `<span id="unfinishedTable"></span>`;
 	output += unfinishedOutput;
 
 	// ========== FINISHED ==========
@@ -95,6 +96,7 @@ function mainTable(portrait = false) {
 }
 
 const mainTableLimit = 75;
+const unfinishedEl = {};
 function drawDragons(portrait = false) {
 	// ========== TRACK LAST DRAGON TO DISPLAY ==========
 
@@ -126,7 +128,9 @@ function drawDragons(portrait = false) {
 		}
 		if (imagesDisplayed >= mainTableLimit && breed.view.length === breed.adults) {
 			unfinished.push(breed.id);
-			unfinishedOutput += drawUnfinished(portrait, breed);
+			const unElement = drawUnfinished(portrait, breed);
+			unfinishedEl[breed.id] = unElement;
+			// unfinishedOutput += unElement;
 			continue;
 		}
 
@@ -239,11 +243,21 @@ function toggleHidden_unfinished(id) {
 	lastUnfinish_shown = id;
 	sessionStorage.setItem('lastUnfinish_shown', lastUnfinish_shown);
 	if (unfinished.length <= 0) return;
+	if (!(id in unfinishedEl)) return;
+
 	for (const tag of unfinished) {
 		const elementId = `${tag}_hide`;
+		const noExist = !document.getElementById(elementId);
+
 		if (id === tag) {
+			if (noExist) document.getElementById('unfinishedTable').insertAdjacentHTML(
+				'beforeend',
+				unfinishedEl[tag]
+			);
+
 			document.getElementById(elementId).hidden = false;
 		} else {
+			if (noExist) continue;
 			document.getElementById(elementId).hidden = true;
 		}
 	}

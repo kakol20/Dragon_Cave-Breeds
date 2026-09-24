@@ -31,7 +31,7 @@ function customImgElement(src = ' ', alt = ' ', title = ' ') {
 	if (title === ' ') return `<img src="${src}" ${alt === ' ' ? '' : `alt="${alt}"`}>`;
 
 	return `<span class="tooltip" data-title="${title}">
-		<img src="${src}" ${alt === ' ' ? '' : `alt="${alt}"`}>
+		<img src="${src}" ${alt === ' ' ? '' : `alt="${alt}"`} loading="lazy">
 	</span>`;
 }
 
