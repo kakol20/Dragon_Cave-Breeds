@@ -1,4 +1,5 @@
 # https://github.com/actions/starter-workflows/blob/main/pages/static.yml
+# Last commit https://github.com/actions/starter-workflows/commit/22770e21c6986ed08a3aa400bdcc6a9a75ecdaf2
 
 # Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
@@ -7,6 +8,8 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+    paths-ignore:
+      - 'json/***'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
