@@ -1,0 +1,12 @@
+{
+  "breeds": [
+    "json/breeds/breeds_extra.json",
+    "json/breeds/breeds_01.json"
+  ],
+  "jsonRepo": "https://api.github.com/repos/kakol20/Dragon_Cave-Breeds/branches/main",
+  "player": [
+    "json/dragons/finished.json",
+    "json/dragons/unfinished.json"
+  ],
+  "timezone": "EDT"
+}
