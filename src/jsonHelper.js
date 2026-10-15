@@ -2,7 +2,7 @@
 let main = {};
 async function getMainJson(debug = false) {
 	// console.log('Trying to get main json');
-	const resMain = await fetch('json/main.json');
+	const resMain = await fetch('https://kakol20.github.io/Dragon_Cave-Breeds/main/json/main.json');
 	if (!resMain.ok) throw new Error(`Error fetching main.json: ${resMain.status}`);
 	main = await resMain.json();
 }
