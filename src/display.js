@@ -423,7 +423,7 @@ function updateStats() {
 
 async function quickLinks() {
 	const response = await fetch(
-		'https://kakol20.github.io/Dragon_Cave-Breeds/json/quickLinks.json');
+		`https://kakol20.github.io/Dragon_Cave-Breeds/json/quickLinks.json?t=${dateNow}`);
 	if (!response.ok) throw new Error(`Error fetching quickLinks.json: ${response.status}`);
 	const links = await response.json();
 
