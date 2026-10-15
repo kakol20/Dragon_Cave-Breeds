@@ -2,7 +2,7 @@
 let main = {};
 async function getMainJson(debug = false) {
 	// console.log('Trying to get main json');
-	const resMain = await fetch(`https://kakol20.github.io/Dragon_Cave-Breeds/json/main.json?t=${Date.now()}`);
+	const resMain = await fetch(`https://kakol20.github.io/Dragon_Cave-Breeds/json/main.json?t=${cacheTime}`);
 	if (!resMain.ok) throw new Error(`Error fetching main.json: ${resMain.status}`);
 	main = await resMain.json();
 }
@@ -11,7 +11,7 @@ let player = [];
 async function getPlayerJson(debug = false) {
 	const promiseArrays = await Promise.all(
 		main.player.map(async file => {
-			const response = await fetch(`${file}?t=${Date.now()}`);
+			const response = await fetch(`${file}?t=${cacheTime}`);
 			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
 
 			return response.json();
@@ -54,12 +54,12 @@ let breeds = {};
 async function getBreedsJson(debug = false) {
 	const objects = await Promise.all(
 		main.breeds.map(async file => {
-			const response = await fetch(`${file}?t=${Date.now()}`);
+			const response = await fetch(`${file}?t=${cacheTime}`);
 			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
 			return response.json();
 		})
 	);
-	
+
 	breeds = Object.assign({}, ...objects);
 	if (debug) console.log('breeds', breeds);
 }
@@ -94,6 +94,7 @@ async function getJsonRepo(begin = false, debug = false) {
 			jsonLastCommit = jsonLastCommitDate.getTime();
 			generateCommitMsg();
 			console.log('Has session storage');
+			console.log(sessionStorage);
 
 			if (debug) {
 				console.log('jsonRepo', jsonRepo);
