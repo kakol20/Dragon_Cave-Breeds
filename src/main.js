@@ -30,6 +30,7 @@ async function run() {
 
 		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 		sessionStorage.setItem('cacheTime', cacheTime);
+		console.log('Cache Time', new Date(parseInt(cacheTime)).toString());
 		jsonLastPushed = jsonLastCommit;
 	} catch (err) {
 		console.trace();
