@@ -26,9 +26,9 @@
   {
     "id"    : "brute",
     "view"  : ["blHAx"],
-    "adults": 0,
-    "hatch" : 1,
-    "date"  : 202610112305,
+    "adults": 1,
+    "hatch" : 0,
+    "date"  : 202610142304,
     "done"  : false
   },
   {
@@ -50,9 +50,9 @@
   {
     "id"    : "elux",
     "view"  : ["Mjquz"],
-    "adults": 0,
-    "hatch" : 1,
-    "date"  : 202610112304,
+    "adults": 1,
+    "hatch" : 0,
+    "date"  : 202610142306,
     "done"  : false
   },
   {
@@ -117,33 +117,33 @@
   {
     "id"    : "gloomstalker",
     "view"  : ["VTp4n", "LkJtS"],
-    "adults": 1,
-    "hatch" : 1,
-    "date"  : 202610112307,
+    "adults": 2,
+    "hatch" : 0,
+    "date"  : 202610142308,
     "done"  : false
   },
   {
     "id"    : "hunter",
     "view"  : ["xgtQD"],
-    "adults": 0,
-    "hatch" : 1,
-    "date"  : 202610112306,
+    "adults": 1,
+    "hatch" : 0,
+    "date"  : 202610142306,
     "done"  : false
   },
   {
     "id"    : "ice",
-    "view"  : ["WiaUw"],
+    "view"  : ["WiaUw", "rSaVO"],
     "adults": 1,
     "hatch" : 0,
-    "date"  : 202610080023,
+    "date"  : 202610150712,
     "done"  : false
   },
   {
     "id"    : "jester",
-    "view"  : ["WjaA4", "taytX"],
+    "view"  : ["WjaA4", "taytX", "sU0zv"],
     "adults": 2,
     "hatch" : 0,
-    "date"  : 202610070611,
+    "date"  : 202610150710,
     "done"  : false
   },
   {
@@ -157,9 +157,9 @@
   {
     "id"    : "lightstreak",
     "view"  : ["pGcGA"],
-    "adults": 0,
-    "hatch" : 1,
-    "date"  : 202610112303,
+    "adults": 1,
+    "hatch" : 0,
+    "date"  : 202610142305,
     "done"  : false
   },
   {
@@ -188,10 +188,10 @@
   },
   {
     "id"    : "nebula",
-    "view"  : ["JRGlc", "yx8xo", "F9epk"],
+    "view"  : ["JRGlc", "yx8xo", "F9epk", "Yt6Z3"],
     "adults": 3,
     "hatch" : 0,
-    "date"  : 202609251124,
+    "date"  : 202610150708,
     "done"  : false
   },
   {
@@ -228,10 +228,10 @@
   },
   {
     "id"    : "season_autumn",
-    "view"  : ["UEjr1", "RA0KC"],
+    "view"  : ["UEjr1", "RA0KC", "SVSe6"],
     "adults": 2,
     "hatch" : 0,
-    "date"  : 202610140108,
+    "date"  : 202610150711,
     "done"  : false
   },
   {
@@ -253,9 +253,9 @@
   {
     "id"    : "vampire",
     "view"  : ["opHDZ"],
-    "adults": 0,
-    "hatch" : 1,
-    "date"  : 202610112131,
+    "adults": 1,
+    "hatch" : 0,
+    "date"  : 202610142131,
     "done"  : false
   },
   {

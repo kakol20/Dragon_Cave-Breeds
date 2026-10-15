@@ -423,7 +423,7 @@ function updateStats() {
 
 async function quickLinks() {
 	const response = await fetch(
-		'https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/quickLinks.json');
+		'json/quickLinks.json');
 	if (!response.ok) throw new Error(`Error fetching quickLinks.json: ${response.status}`);
 	const links = await response.json();
 
