@@ -67,7 +67,7 @@ const update = setInterval(async () => {
 
 		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 
-		if (jsonLastPushed !== pushed_at) {
+		if (jsonLastPushed !== pushed_at && dateNow - lastReloaded >= 3 * 60 * 1000) {
 			sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 			customReload();
 		}
