@@ -2,7 +2,9 @@ const lastReloaded = Date.now();
 const lastReloadedStr = new Date(lastReloaded);
 
 let cacheTime = 0;
+let reloadDue = false;
 async function run() {
+	reloadDue = false;
 	try {
 		cacheTime = sessionStorage.getItem('cacheTime');
 		if (!cacheTime) cacheTime = lastReloaded;
@@ -73,12 +75,12 @@ const update = setInterval(async () => {
 
 		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 
-		if (jsonLastPushed !== pushed_at && dateNow - lastReloaded >= 3 * 60 * 1000) {
+		if ((jsonLastPushed !== pushed_at || reloadDue) && dateNow - lastReloaded >= 3 * 60 * 1000) {
 			//sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 			cacheTime = Date.now();
 			sessionStorage.setItem('cacheTime', cacheTime);
 			customReload();
-		}
+		} else if (jsonLastPushed !== pushed_at) reloadDue = true;
 
 		if (dateMinutes % (reloadInterval * 3) === 0 && dateNow - lastReloaded >= reloadInterval * 60 * 1000) customReload();
 		if (dateNow - lastReloaded >= reloadInterval * 3 * 60 * 1000) customReload();
