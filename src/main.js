@@ -48,8 +48,8 @@ window.matchMedia("(orientation: portrait)").addEventListener("change", async e 
 
 let jsonLastPushed = 0;
 let lastChecked = lastReloaded;
+const reloadInterval = 10;
 const update = setInterval(async () => {
-	const reloadInterval = 10;
 	try {
 		if (document.getElementById('pauseReload')?.checked) return;
 
