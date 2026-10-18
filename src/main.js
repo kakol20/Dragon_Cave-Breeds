@@ -1,12 +1,8 @@
 const lastReloaded = Date.now();
 const lastReloadedStr = new Date(lastReloaded);
 
-let cacheTime = 0;
 async function run() {
 	try {
-		cacheTime = sessionStorage.getItem('cacheTime');
-		if (!cacheTime) cacheTime = lastReloaded;
-
 		await checkRateLimit();
 
 		jsonRepo = sessionStorage.getItem('jsonRepo');
@@ -29,8 +25,6 @@ async function run() {
 		await Promise.all([draw(), quickLinks()]);
 
 		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
-		sessionStorage.setItem('cacheTime', cacheTime);
-		console.log('Cache Time', new Date(parseInt(cacheTime)).toString());
 		jsonLastPushed = jsonLastCommit;
 	} catch (err) {
 		console.trace();
@@ -55,8 +49,8 @@ const update = setInterval(async () => {
 
 		const dateNow = Date.now();
 
-		if (dateNow - lastChecked < 3 * 60 * 1000) return;
-		if (dateNow - lastReloaded < (reloadInterval / 2) * 60 * 1000) return;
+		if (dateNow - lastReloaded < 3 * 60 * 1000) return;
+		// if (dateNow - lastReloaded < (reloadInterval / 2) * 60 * 1000) return;
 		// console.log(dateNow, lastReloaded, dateNow - lastReloaded < 5 * 60 * 1000);
 
 		const dateStr = new Date(dateNow);

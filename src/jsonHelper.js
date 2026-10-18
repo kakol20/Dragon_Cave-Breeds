@@ -11,7 +11,7 @@ let player = [];
 async function getPlayerJson(debug = false) {
 	const promiseArrays = await Promise.all(
 		main.player.map(async file => {
-			const response = await fetch(`${file}?t=${cacheTime}`);
+			const response = await fetch(file);
 			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
 
 			return response.json();
@@ -54,7 +54,7 @@ let breeds = {};
 async function getBreedsJson(debug = false) {
 	const objects = await Promise.all(
 		main.breeds.map(async file => {
-			const response = await fetch(`${file}?t=${cacheTime}`);
+			const response = await fetch(file);
 			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
 			return response.json();
 		})
