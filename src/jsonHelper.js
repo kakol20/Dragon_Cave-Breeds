@@ -1,7 +1,9 @@
 
 let main = {};
+let currentJsonReading = '';
 async function getMainJson(debug = false) {
 	// console.log('Trying to get main json');
+	currentJsonReading = `https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/main.json`;
 	const resMain = await fetch(`https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/main.json`);
 	if (!resMain.ok) throw new Error(`Error fetching main.json: ${resMain.status}`);
 	main = await resMain.json();
@@ -11,6 +13,7 @@ let player = [];
 async function getPlayerJson(debug = false) {
 	const promiseArrays = await Promise.all(
 		main.player.map(async file => {
+			currentJsonReading = file;
 			const response = await fetch(file);
 			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
 
@@ -54,6 +57,7 @@ let breeds = {};
 async function getBreedsJson(debug = false) {
 	const objects = await Promise.all(
 		main.breeds.map(async file => {
+			currentJsonReading = file;
 			const response = await fetch(file);
 			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
 			return response.json();
