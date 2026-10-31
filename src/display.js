@@ -276,73 +276,88 @@ function showIndivDragons(breed) {
 }
 
 let finished_pageShown = 0;
+let hiddenPagesArr = [];
 function drawHidden_finished(style, fullWidth = false) {
 	if (finished.length <= 0) return '';
 
 	const finished_maxDisplay = 50;
 	const maxPages = Math.ceil(finished.length / finished_maxDisplay);
 
-	let output = '<br>';
+	let output = '<br><span id="finishedBreeds">';
 
 	for (let page = 0; page < maxPages; ++page) {
+		let pageOut = '';
 		const maxIndex = Math.min(finished.length, (page + 1) * finished_maxDisplay);
 
-		output += `<table id="hidden_page${page}" ${page === finished_pageShown ? '' : 'hidden'} ${fullWidth ? `style="width:100%"` : ''}>`;
-		output += `<tr><th colspan="3" style="padding:5px;">Finished</th></tr>`;
-		output += `<tr><td colspan="3" class="${style}"><span class="galleryFlex">`;
+		pageOut += `<table id="hidden_page_${page}" ${page === finished_pageShown ? '' : 'hidden'} ${fullWidth ? `style="width:100%"` : ''}>`;
+		pageOut += `<tr><th colspan="3" style="padding:5px;">Finished</th></tr>`;
+		pageOut += `<tr><td colspan="3" class="${style}"><span class="galleryFlex">`;
 		for (let i = page * finished_maxDisplay; i < maxIndex; ++i) {
 			const id = finished[i];
-			output += `<span class="groupFlex">`
+			pageOut += `<span class="groupFlex">`
 			for (const egg in breeds[id].name) {
-				output += `<a href="${breeds[id].encyclopedia}" target="_blank">`;
-				output += customImgElement(breeds[id].img[egg], breeds[id].name[egg],
+				pageOut += `<a href="${breeds[id].encyclopedia}" target="_blank">`;
+				pageOut += customImgElement(breeds[id].img[egg], breeds[id].name[egg],
 					`${breeds[id].name[egg]}\n${breeds[id].description}`);
-				output += `</a>`;
+				pageOut += `</a>`;
 			}
-			output += `</span>`;
+			pageOut += `</span>`;
 		}
-		output += `</span></td></tr>`;
+		pageOut += `</span></td></tr>`;
 
 		// ==== Page Navigation ====
 		const previousPage = Math.max(0, page - 1);
 		const nextPage = Math.min(maxPages - 1, page + 1);
 
-		output += '<tr>';
+		pageOut += '<tr>';
 
 		if (previousPage === page) {
-			output += `<td style="padding:5px;">`
-			output += `<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>`
-			output += `</td>`;
+			pageOut += `<td style="padding:5px;">`
+			pageOut += `<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>`
+			pageOut += `</td>`;
 		} else {
-			output += `<td style="padding:5px;">`
-			output += `<a href="javascript:void(0);" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>`
-			output += `</td>`;
+			pageOut += `<td style="padding:5px;">`
+			pageOut += `<a href="javascript:void(0);" onclick="hidden_switchPage(${previousPage}, ${maxPages})" style="padding:5px;">Back</a>`
+			pageOut += `</td>`;
 		}
 
-		output += `<td style="padding:5px;">${page * finished_maxDisplay + 1} to ${maxIndex} of ${finished.length}</td>`;
+		pageOut += `<td style="padding:5px;">${page * finished_maxDisplay + 1} to ${maxIndex} of ${finished.length}</td>`;
 
 		if (nextPage === page) {
-			output += `<td style="padding:5px;border-bottom-right-radius: 5px;">`
-			output += `<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${nextPage}, ${maxPages})" style="padding:5px;">Next</a>`
-			output += `</td>`;
+			pageOut += `<td style="padding:5px;border-bottom-right-radius: 5px;">`
+			pageOut += `<a href="javascript:void(0);" class="isDisabled" onclick="hidden_switchPage(${nextPage}, ${maxPages})" style="padding:5px;">Next</a>`
+			pageOut += `</td>`;
 		} else {
-			output += `<td style="padding:5px;border-bottom-right-radius: 5px;">`
-			output += `<a href="javascript:void(0);" onclick="hidden_switchPage(${nextPage}, ${maxPages})" style="padding:5px;">Next</a>`
-			output += `</td>`;
+			pageOut += `<td style="padding:5px;border-bottom-right-radius: 5px;">`
+			pageOut += `<a href="javascript:void(0);" onclick="hidden_switchPage(${nextPage}, ${maxPages})" style="padding:5px;">Next</a>`
+			pageOut += `</td>`;
 		}
 
-		output += '</tr></table>';
+		pageOut += '</tr></table>';
+
+		hiddenPagesArr.push(pageOut);
+		if (page === finished_pageShown) output += pageOut;
 	}
-	return output;
+	console.log(hiddenPagesArr);
+	return output + '</span>';
 }
 
 function hidden_switchPage(page, maxPages) {
 	finished_pageShown = page;
 
 	for (let i = 0; i < maxPages; ++i) {
-		const id = `hidden_page${i}`;
+		const id = `hidden_page_${i}`;
 
-		document.getElementById(id).hidden = i !== page;
+		const noExist = !document.getElementById(id);
+		if (i === page) {
+			if (noExist) document.getElementById('finishedBreeds').insertAdjacentHTML(
+				'beforeend',
+				hiddenPagesArr[page]
+			);
+			document.getElementById(id).hidden = false;
+		}
+
+		if (!noExist) document.getElementById(id).hidden = i !== page;
 	}
 }
 
@@ -425,7 +440,7 @@ async function quickLinks() {
 	currentJsonReading = `https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/quickLinks.json`;
 	const response = await fetch(
 		`https://raw.githubusercontent.com/kakol20/Dragon-Cave-JSON-Files/main/quickLinks.json`);
-	if (!response.ok) throw new Error(`Error fetching quickLinks.json: ${response.status}`);     
+	if (!response.ok) throw new Error(`Error fetching quickLinks.json: ${response.status}`);
 	const links = await response.json();
 
 	let output = '';
