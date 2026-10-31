@@ -8,7 +8,7 @@ async function run() {
 		jsonRepo = sessionStorage.getItem('jsonRepo');
 
 		if (rateLimit.rate.remaining <= 0 && !jsonRepo) {
-			const waitDate = rateLimitReset + 1000;
+			const waitDate = rateLimitReset + 5000;
 
 			console.log('Rate limit reached zero');
 			let output = 'Rate limit reached zero.<br>';
@@ -27,9 +27,9 @@ async function run() {
 		sessionStorage.setItem('jsonRepo', JSON.stringify(jsonRepo));
 		jsonLastPushed = jsonLastCommit;
 	} catch (err) {
-		console.trace();
+		// console.trace();
 		console.error(err);
-		document.getElementById('output').innerHTML = `<p>${err}<br>Reloading in 5 seconds</p>`;
+		document.getElementById('output').innerHTML = `<p>${err}<br>${currentJsonReading}<br>Reloading in 5 seconds</p>`;
 		await sleep(5 * 1000);
 		if (document.getElementById('pauseReload')?.checked) return;
 		customReload();
