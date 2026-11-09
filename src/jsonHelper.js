@@ -37,6 +37,10 @@ function sortDragons(a, b) {
 
 	if (a.done !== b.done) return a.done - b.done;
 
+	if (a.date !== b.date &&
+		a.done && b.done && 
+		aAllAdults && bAllAdults) return b.date - a.date;
+
 	if (a.adults !== b.adults) return a.adults - b.adults;
 	if (a.hatch !== b.hatch) return a.hatch - b.hatch;
 
