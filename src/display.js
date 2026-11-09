@@ -104,15 +104,15 @@ function drawDragons(portrait = false) {
 	let imagesDisplayed = 0;
 
 	let lastDragon = 'none';
-	for (let i = 0; i < player.length; ++i) {
-		const breed = player[i];
+	for (let i = 0; i < dragons.length; ++i) {
+		const breed = dragons[i];
 
 		if (breed.view.length === breed.adults &&
 			breed.done) continue;
 		if (imagesDisplayed >= mainTableLimit &&
 			breed.view.length === breed.adults) continue;
 
-		lastDragon = player[i].id;
+		lastDragon = dragons[i].id;
 		imagesDisplayed += breed.view.length;
 		imagesDisplayed += breeds[breed.id].name.length;
 	}
@@ -121,7 +121,7 @@ function drawDragons(portrait = false) {
 
 	// ========== MAIN DISPLAY ==========
 
-	for (const breed of player) {
+	for (const breed of dragons) {
 		if (breed.view.length === breed.adults && breed.done) {
 			finished.push(breed.id);
 			continue;
@@ -374,7 +374,7 @@ function updateStats() {
 
 	let eggs = 0, hatch = 0, adult = 0, total = 0;
 
-	for (const breed of player) {
+	for (const breed of dragons) {
 		// console.log(breed);
 		const currentAdult = breed.adults;
 		const currentHatch = breed.hatch;

@@ -9,10 +9,10 @@ async function getMainJson(debug = false) {
 	main = await resMain.json();
 }
 
-let player = [];
+let dragons = [];
 async function getPlayerJson(debug = false) {
 	const promiseArrays = await Promise.all(
-		main.player.map(async file => {
+		main.dragons.map(async file => {
 			currentJsonReading = file;
 			const response = await fetch(file);
 			if (!response.ok) throw new Error(`Error fetching ${file}: ${response.status}`);
@@ -20,13 +20,13 @@ async function getPlayerJson(debug = false) {
 			return response.json();
 		})
 	);
-	player = promiseArrays.flat();
-	player.sort(sortPlayer);
+	dragons = promiseArrays.flat();
+	dragons.sort(sortDragons);
 
-	if (debug) console.log('player', player);
+	if (debug) console.log('player', dragons);
 }
 
-function sortPlayer(a, b) {
+function sortDragons(a, b) {
 	const aNew = a.id.includes('@new');
 	const bNew = b.id.includes('@new');
 	if (aNew !== bNew) return bNew - aNew;
@@ -37,16 +37,14 @@ function sortPlayer(a, b) {
 
 	if (a.done !== b.done) return a.done - b.done;
 
-	if (a.done && b.done && a.date !== b.date) return b.date - a.date;
-
 	if (a.adults !== b.adults) return a.adults - b.adults;
-
-	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
 	if (a.hatch !== b.hatch) return a.hatch - b.hatch;
 
 	const aEggs = a.view.length - a.adults - a.hatch;
 	const bEggs = b.view.length - b.adults - b.hatch;
 	if (aEggs !== bEggs) return bEggs - aEggs;
+
+	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
 
 	if (a.date !== b.date) return b.date - a.date;
 
@@ -169,7 +167,7 @@ function nextUpdatePredicted() {
 	const one_year = 1000 * 60 * 60 * 24 * 365;
 	let nextEgg = -1;
 	let nextHatch = -1;
-	for (const breed of player) {
+	for (const breed of dragons) {
 		if (breed.view.length === breed.adults) continue;
 
 		const hatchCount = breed.hatch;
