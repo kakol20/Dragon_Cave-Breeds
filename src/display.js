@@ -104,11 +104,15 @@ function drawDragons(portrait = false) {
 	let imagesDisplayed = 0;
 
 	let lastDragon = 'none';
+	let growingDragons = false;
 	for (let i = 0; i < dragons.length; ++i) {
 		const breed = dragons[i];
 
+		if (breed.view.length !== breed.adults) growingDragons = true;
+
 		if (breed.view.length === breed.adults &&
 			breed.done) continue;
+		if (breed.view.length === breed.adults && growingDragons) continue;
 		if (imagesDisplayed >= mainTableLimit &&
 			breed.view.length === breed.adults) continue;
 
@@ -126,11 +130,16 @@ function drawDragons(portrait = false) {
 			finished.push(breed.id);
 			continue;
 		}
+		if (breed.view.length === breed.adults && growingDragons) {
+			unfinished.push(breed.id);
+			const unElement = drawUnfinished(portrait, breed);
+			unfinishedEl[breed.id] = unElement;
+			continue;
+		}
 		if (imagesDisplayed >= mainTableLimit && breed.view.length === breed.adults) {
 			unfinished.push(breed.id);
 			const unElement = drawUnfinished(portrait, breed);
 			unfinishedEl[breed.id] = unElement;
-			// unfinishedOutput += unElement;
 			continue;
 		}
 
