@@ -35,20 +35,20 @@ function sortDragons(a, b) {
 	const bAllAdults = b.adults === b.view.length;
 	if (aAllAdults !== bAllAdults) return aAllAdults - bAllAdults;
 
+	if (aAllAdults && bAllAdults && a.done && b.done) {
+		if (a.date !== b.date) return b.date - a.date;
+		return a.id.localeCompare(b.id);
+	}
+
 	if (a.done !== b.done) return a.done - b.done;
 
-	if (a.date !== b.date &&
-		a.done && b.done && 
-		aAllAdults && bAllAdults) return b.date - a.date;
-
+	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
 	if (a.adults !== b.adults) return a.adults - b.adults;
 	if (a.hatch !== b.hatch) return a.hatch - b.hatch;
 
 	const aEggs = a.view.length - a.adults - a.hatch;
 	const bEggs = b.view.length - b.adults - b.hatch;
 	if (aEggs !== bEggs) return bEggs - aEggs;
-
-	if (a.view.length !== b.view.length) return a.view.length - b.view.length;
 
 	if (a.date !== b.date) return b.date - a.date;
 

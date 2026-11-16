@@ -347,7 +347,7 @@ function drawHidden_finished(style, fullWidth = false) {
 		hiddenPagesArr.push(pageOut);
 		if (page === finished_pageShown) output += pageOut;
 	}
-	console.log(hiddenPagesArr);
+	// console.log(hiddenPagesArr);
 	return output + '</span>';
 }
 
